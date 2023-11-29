@@ -11,7 +11,7 @@ id: user.user.field_state_permissions
 field_name: field_state_permissions
 entity_type: user
 bundle: user
-label: 'User''s state permissions'
+label: "User's state permissions"
 description: ''
 required: false
 translatable: false

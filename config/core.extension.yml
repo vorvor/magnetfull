@@ -32,6 +32,7 @@ module:
   file: 0
   filter: 0
   flood_control: 0
+  hacked: 0
   help: 0
   history: 0
   image: 0
@@ -50,6 +51,7 @@ module:
   page_cache: 0
   path: 0
   path_alias: 0
+  phpass: 0
   search: 0
   search_api: 0
   search_api_db: 0

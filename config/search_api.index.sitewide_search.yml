@@ -63,7 +63,7 @@ field_settings:
     type: text
     configuration:
       roles:
-        - administrator
+        - authenticated
       view_mode:
         'entity:node':
           product: default
@@ -87,6 +87,7 @@ datasource_settings:
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
+  custom_value: {  }
   entity_type: {  }
   ignorecase:
     weights:
