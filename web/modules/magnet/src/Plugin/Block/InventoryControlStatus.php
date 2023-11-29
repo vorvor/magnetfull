@@ -27,10 +27,11 @@ class InventoryControlStatus extends BlockBase {
     if (is_null($inventory = magnet_get_current_inventory())) {
       return [];
     }
-    
+
     $product_all = \Drupal::entityQuery('node')
       ->condition('type', 'product')
       ->sort('nid')
+      ->accessCheck(TRUE)
       ->execute();
 
     $product_inventory_done = magnet_inventory_products_done();
@@ -43,8 +44,8 @@ class InventoryControlStatus extends BlockBase {
     $width_left = $percent;
 
     $status = 'Inventory control "<span class="inventory-status-name">' . $inventory->getTitle() . '</span>" in progress. ' . count($product_inventory_todo) . '/' . count($product_inventory_done) . '   ' . $percent . '% done.';
-  
-    
+
+
     return [
       '#theme' => 'magnet_inventory_status',
       '#attached' => [
@@ -56,8 +57,8 @@ class InventoryControlStatus extends BlockBase {
       '#width_left' => $width_left,
     ];
 
-   
-    
+
+
 
   }
 

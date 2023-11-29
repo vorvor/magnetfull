@@ -32,10 +32,11 @@ class MyWorks extends BlockBase {
       //$uid = 457;
 
       $nids = \Drupal::entityQuery('node')
-      ->condition('type', 'product')
-      ->condition('uid', $uid)
-      ->sort('nid')
-      ->execute();
+        ->condition('type', 'product')
+        ->condition('uid', $uid)
+        ->sort('nid')
+        ->accessCheck(TRUE)
+        ->execute();
 
       $products = [];
       foreach ($nids as $nid) {
@@ -90,14 +91,15 @@ class MyWorks extends BlockBase {
       }
 
       $nids = \Drupal::entityQuery('node')
-      ->condition('type', 'product')
-      ->condition('field_state', $prevstates, 'IN')
-      ->sort('nid')
-      ->execute();
+        ->condition('type', 'product')
+        ->condition('field_state', $prevstates, 'IN')
+        ->sort('nid')
+        ->accessCheck(TRUE)
+        ->execute();
 
       foreach ($nids as $nid) {
 
-        /* Tuners shall pickup products (and should be listed) for these works: 
+        /* Tuners shall pickup products (and should be listed) for these works:
         Tunings and heat treatments
         Gluing
         Fine tuning
@@ -113,19 +115,19 @@ class MyWorks extends BlockBase {
         $state_name = $state_obj->getName();
         $next_state = magnet_get_next_state($state_name);
         $tuner = $node->get('field_tuner')->getValue()[0]['target_id'];
-        
+
         if (in_array($next_state, [
-          'Tunings and heat treatments', 
-          'Gluing', 
-          'Fine tuning', 
+          'Tunings and heat treatments',
+          'Gluing',
+          'Fine tuning',
           'Last check',
         ]) && ($uid !== $tuner)) {
-          
+
           continue;
         }
 
         $products[] = $nid;
-      } 
+      }
 
       $views = views_embed_view('products', 'page_3', implode('+', $products));
       $mypickups = \Drupal::service('renderer')->render($views);
@@ -144,8 +146,8 @@ class MyWorks extends BlockBase {
       '#mypickups' => $mypickups,
     ];
 
-   
-    
+
+
 
   }
 

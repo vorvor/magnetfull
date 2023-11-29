@@ -1,7 +1,7 @@
 name: MapVR
 type: theme
 description: Custom theme.
-core_version_requirement: ^9
+core_version_requirement: ^9 || ^10
 package: other
 libraries:
   - mapvr/styles

@@ -28,7 +28,7 @@ class InventoryControl extends BlockBase {
     if (is_null(magnet_get_current_inventory())) {
       return [];
     }
-    
+
     // Load products inventory done.
     $product_inventory_done = magnet_inventory_products_done();
 
@@ -39,6 +39,7 @@ class InventoryControl extends BlockBase {
     $product_all = \Drupal::entityQuery('node')
       ->condition('type', 'product')
       ->sort('nid')
+      ->accessCheck(TRUE)
       ->execute();
 
     $product_inventory_todo = array_diff($product_all, $product_inventory_done);
@@ -56,8 +57,8 @@ class InventoryControl extends BlockBase {
       '#inventory_todo' => $inventory_todo,
     ];
 
-   
-    
+
+
 
   }
 

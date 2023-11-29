@@ -21,7 +21,7 @@ use Drupal\Core\Url;
 
 function magnet_theme($existing, $type, $theme, $path) {
 
-  return [      
+  return [
     'magnet_states' => [
         'render element' => 'children',
         'template' => 'magnet_states',
@@ -291,7 +291,7 @@ function magnet_set_user_permissions() {
       ->execute();
 
     $users = $userStorage->loadMultiple($uids);
-    
+
     foreach ($users as $user) {
         foreach ($user_permissions as $name => $permissions) {
             if ($name == $user->name->value) {
@@ -319,10 +319,11 @@ function magnet_import_users() {
     foreach ($matches[2] as $key => $userdata) {
 
         if ($matches[2][$key] !== 'admin') {
-        
+
             // User already exists.
             $query = \Drupal::entityQuery('user')
-            ->condition('name', $matches[2][$key]);
+              ->accessCheck(TRUE)
+              ->condition('name', $matches[2][$key]);
               //->condition('mail', $matches[3][$key]);
             $results = $query->execute();
 
@@ -341,7 +342,7 @@ function magnet_import_users() {
             }
 
         }
-        
+
     }
 
     magnet_log('users imported.');
@@ -360,7 +361,11 @@ function magnet_get_next_state($current_state) {
         return 'Drawing';
     }
 
-    $tids = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'state')->sort('weight')->execute();
+    $tids = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'state')
+      ->sort('weight')
+      ->accessCheck(TRUE)
+      ->execute();
 
 
     $stop = FALSE;
@@ -381,7 +386,11 @@ function magnet_get_next_state($current_state) {
 }
 
 function magnet_get_prev_state($current_state) {
-    $tids = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'state')->sort('weight')->execute();
+    $tids = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'state')
+      ->sort('weight')
+      ->accessCheck(TRUE)
+      ->execute();
 
     $prevstate = 0;
     foreach ($tids as $tid) {
@@ -399,7 +408,11 @@ function magnet_get_prev_state($current_state) {
 }
 
 function magnet_get_prev_state_tid($current_state) {
-    $tids = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'state')->sort('weight')->execute();
+    $tids = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'state')
+      ->sort('weight')
+      ->accessCheck(TRUE)
+      ->execute();
 
     $prevstate = 0;
     foreach ($tids as $tid) {
@@ -510,13 +523,13 @@ function magnet_show_statebar($nid) {
     $next_state = magnet_get_next_state($current_state);
 
     $user_had_permission = 0;
-    if (($phase == 'finished' && in_array($next_state, $user_states)) 
+    if (($phase == 'finished' && in_array($next_state, $user_states))
         || ($phase == 'in-progress' && in_array($current_state, $user_states))
         || (int)$user_id == 1){
         $user_had_permission = 1;
     }
 
-    /* Tuners shall pickup products for these works: 
+    /* Tuners shall pickup products for these works:
     Tunings and heat treatments
     Gluing
     Fine tuning
@@ -534,9 +547,9 @@ function magnet_show_statebar($nid) {
     $tuner = $node->get('field_tuner')->getValue()[0]['target_id'];
 
     if (in_array($next_state, [
-      'Tunings and heat treatments', 
-      'Gluing', 
-      'Fine tuning', 
+      'Tunings and heat treatments',
+      'Gluing',
+      'Fine tuning',
       'Last check',
     ]) && ($user_id !== $tuner)) {
       $user_had_permission = 0;
@@ -544,15 +557,19 @@ function magnet_show_statebar($nid) {
 
     }
 
-    // only the worker should finish a workstate who started it 
+    // only the worker should finish a workstate who started it
     if (strpos($current_state, 'finished') == FALSE && $next_state !== 'Drawing' && $user_id !== $node->getOwnerId() && (int)$user_id !== 1) {
         dpm('different worker started');
-        
+
         $user_had_permission = 0;
     }
 
     // Load all states.
-    $tids = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'state')->sort('weight')->execute();
+    $tids = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'state')
+      ->sort('weight')
+      ->accessCheck(TRUE)
+      ->execute();
 
     foreach ($tids as $tid) {
         $state_obj = Term::load($tid);
@@ -607,7 +624,7 @@ function magnet_show_statebar($nid) {
 
     }
 
-    
+
     return ['states' => $states_simplified, 'phase' => $phase, 'next_state' => $next_state, 'nid' => $nid, 'user_had_permission' => $user_had_permission];
 }
 
@@ -747,11 +764,12 @@ function magnet_strip_emojis($text) {
 function magnet_save_product($product, &$context) {
 
     magnet_log('<hr />' . print_r($product, 1) . '<hr />');
-    
+
     $product = magnet_product_set_reference_fields($product);
 
     $query = \Drupal::entityQuery('node')
-    ->condition('title', $product['serial']);
+      ->accessCheck(TRUE)
+      ->condition('title', $product['serial']);
 
     $results = $query->execute();
 
@@ -825,11 +843,11 @@ function magnet_save_product($product, &$context) {
             'comment_body' => $product['comments'],
             'status' => 1,
         ];
-     
+
         $comment = Comment::create($values);
         $comment->save();
     }
-    
+
     if (isset($product['history'])) {
 
         $node_loaded = Node::load($node->id());
@@ -859,15 +877,18 @@ function magnet_save_product($product, &$context) {
     $context['message'] = 'Importing products...';
     $context['results'] = [$product['serial']];
 
-    
+
     magnet_log('product saved.');
-    
+
 }
 
 function magnet_reset_site() {
 
     // Delete all products.
-    $ids = \Drupal::entityQuery('node')->condition('type', 'product')->execute();
+    $ids = \Drupal::entityQuery('node')
+      ->condition('type', 'product')
+      ->accessCheck(TRUE)
+      ->execute();
     $storageHandler = \Drupal::entityTypeManager()->getStorage('node');
     $entities = $storageHandler->loadMultiple($ids);
     foreach ($entities as $entity) {
@@ -880,8 +901,9 @@ function magnet_reset_site() {
     foreach ($vocabs as $vid) {
 
         $tids = \Drupal::entityQuery('taxonomy_term')
-        ->condition('vid', $vid)
-        ->execute();
+          ->condition('vid', $vid)
+          ->accessCheck(TRUE)
+          ->execute();
 
         $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
         $entities = $controller->loadMultiple($tids);
@@ -889,7 +911,9 @@ function magnet_reset_site() {
     }
 
     // Delete all users.
-    $ids = \Drupal::entityQuery('user')->execute();
+    $ids = \Drupal::entityQuery('user')
+      ->accessCheck(TRUE)
+      ->execute();
     foreach ($ids as $id) {
       $user = User::load($id);
 
@@ -927,7 +951,7 @@ function magnet_timeframes_for_js() {
 }
 
 function magnet_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-   
+
     if ($form_id == 'node_product_edit_form') {
         $form['title']['widget'][0]['value']['#type'] = 'hidden';
         $form['#attached']['drupalSettings'] = [
@@ -1016,9 +1040,9 @@ function magnet_drop_state($nid) {
     if ($new_state == 0) {
         $node->set('field_state',  NULL);
     } else {
-        $node->set('field_state',  magnet_create_term($new_state, 'state'));    
+        $node->set('field_state',  magnet_create_term($new_state, 'state'));
     }
-    
+
     $node->setOwnerId($user);
     $node->uid = $user;
     $node->set('changed', time());
@@ -1069,7 +1093,7 @@ function magnet_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
             $entity->save();
         }
     }
-    
+
 }
 
 function magnet_get_user_state_permissions($uid) {
@@ -1169,7 +1193,7 @@ function magnet_get_partial_deadlines($nid) {
 
         if (!empty($node->get($field_name)->getValue())) {
 
-            
+
             $partial_deadlines[$state] = $node->get($field_name)->getValue()[0]['value'];
         } else {
             $partial_deadlines[$state] = 'no data.';
@@ -1231,11 +1255,12 @@ function magnet_create_menu_tree() {
 function magnet_get_current_inventory() {
      // Load last inventory.
     $nids = \Drupal::entityQuery('node')
-    ->condition('type', 'inventory_control')
-    ->condition('field_closed', 0)
-    ->sort('nid', 'DESC')
-    ->range(0,1)
-    ->execute();
+      ->condition('type', 'inventory_control')
+      ->condition('field_closed', 0)
+      ->sort('nid', 'DESC')
+      ->range(0,1)
+      ->accessCheck(TRUE)
+      ->execute();
 
     if (empty($nids)) {
         return null;
@@ -1251,7 +1276,7 @@ function magnet_inventory_products_done() {
     $inventory = magnet_get_current_inventory();
 
     $products = $inventory->get('field_product')->getValue();
-    
+
     $product_inventory_done = [];
     foreach ($products as $product) {
       $product_inventory_done[] = $product['target_id'];
@@ -1261,7 +1286,7 @@ function magnet_inventory_products_done() {
 }
 
 function magnet_product_inventory_done($nid) {
-    
+
     if (in_array($nid, magnet_inventory_products_done())) {
         return TRUE;
     }
@@ -1310,7 +1335,7 @@ function magnet_preprocess_views_view_field(&$variables) {
             $state_name = 'tunings_and_heat';
         }
 
-        
+
         if ($state_name !== 'packaging_finished') {
             if ($node->hasField('field_date_' . $state_name)) {
                 $next_deadline = $node->get('field_date_' . $state_name)->getValue();
@@ -1338,7 +1363,7 @@ function magnet_preprocess_views_view_field(&$variables) {
     $variables['output'] = [
         '#markup' => $date,
       ];
-    
+
   }
 }
 
@@ -1493,7 +1518,7 @@ function magnet_calendar() {
     $deadline_bars = [
         magnet_product_calendar_bar_deadlines(6267),
     ];
-    
+
     $content = '';
 
     $cc = 0;
@@ -1570,11 +1595,12 @@ function magnet_coming_soon() {
         $prevstatesname[] = magnet_get_prev_state($state);
     }
 
-    $query = \Drupal::entityQuery('node');
+    $query = \Drupal::entityQuery('node')
+      ->accessCheck(TRUE);
     $before = date('Y-m-d', strtotime('-3 days'));
     $after = date('Y-m-d', strtotime('+10 days'));
     $now = date('Y-m-d');
-    
+
     // Filter all products any of state deadline is in
     $group1 = $query
     ->andConditionGroup()
@@ -1648,10 +1674,10 @@ function magnet_coming_soon() {
 
     // ...and merge together.
     $results = array_merge($results, $results2);
-    
+
     foreach ($results as $nid) {
 
-    /* Tuners shall pickup products (and should be listed) for these works: 
+    /* Tuners shall pickup products (and should be listed) for these works:
     Tunings and heat treatments
     Gluing
     Fine tuning
@@ -1675,14 +1701,14 @@ function magnet_coming_soon() {
         $state_name = $state_obj->getName();
         $next_state = magnet_get_next_state($state_name);
         $tuner = $node->get('field_tuner')->getValue()[0]['target_id'];
-        
+
         if (in_array($next_state, [
-          'Tunings and heat treatments', 
-          'Gluing', 
-          'Fine tuning', 
+          'Tunings and heat treatments',
+          'Gluing',
+          'Fine tuning',
           'Last check',
         ]) && ($uid !== $tuner)) {
-          
+
           continue;
         }
     }
