@@ -1,0 +1,1712 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for magnet module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+use Drupal\taxonomy\Entity\Term;
+use Drupal\user\Entity\User;
+use Drupal\node\Entity\Node;
+use Drupal\comment\Entity\Comment;
+use Drupal\block\Entity\Block;
+use Drupal\block_content\Entity\BlockContent;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\Core\Url;
+
+function magnet_theme($existing, $type, $theme, $path) {
+
+  return [      
+    'magnet_states' => [
+        'render element' => 'children',
+        'template' => 'magnet_states',
+        'variables' => [
+            'states_list' => null,
+            'phase' => null,
+            'next_state' => null,
+            'nid' => null,
+            'user_had_permission' => null,
+        ],
+    ],
+    'magnet_my_works' => [
+        'render element' => 'children',
+        'template' => 'magnet_my_works',
+        'variables' => [
+            'products' => null,
+            'myworks' => null,
+            'mypickups' => null,
+        ],
+    ],
+    'magnet_inventory' => [
+        'render element' => 'children',
+        'template' => 'magnet_inventory',
+        'variables' => [
+            'inventory_done' => null,
+            'inventory_todo' => null,
+        ],
+    ],
+    'magnet_inventory_add' => [
+        'render element' => 'children',
+        'template' => 'magnet_inventory_add',
+        'variables' => [
+            'content' => null,
+        ],
+    ],
+    'magnet_inventory_status' => [
+        'render element' => 'children',
+        'template' => 'magnet_inventory_status',
+        'variables' => [
+            'status' => null,
+            'width_right' => null,
+            'width_left' => null,
+        ],
+    ],
+    'magnet_calendar' => [
+        'render element' => 'children',
+        'template' => 'magnet_calendar',
+        'variables' => [
+            'header' => null,
+            'content' => null,
+        ],
+    ],
+    'magnet_coming_soon' => [
+        'render element' => 'children',
+        'template' => 'magnet_coming_soon',
+        'variables' => [
+            'content' => null,
+            'date' => null,
+        ],
+    ],
+  ];
+}
+
+function magnet_create_term($name, $vid, $weight = 0) {
+
+    if (is_null($name)) {
+        return null;
+    }
+
+    $term = \Drupal::entityTypeManager()
+          ->getStorage('taxonomy_term')
+          ->loadByProperties([
+            'name' => trim($name),
+            'vid' => $vid,
+        ]);
+
+    if (empty($term)) {
+        magnet_log('Term create ' . $vid . ' : name: ' . $name);
+
+         $term_array = [
+            'parent' => array(),
+            'name' => $name,
+            'vid' => $vid,
+        ];
+
+         if ($weight > 0) {
+            $term_array['weight'] = $weight;
+         }
+
+        $term = Term::create($term_array);
+
+        $success = $term->save();
+
+
+        return $term->id();
+
+    } else {
+
+
+        \Drupal::logger('my_module')->notice('term already exists: ' .  $name . reset($term)->id());
+
+
+        return key($term);
+    }
+
+}
+
+function magnet_parse_hash_codes() {
+    $path = \Drupal::service('extension.path.resolver')->getPath('module', 'magnet');
+    $data = file_get_contents($path . '/source/codes.json');
+
+    $rows = preg_match_all('/{"name":"(.*?)".*?"value":"(.*?)"}/i', $data, $matches);
+
+    $map = [];
+    for ($c = 0; $c < count($matches[1]); $c++) {
+        $map[$matches[2][$c]] = $matches[1][$c];
+    }
+
+    return $map;
+}
+
+function magnet_parse_param_hash_codes() {
+    $path = \Drupal::service('extension.path.resolver')->getPath('module', 'magnet');
+    $data = file_get_contents($path . '/source/codes.json');
+
+    $json_data = json_decode($data,true);
+
+    $map = [];
+    foreach ($json_data['productData']['handpan']['items'] as $item) {
+        $map[$item['id']] = $item['name'];
+    }
+
+    return $map;
+}
+
+function magnet_parse_states() {
+    $path = \Drupal::service('extension.path.resolver')->getPath('module', 'magnet');
+    $data = file_get_contents($path . '/source/codes.json');
+
+    $rows = preg_match_all('/{"id":"(.*?)".*?"name":"(.*?)"/i', $data, $matches);
+
+    $map = [];
+    for ($c = 0; $c < count($matches[1]); $c++) {
+        $map[$matches[1][$c]] = $matches[2][$c];
+    }
+
+    return $map;
+}
+
+function magnet_parse_users() {
+    $path = \Drupal::service('extension.path.resolver')->getPath('module', 'magnet');
+    $data = file_get_contents($path . '/source/users.json');
+
+    $rows = preg_match_all('/{"id":(\d*?),"username":"(.*?)","email"/i', $data, $matches);
+
+    $users = [];
+    for ($c = 0; $c < count($matches[1]); $c++) {
+        $users[$matches[1][$c]] = $matches[2][$c];
+    }
+
+    return $users;
+}
+
+function magnet_map($data) {
+    $map = magnet_parse_hash_codes();
+
+    if (isset($map[$data])) {
+
+        return $map[$data];
+    }
+
+    return $data;
+}
+
+function magnet_map_user($data) {
+    $map = magnet_parse_users();
+
+    if (isset($map[$data])) {
+
+        return $map[$data];
+    }
+
+    return $data;
+}
+
+function magnet_map_state($data) {
+    $map = magnet_parse_states();
+
+    if (isset($map[$data])) {
+
+        return $map[$data];
+    }
+
+    return $data;
+}
+
+function magnet_import_scales() {
+    $path = \Drupal::service('extension.path.resolver')->getPath('module', 'magnet');
+
+    $csv_file = file($path . '/source/scales.csv');
+    $data = array_map('str_getcsv', $csv_file);
+
+    foreach ($data as $row) {
+
+        $term = Term::create(array(
+            'parent' => array(),
+            'name' => $row[0],
+            'field_scale_notes' => $row[1],
+            'field_notes_number' => $row[2],
+            'vid' => 'scale',
+          ));
+        $success = $term->save();
+
+    }
+
+    magnet_log('scales imported.');
+}
+
+function magnet_create_states() {
+    $states = ['Drawing','Dimpleing','Shaping','Tunings and heat treatments','Gluing','Fine tuning','Flexing','Nanoing','Last check','Packaging'];
+
+    $c = 0;
+    foreach ($states as $state) {
+        magnet_create_term($state, 'state', $c);
+        $c++;
+        magnet_create_term($state . ' finished', 'state', $c);
+        $c++;
+    }
+
+    magnet_log('states created.');
+}
+
+function magnet_get_scale_notes($scaleId) {
+    $term = Term::load($scaleId);
+
+    return $term->field_scale_notes->value;
+}
+
+function magnet_set_user_permissions() {
+
+    $user_permissions = [
+        'Tamás' => 'Packaging',
+        'Regő' => 'Drawing, Dimpleing, Tunings and heat treatments, Gluing, Fine tuning, Shaping, Flexing, Nanoing, Last check',
+        'Anna' => 'Packaging',
+        'Betlen' => 'Drawing, Dimpleing, Nanoing',
+        'Dönci' => 'Flexing, Nanoing',
+        'Jani' => 'Packaging',
+        'Marci' => 'Tunings and heat treatments, Gluing, Fine tuning, Last check',
+        'Patrik' => 'Packaging',
+        'Peti' => 'Tunings and heat treatments, Gluing, Fine tuning, Last check',
+        'Ricsi' => 'Tunings and heat treatments, Gluing, Fine tuning, Last check',
+        'Toma' => 'Shaping',
+        'Balu' => 'Tunings and heat treatments, Gluing, Fine tuning, Flexing, Nanoing, Last check',
+        'Attila' => 'Tunings and heat treatments, Gluing, Fine tuning, Last check',
+        'Áron' => 'Drawing, Dimpleing, Tunings and heat treatments, Gluing, Fine tuning, Last check',
+        'Golyó' => 'Drawing, Dimpleing, Shaping, Flexing, Nanoing',
+        'Kolos' => 'Packaging',
+        'Dénes' => 'Tunings and heat treatments, Gluing, Fine tuning, Last check',
+        'Tomek' => 'Tunings and heat treatments, Gluing, Fine tuning, Last check',
+    ];
+
+    $userStorage = \Drupal::entityTypeManager()->getStorage('user');
+
+    $query = $userStorage->getQuery();
+    $uids = $query
+      ->condition('status', '1')
+      ->execute();
+
+    $users = $userStorage->loadMultiple($uids);
+    
+    foreach ($users as $user) {
+        foreach ($user_permissions as $name => $permissions) {
+            if ($name == $user->name->value) {
+                $perms = array_map('trim', explode(',', $permissions));
+                $user->field_state_permissions = [];
+                foreach ($perms as $perm) {
+                    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $perm]);
+                    $user->field_state_permissions[] = ['target_id' => key($term)];
+                }
+                $user->save();
+            }
+        }
+    }
+
+}
+
+
+
+function magnet_import_users() {
+    $path = \Drupal::service('extension.path.resolver')->getPath('module', 'magnet');
+    // Parse users.
+    $data = file_get_contents($path . '/source/users.json');
+    $rows = preg_match_all('/{"id":(\d*?),"username":"(.*?)","email":"(.*?)"/i', $data, $matches);
+
+    foreach ($matches[2] as $key => $userdata) {
+
+        if ($matches[2][$key] !== 'admin') {
+        
+            // User already exists.
+            $query = \Drupal::entityQuery('user')
+            ->condition('name', $matches[2][$key]);
+              //->condition('mail', $matches[3][$key]);
+            $results = $query->execute();
+
+            if (empty($results)) {
+                $user = User::create();
+
+                //Mandatory settings
+                $user->setUsername($matches[2][$key]);
+                $user->setPassword($matches[2][$key]);
+                $user->enforceIsNew();
+                $user->setEmail($matches[3][$key]);
+                $user->activate();
+
+                // Save user account.
+                $result = $user->save();
+            }
+
+        }
+        
+    }
+
+    magnet_log('users imported.');
+}
+
+function magnet_get_revisions($node_id) {
+    $node = Node::load($node_id);
+    $revisions = \Drupal::service('entity_type.manager')->getStorage('node')->revisionIds($node);
+
+    return $revisions;
+}
+
+function magnet_get_next_state($current_state) {
+
+    if ($current_state == 'Init') {
+        return 'Drawing';
+    }
+
+    $tids = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'state')->sort('weight')->execute();
+
+
+    $stop = FALSE;
+    foreach ($tids as $tid) {
+        $state_obj = Term::load($tid);
+        $state = $state_obj->getName();
+
+        if ($stop) {
+            return $state;
+        }
+
+        if ($state == $current_state) {
+            $stop = TRUE;
+        }
+    }
+
+    return $state;
+}
+
+function magnet_get_prev_state($current_state) {
+    $tids = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'state')->sort('weight')->execute();
+
+    $prevstate = 0;
+    foreach ($tids as $tid) {
+        $state_obj = Term::load($tid);
+        $state = $state_obj->getName();
+
+        if ($state == $current_state) {
+            return $prevstate;
+        }
+
+        $prevstate = $state;
+    }
+
+    return 0;
+}
+
+function magnet_get_prev_state_tid($current_state) {
+    $tids = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'state')->sort('weight')->execute();
+
+    $prevstate = 0;
+    foreach ($tids as $tid) {
+        $state_obj = Term::load($tid);
+        $state = $state_obj->getName();
+
+        if ($state == $current_state) {
+            return $prevstate;
+        }
+
+        $prevstate = $tid;
+    }
+
+    return 0;
+}
+
+function magnet_find_active_state($nid) {
+    $rids = magnet_get_revisions($nid);
+
+    $states = [];
+    $current_state = '';
+    foreach ($rids as $revision_id) {
+        $revision = \Drupal::entityTypeManager()->getStorage('node')->loadRevision($revision_id);
+
+        $user = Drupal\user\Entity\User::load($revision->getOwnerId());
+        $worker = $user->name->value;
+
+        $state_tid = $revision->field_state->target_id;
+        if (is_null($state_tid)) {
+            $state = 'Init';
+        } else {
+            $state = Term::load($revision->field_state->target_id)->getName();
+        }
+
+        if ($state !== $current_state) {
+            //$states[$worker][$state][] = date('Y-m-d', $revision->getChangedTime());
+            $last_state = $state;
+
+        }
+
+        $current_state = $state;
+    }
+
+    return $last_state;
+}
+
+function magnet_count_partial_deadlines($deadline) {
+
+    $config = \Drupal::config('magnet.settings');
+    $timeframes = [
+        'drawing' => $config->get('timeframe_drawing'),
+        'dimpleing' => $config->get('timeframe_dimpleing'),
+        'shaping' => $config->get('timeframe_shaping' . $state),
+        'tunings and heat treatments' => $config->get('timeframe_tunings_and_heat_treatments'),
+        'gluing' => $config->get('timeframe_gluing'),
+        'fine tuning' => $config->get('timeframe_fine_tuning'),
+        'flexing' => $config->get('timeframe_flexing'),
+        'nanoing' => $config->get('timeframe_nanoing'),
+        'last check' => $config->get('timeframe_last_check'),
+        'packaging' => $config->get('timeframe_packaging'),
+    ];
+
+    $timeframes = array_reverse($timeframes);
+
+    $partial_deadlines = [];
+    foreach ($timeframes as $key => $value) {
+        $deadline = strtotime('-' . $value . ' days', $deadline);
+        $day = date( "w", $deadline);
+
+        if ($day == 0) {
+            // Sunday.
+            $deadline = strtotime('-2 days', $deadline);
+        }
+        if ($day == 7) {
+            // Sunday.
+            $deadline = strtotime('-1 days', $deadline);
+        }
+
+        $partial_deadlines[$key] = date('Y-m-d', $deadline);
+    }
+
+    return $partial_deadlines;
+
+}
+
+function magnet_show_statebar($nid) {
+
+    // Find out whose did the former state changes.
+    $states_owners = magnet_states_owners($nid);
+
+    $user_id = \Drupal::currentUser()->id();
+    $user_states = magnet_get_user_state_permissions($user_id);
+
+    $node = \Drupal\node\Entity\Node::load($nid);
+    $deadline = strtotime($node->get('field_deadline')->getValue()[0]['value']);
+
+    $partial_deadlines = magnet_get_partial_deadlines($nid);
+    $partial_deadlines['init'] = 0;
+
+    $current_state = magnet_find_active_state($nid);
+    // What kind of button to show: pickup or finish button?
+    if (strpos($current_state, 'finished') == FALSE && $current_state !== 'Init') {
+        $phase = 'in-progress';
+    } else {
+        $phase = 'finished';
+    }
+
+    $next_state = magnet_get_next_state($current_state);
+
+    $user_had_permission = 0;
+    if (($phase == 'finished' && in_array($next_state, $user_states)) 
+        || ($phase == 'in-progress' && in_array($current_state, $user_states))
+        || (int)$user_id == 1){
+        $user_had_permission = 1;
+    }
+
+    /* Tuners shall pickup products for these works: 
+    Tunings and heat treatments
+    Gluing
+    Fine tuning
+    Last check
+
+    only if they are the tuners of that product (field_tuner).
+    If not skip product.
+    */
+
+    /*$node = Node::load($nid);
+    $state_tid = $node->get('field_state')->getValue()[0]['target_id'];
+    $state_obj = Term::load($state_tid);
+    $state_name = $state_obj->getName();*/
+    $next_state = magnet_get_next_state($current_state);
+    $tuner = $node->get('field_tuner')->getValue()[0]['target_id'];
+
+    if (in_array($next_state, [
+      'Tunings and heat treatments', 
+      'Gluing', 
+      'Fine tuning', 
+      'Last check',
+    ]) && ($user_id !== $tuner)) {
+      $user_had_permission = 0;
+      dpm('different tuner');
+
+    }
+
+    // only the worker should finish a workstate who started it 
+    if (strpos($current_state, 'finished') == FALSE && $next_state !== 'Drawing' && $user_id !== $node->getOwnerId() && (int)$user_id !== 1) {
+        dpm('different worker started');
+        
+        $user_had_permission = 0;
+    }
+
+    // Load all states.
+    $tids = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'state')->sort('weight')->execute();
+
+    foreach ($tids as $tid) {
+        $state_obj = Term::load($tid);
+        $state = $state_obj->getName();
+
+        $states[] = ['tid' => $tid, 'state' => $state];
+    }
+
+    // Test variables.
+    //$current_state = 'Shaping finished';
+    //$user_had_permission = 1;
+    // Test variables.
+
+    $states_colored = [];
+    $current_state_simple = strtolower(trim(str_replace('start', '', str_replace('finished', '', $current_state))));
+
+    $class = '';
+    $base_class = 'done';
+    if ($current_state  == 'Init') {
+        $base_class = 'undone';
+        $phase = 'init';
+    }
+    for ($c = 0; $c < count($states); $c = $c + 2) {
+
+        $state = strtolower($states[$c]['state']);
+        $state_simple = strtolower(trim(str_replace('start', '', str_replace('finished', '', $state))));
+
+        if ($class !== '') {
+            $base_class = 'undone';
+        }
+        $class = '';
+        if ($current_state_simple == $state_simple) {
+            if (strpos($current_state, 'finished') == FALSE) {
+                // in progress.
+                $class = 'in-progress';
+            } else {
+                $class = 'done';
+            }
+        }
+
+        $state_owner = '';
+        if ($base_class !== 'undone') {
+            $state_owner = isset($states_owners[$states[$c]['state']]) ? $states_owners[$states[$c]['state']] : ' ';
+        }
+
+
+        if ($partial_deadlines[$state_simple] == 'no data.') {
+            magnet_get_revision_creation_by_date($nid, $states[$c]['tid']);
+        }
+
+        $states_simplified[] = ['state' => $state_simple, 'deadline' => $partial_deadlines[$state_simple], 'worker' => $state_owner, 'class' => str_replace(' ', '-', strtolower($state)) . ' ' . $base_class . ' ' . $class];
+
+    }
+
+    
+    return ['states' => $states_simplified, 'phase' => $phase, 'next_state' => $next_state, 'nid' => $nid, 'user_had_permission' => $user_had_permission];
+}
+
+function magnet_get_user($name) {
+    if (empty($name)) {
+        return 0;
+    }
+
+    $user = user_load_by_name($name);
+
+    if ($user) {
+        return $user->id();
+    }
+
+
+
+    return null;
+}
+
+function magnet_import() {
+
+    $path = \Drupal::service('extension.path.resolver')->getPath('module', 'magnet');
+
+    $json = file_get_contents($path . '/source/data.json');
+    $data = json_decode($json, false);
+
+    $fields = ['serial', 'material', 'scale', 'scale_notes', 'bn', 'material_batch', 'tuner', 'serial2', 'deadline', 'purpose', 'customer', 'contact', '100%', 'location', 'sale'];
+
+
+    $fields = magnet_parse_param_hash_codes();
+
+    foreach ($data as $key => $product) {
+
+        $product_rebuild = [];
+        $product_rebuild['worker'] = magnet_map_user($product->workshopOwnerId);
+        $product_rebuild['created'] = strtotime($product->created_at);
+        $product_rebuild['source_data'] = $product;
+
+        // Detailed data.
+        $i = 0;
+        foreach ($product->details as $key => $detail) {
+            $value = magnet_map($detail);
+
+            if (isset($fields[$key])) {
+                $param_name = str_replace(' ', '_', strtolower($fields[$key]));
+                $product_rebuild[$param_name] = $value;
+            }
+            $i++;
+        }
+
+        // History.
+        $history_in_row = '';
+        $last_state = '';
+        $c = 0;
+        $product_rebuild['history'] = [];
+        foreach ($product->history as $key => $history) {
+            if (isset($history->workflowId)) {
+                $state = magnet_map_state($history->workflowId);
+                //if ($state !== $last_state) {
+
+                if ($history->action == 'drop' && is_array($product_rebuild['history'])) {
+                    array_pop($product_rebuild['history']);
+                    continue;
+                }
+
+                $product_rebuild['history'][] = [
+                    'time' => $history->time,
+                    'state' => $state,
+                    'action' => $history->action,
+                    'worker' => magnet_map_user($history->id),
+                ];
+                //}
+                $last_state = $state;
+
+            }
+        }
+
+
+        $products_rebuild[$product->count] = $product_rebuild;
+
+        $c++;
+        if ($c > 10000) {
+            break;
+        }
+    }
+
+    return $products_rebuild;
+}
+
+function magnet_migrate_finished($success, $results, $operations) {
+    // The 'success' parameter means no fatal PHP errors were detected. All
+    // other error management should be handled using 'results'.
+    if ($success) {
+        $message = \Drupal::translation()->formatPlural(
+            count($results),
+            'One post processed.', '@count posts processed.'
+        );
+    }
+    else {
+        $message = t('Finished with an error.');
+    }
+    \Drupal::messenger()->addStatus($message);
+}
+
+function magnet_product_set_reference_fields($product) {
+
+    $product['material'] = magnet_create_term($product['material'], 'material');
+    $product['worker'] = magnet_get_user($product['worker']);
+    $product['scale'] = magnet_create_term($product['scale'], 'scale');
+    $product['tuner'] = magnet_get_user($product['tuner']);
+    $product['location'] = magnet_create_term($product['location'], 'location');
+    $product['purpose'] = magnet_create_term($product['purpose'], 'purpose');
+
+    return $product;
+}
+
+function magnet_generate_new_state($product_history) {
+
+    $state = $product_history['state'];
+    $state_phase = $product_history['action'];
+
+    if ($state_phase == 'pickup') {
+        $new_state = $state;
+    }
+
+    if ($state_phase == 'finished') {
+        $new_state = $state . ' finished';
+    }
+
+    return $new_state;
+}
+
+function magnet_strip_emojis($text) {
+    return preg_replace('/([\x{0001F000}-\x{0001FAFF}])/mu', '', $text);
+}
+
+function magnet_save_product($product, &$context) {
+
+    magnet_log('<hr />' . print_r($product, 1) . '<hr />');
+    
+    $product = magnet_product_set_reference_fields($product);
+
+    $query = \Drupal::entityQuery('node')
+    ->condition('title', $product['serial']);
+
+    $results = $query->execute();
+
+    if (!empty($result)) {
+        dpm('Product already saved.');
+    }
+
+    $first_state = magnet_create_term(magnet_generate_new_state($product['history'][0]), 'state');
+    $first_date = $product['history'][0]['time'] / 1000;
+    $first_worker = magnet_get_user($product['history'][0]['worker']);
+
+    $product_data = [
+        'uid' => $first_worker,
+        'type'       => 'product',
+        'langcode' => 'en',
+        'created' => $first_date,
+        'changed' => $first_date,
+        'title' => $product['serial'],
+
+        'field_product_type' => [['target_id' => 158]],
+        'field_state' => [['target_id' => $first_state]],
+
+        'field_scale' => [['target_id' => $product['scale']]],
+        'field_scale_notes' => magnet_strip_emojis($product['scale_notes']),
+        'field_bottom_notes' => $product['bn'],
+        'field_material_batch' => magnet_strip_emojis($product['material_batch']),
+        'field_tuner' => [['target_id' => $product['tuner']]],
+        'field_serial' => $product['serial'],
+        'field_comment' => $product['comments'],
+        'field_deadline' => date('Y-m-d', strtotime($product['deadline'])),
+        'field_purpose' => [['target_id' => $product['purpose']]],
+        'field_customer' => $product['customer'],
+        'field_customer_contact' => $product['contact'],
+        'field_percent' => $product['100%'],
+        'field_location' => [['target_id' => $product['location']]],
+        'field_source' => 'import',
+        'field_source_data' => serialize($product['source_data']),
+    ];
+
+    if (isset($product['serial2'])) {
+        $product_data['field_serial_2'] = (int)magnet_strip_emojis($product['serial2']);
+    }
+
+    if (isset($product['sale'])) {
+        $product_data['field_sale'] = $product['sale'];
+    }
+
+    if (isset($product['raktar'])) {
+        $product_data['field_stock'] = $product['raktar'];
+    }
+
+    if (!is_null($product['material'])) {
+        $product_data['field_material'] = [['target_id' => $product['material']]];
+    }
+
+    $node = \Drupal::entityTypeManager()->getStorage('node')->create($product_data);
+
+    $node->setPublished(TRUE);
+
+    $node->save();
+
+    if (!empty($product['comments']) && !is_null($first_worker)) {
+
+        $values = [
+            'entity_type' => 'node',
+            'entity_id'   => $node->id(),
+            'field_name'  => 'field_comments',
+            'uid' => $first_worker,
+            'comment_type' => 'comment',
+            'subject' => 'My Awesome Comment',
+            'comment_body' => $product['comments'],
+            'status' => 1,
+        ];
+     
+        $comment = Comment::create($values);
+        $comment->save();
+    }
+    
+    if (isset($product['history'])) {
+
+        $node_loaded = Node::load($node->id());
+
+        for ($c = 0; $c < count($product['history']); $c++) {
+            $node = $node_loaded;
+            $new_state = magnet_generate_new_state($product['history'][$c]);
+
+            $node->set('field_state',  magnet_create_term($new_state, 'state'));
+
+            if (strpos($new_state, 'finished') == FALSE) {
+                $uid = magnet_get_user($product['history'][$c]['worker']);
+            } else {
+                $uid = 0;
+            }
+            $node->set('uid', $uid);
+
+            $node->set('changed', $product['history'][$c]['time'] / 1000);
+            $node->setNewRevision(TRUE);
+            $node->setRevisionCreationTime($product['history'][$c]['time'] / 1000);
+
+            $id = $node->save();
+            $vid = $node->getRevisionId();
+        }
+    }
+
+    $context['message'] = 'Importing products...';
+    $context['results'] = [$product['serial']];
+
+    
+    magnet_log('product saved.');
+    
+}
+
+function magnet_reset_site() {
+
+    // Delete all products.
+    $ids = \Drupal::entityQuery('node')->condition('type', 'product')->execute();
+    $storageHandler = \Drupal::entityTypeManager()->getStorage('node');
+    $entities = $storageHandler->loadMultiple($ids);
+    foreach ($entities as $entity) {
+         $entity->delete();
+    }
+
+    // Delete all terms.
+    $vocabs = ['material', 'scale', 'location', 'purpose', 'state'];
+
+    foreach ($vocabs as $vid) {
+
+        $tids = \Drupal::entityQuery('taxonomy_term')
+        ->condition('vid', $vid)
+        ->execute();
+
+        $controller = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+        $entities = $controller->loadMultiple($tids);
+        $controller->delete($entities);
+    }
+
+    // Delete all users.
+    $ids = \Drupal::entityQuery('user')->execute();
+    foreach ($ids as $id) {
+      $user = User::load($id);
+
+      if ($user->id() != 0 && $user->id() != 1) {
+
+        $user->delete();
+      }
+    }
+}
+
+function magnet_timeframes_for_js() {
+     // Prepare variable for sending the timeframes for partial deadlines count to js.
+    $states = [
+        'drawing',
+        'dimpleing',
+        'shaping',
+        'tunings_and_heat_treatments',
+        'gluing',
+        'fine_tuning',
+        'flexing',
+        'nanoing',
+        'last_check',
+        'packaging',
+    ];
+
+    $states = array_reverse($states);
+
+    $config = \Drupal::config('magnet.settings');
+    $timeframes = [];
+    foreach($states as $state) {
+        $timeframes[$state] = $config->get('timeframe_' . $state);
+    }
+
+    return $timeframes;
+}
+
+function magnet_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+   
+    if ($form_id == 'node_product_edit_form') {
+        $form['title']['widget'][0]['value']['#type'] = 'hidden';
+        $form['#attached']['drupalSettings'] = [
+          'magnet' => [
+            'timeframes' => magnet_timeframes_for_js(),
+          ],
+        ];
+        $form['#attached']['library'][] = 'magnet/calcdeadlines';
+    }
+
+    if ($form_id == 'node_product_form') {
+        $form['#attached']['library'][] = 'magnet/addproduct';
+        $form['#attached']['library'][] = 'magnet/calcdeadlines';
+
+        $form['title']['widget'][0]['value']['#type'] = 'hidden';
+        $form['title']['widget'][0]['value']['#default_value'] = 'not important, will be generated on hook_insert';
+
+        $vid = 'scale';
+        $terms =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid);
+
+        $scale_data = [];
+        foreach ($terms as $term) {
+            $term_obj = Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($term->tid);
+            $scale_data[$term->name] = $term_obj->get('field_scale_notes')->value;
+        }
+
+        $form['#attached']['drupalSettings'] = [
+          'magnet' => [
+            'scales' => $scale_data,
+            'timeframes' => magnet_timeframes_for_js(),
+          ],
+        ];
+
+        //$form['field_scale_notes']['#disabled'] = TRUE;
+    }
+
+    if ($form_id == 'user_form') {
+        $form['#attached']['library'][] = 'magnet/admin';
+    }
+
+
+
+    if ($form_id == 'search_block_form') {
+        $form['keys']['#attributes']['placeholder'] = t('site wide search');
+    }
+
+    if ($form_id == 'comment_comment_form') {
+        $form['actions']['submit']['#value'] = t('Post comment');
+    }
+
+
+}
+
+function magnet_set_state($nid, $state) {
+    $node = Node::load($nid);
+
+    $user = 0;
+    if (strpos($state, 'finished') == FALSE) {
+        $user = \Drupal::currentUser()->id();
+    }
+
+    $node->set('field_state',  magnet_create_term($state, 'state'));
+    $node->setOwnerId($user);
+    $node->set('changed', time());
+    $node->setNewRevision(TRUE);
+    $node->save();
+
+    $states_block = \Drupal::service('plugin.manager.block')->createInstance('magnet_revisions_block', []);
+    $states_block_view = $states_block->build($nid);
+    $renderer = \Drupal::service('renderer');
+    $html = $renderer->render($states_block_view);
+
+    return $html;
+}
+
+function magnet_drop_state($nid) {
+
+    $node = Node::load($nid);
+    $state_tid = $node->get('field_state')->getValue()[0]['target_id'];
+    $state_obj = Term::load($state_tid);
+    $state_name = $state_obj->getName();
+
+    $new_state = magnet_get_prev_state($state_name);
+
+    $user = 0;
+    if ($new_state == 0) {
+        $node->set('field_state',  NULL);
+    } else {
+        $node->set('field_state',  magnet_create_term($new_state, 'state'));    
+    }
+    
+    $node->setOwnerId($user);
+    $node->uid = $user;
+    $node->set('changed', time());
+    $node->setNewRevision(TRUE);
+    $node->save();
+
+    $states_block = \Drupal::service('plugin.manager.block')->createInstance('magnet_revisions_block', []);
+    $states_block_view = $states_block->build($nid);
+    $renderer = \Drupal::service('renderer');
+    $html = $renderer->render($states_block_view);
+
+    return $html;
+}
+
+function magnet_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
+
+     // Add offset drupal nid -> magent serial.
+    if ($entity->getEntityTypeId() == 'node' && $entity->getType() == 'product') {
+        if ($entity->get('field_source')->getValue()[0]['value'] !== 'import') {
+
+            $config = \Drupal::config('magnet.settings');
+            $offset = $config->get('id_offset');
+            $serial = $entity->id() + $offset;
+
+            $entity->setTitle($serial);
+            $entity->set('field_serial', $serial);
+            $entity->setNewRevision(FALSE);
+            $entity->save();
+
+            // Fill partial deadlines default values.
+            $deadline = strtotime($entity->get('field_deadline')->getValue()[0]['value']);
+            $partial_deadlines = magnet_count_partial_deadlines($deadline);
+
+            // Field machine name max.
+            $partial_deadlines['tunings and heat'] = $partial_deadlines['tunings and heat treatments'];
+            unset($partial_deadlines['tunings and heat treatments']);
+
+            foreach ($partial_deadlines as $key => $date) {
+                $field_name = 'field_date_' . str_replace(' ', '_', $key);
+                $entity->set($field_name, $date);
+            }
+
+            $active_state = magnet_find_active_state($entity->id());
+            if ($active_state == 'Drawing' || $active_state == 'Init') {
+                $entity->setOwnerId(0);
+            }
+
+            $entity->save();
+        }
+    }
+    
+}
+
+function magnet_get_user_state_permissions($uid) {
+    $user = User::load($uid);
+    $states = $user->get('field_state_permissions')->getValue();
+
+    $states_simplified = [];
+    foreach ($states as $state) {
+        $tid = $state['target_id'];
+        $state_obj = Term::load($tid);
+        $states_simplified[] = $state_obj->getName();
+    }
+
+    return $states_simplified;
+}
+
+function magnet_get_user_state_permissions_tids($uid) {
+    $user = User::load($uid);
+    $states = $user->get('field_state_permissions')->getValue();
+
+    $tids = [];
+    foreach ($states as $state) {
+        $tids[] = $state['target_id'];
+    }
+
+    return $tids;
+}
+
+function magnet_set_next_state($nid) {
+    $node = Node::load($nid);
+
+    $state_tid = $node->get('field_state')->getValue()[0]['target_id'];
+    $state_obj = Term::load($state_tid);
+    $state_name = $state_obj->getName();
+
+    $next_state = magnet_get_next_state($state_name);
+
+    $node->set('field_state',  magnet_create_term($next_state, 'state'));
+    $node->set('uid', \Drupal::currentUser()->id());
+    $node->set('changed', time());
+    $node->setNewRevision(TRUE);
+    $node->save();
+
+    return $next_state;
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+
+/*
+function magnet_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+
+    switch ($entity->bundle()) {
+        case 'product':
+            dpm('hook ran.');
+            $deadline = strtotime($entity->get('field_deadline')->getValue()[0]['value']);
+            $partial_deadlines = magnet_count_partial_deadlines($deadline);
+
+            // Field machine name max.
+            $partial_deadlines['tunings and heat'] = $partial_deadlines['tunings and heat treatments'];
+            unset($partial_deadlines['tunings and heat treatments']);
+
+            foreach ($partial_deadlines as $key => $date) {
+                $field_name = 'field_date_' . str_replace(' ', '_', $key);
+                $entity->set($field_name, $date);
+
+            }
+            break;
+    }
+} */
+
+
+function magnet_get_partial_deadlines($nid) {
+    $states = [
+        'drawing',
+        'dimpleing',
+        'shaping',
+        'tunings and heat',
+        'gluing',
+        'fine tuning',
+        'flexing',
+        'nanoing',
+        'last check',
+        'packaging',
+    ];
+
+    $node = Node::load($nid);
+
+    $partial_deadlines = [];
+    foreach ($states as $state) {
+        $field_name = 'field_date_' . str_replace(' ', '_', $state);
+
+        if ($state == 'tunings and heat') {
+                $state = 'tunings and heat treatments';
+            }
+
+        if (!empty($node->get($field_name)->getValue())) {
+
+            
+            $partial_deadlines[$state] = $node->get($field_name)->getValue()[0]['value'];
+        } else {
+            $partial_deadlines[$state] = 'no data.';
+        }
+    }
+
+    return $partial_deadlines;
+
+}
+
+function magnet_log($data) {
+    $path = \Drupal::service('extension.list.module')->getPath('magnet');
+    $data .= '<br />';
+    file_put_contents($path . '/log/log.html', $data, FILE_APPEND);
+}
+
+function magnet_load_menu($tree) {
+    $menu = [];
+    foreach ($tree as $item) {
+        if($item->link->isEnabled()) {
+          $menu[] = [
+            'weight' => $item->link->getWeight(),
+            'title' => $item->link->getTitle(),
+            'url' => $item->link->getUrlObject()->toString(),
+            'has_children' => $item->hasChildren,
+            'children' => magnet_load_menu($item->subtree),
+          ];
+        }
+    }
+    return $menu;
+}
+
+function magnet_create_menu() {
+    \Drupal::entityTypeManager()
+      ->getStorage('menu')
+      ->create([
+        'id' => 'tvszk_menu',
+        'label' => 'Tvszk menu 1',
+        'description' => 'Lorem ipsum',
+      ])
+      ->save();
+}
+
+function magnet_create_menu_item($menu_name, $menu_link) {
+    $menu_link = MenuLinkContent::create([
+        'title' => $title,
+        'link' => ['uri' => $menu_link],
+        'menu_name' => 'tvszk_menu',
+        'expanded' => TRUE,
+      ]);
+    $menu_link->save();
+}
+
+function magnet_create_menu_tree() {
+    $tree = \Drupal::menuTree()->load('test', new \Drupal\Core\Menu\MenuTreeParameters());
+    $menu = magnet_load_menu($tree);
+}
+
+function magnet_get_current_inventory() {
+     // Load last inventory.
+    $nids = \Drupal::entityQuery('node')
+    ->condition('type', 'inventory_control')
+    ->condition('field_closed', 0)
+    ->sort('nid', 'DESC')
+    ->range(0,1)
+    ->execute();
+
+    if (empty($nids)) {
+        return null;
+    }
+
+    // Load products inventory done.
+    $inventory = Node::load(reset($nids));
+
+    return $inventory;
+}
+
+function magnet_inventory_products_done() {
+    $inventory = magnet_get_current_inventory();
+
+    $products = $inventory->get('field_product')->getValue();
+    
+    $product_inventory_done = [];
+    foreach ($products as $product) {
+      $product_inventory_done[] = $product['target_id'];
+    }
+
+    return $product_inventory_done;
+}
+
+function magnet_product_inventory_done($nid) {
+    
+    if (in_array($nid, magnet_inventory_products_done())) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+function magnet_inventory_add($nid) {
+    $inventory = magnet_get_current_inventory();
+    $inventory->field_product[] = ['target_id' => $nid];
+    $inventory->save();
+}
+
+
+function magnet_preprocess_views_view_field(&$variables) {
+
+  // Show partial deadline on product page.
+  $view = $variables['view'];
+  $field = $variables['field'];
+
+  $views = ['products', 'coming_soon'];
+  $pages = ['page_1', 'page_2', 'page_3', 'block_2'];
+
+  if (in_array($view->storage->id(), $views) &&
+  in_array($view->current_display, $pages) &&
+  $field->options['id'] == 'nid_2') {
+
+    $nid = $variables['output']->__toString();
+    $node = Node::load($nid);
+
+    $date = 'no data';
+    if (!empty($node->get('field_state')->getValue())) {
+
+        $state_tid = $node->get('field_state')->getValue()[0]['target_id'];
+        $state_obj = Term::load($state_tid);
+        $state_human_name = $state_obj->getName();
+        $state_name = str_replace(' ', '_', strtolower($state_human_name));
+
+
+        if (strpos($state_human_name, 'finished') !== FALSE) {
+            $state_human_name = magnet_get_next_state($state_human_name);
+            $state_name = str_replace(' ', '_', strtolower($state_human_name));
+        }
+
+        if ($state_name == 'tunings_and_heat_treatments') {
+            $state_name = 'tunings_and_heat';
+        }
+
+        
+        if ($state_name !== 'packaging_finished') {
+            if ($node->hasField('field_date_' . $state_name)) {
+                $next_deadline = $node->get('field_date_' . $state_name)->getValue();
+                if (empty($next_deadline)) {
+                    $date = 'no data.';
+                } else {
+                    $date = $next_deadline[0]['value'] . '<br />(' . $state_human_name . ')';
+                }
+            } else {
+                $date = 'no data';
+            }
+        }
+
+    } else {
+        $next_deadline = $node->get('field_date_drawing')->getValue();
+        if (empty($next_deadline)) {
+            $date = 'no data.';
+        } else {
+            $date = $next_deadline[0]['value'] . '<br />(Drawing)';
+        }
+    }
+
+
+
+    $variables['output'] = [
+        '#markup' => $date,
+      ];
+    
+  }
+}
+
+
+function magnet_nid_to_serial($nid) {
+    $node = Node::load($nid);
+    return $node->getTitle();
+}
+
+function magnet_get_revision_user($vid) {
+    $database = \Drupal::database();
+    $query = $database->select('node_field_revision', 'n');
+    $query
+      ->fields('n', array('uid'))
+      ->condition('n.vid', $vid);
+
+    $results = $query->execute()->fetchAll();
+
+    return $results[0]->uid;
+}
+
+function magnet_get_revision_date($vid) {
+    $database = \Drupal::database();
+    $query = $database->select('node_field_revision', 'n');
+    $query
+      ->fields('n', array('changed'))
+      ->condition('n.vid', $vid);
+
+    $results = $query->execute()->fetchAll();
+
+    return $results[0]->changed;
+}
+
+function magnet_get_revision_state($vid) {
+    $database = \Drupal::database();
+    $query = $database->select('node_revision__field_state', 'st');
+    $query
+      ->fields('st', array('field_state_target_id'))
+      ->condition('st.revision_id', $vid);
+
+    $results = $query->execute()->fetchAll();
+
+    $state_human_name = 'not found';
+    if (!empty($results)) {
+        $state_obj = Term::load($results[0]->field_state_target_id);
+        $state_human_name = $state_obj->getName();
+    }
+
+    return $state_human_name;
+}
+
+function magnet_product_calendar_bar_revisions($nid) {
+    $node = Node::load($nid);
+    $vids = \Drupal::entityTypeManager()->getStorage('node')->revisionIds($node);
+
+    $open = 1;
+    $vid_bar = [];
+    $state = 'Init';
+    foreach ($vids as $vid) {
+        $node_rev = \Drupal::entityTypeManager()->getStorage('node')->loadRevision($vid);
+        $date = date('d', magnet_get_revision_date($vid));
+        $current_state = magnet_get_revision_state($vid);
+
+        if ($current_state !== $state) {
+            if ($open == 1) {
+                $state_date_start = $date;
+                $open_state = $current_state;
+                $open = 0;
+
+                $vid_bar[$nid][$open_state] = [
+                    'start' => $state_date_start,
+                    'end' => '?',
+                ];
+            } else {
+                $state_date_end = $date;
+                $open = 1;
+
+                $vid_bar[$nid][$open_state] = [
+                    'start' => $state_date_start,
+                    'end' => $state_date_end,
+                ];
+            }
+        }
+
+        $state = $current_state;
+    }
+
+    return $vid_bar;
+}
+
+function magnet_product_calendar_bar_deadlines($nid) {
+    $states = ['Drawing', 'Dimpleing', 'Shaping', 'Tunings and heat treatments', 'Gluing'];
+
+    $node = Node::load($nid);
+
+    $deadline_bar = [];
+    $former_start = 0;
+    foreach ($states as $state) {
+
+        if ($state == 'Tunings and heat treatments') {
+            $state = 'Tunings and heat';
+        }
+
+        $end = (int)date('d', strtotime($node->get('field_date_' . strtolower(str_replace(' ', '_', $state)))->value));
+
+        $deadline_bar[$nid][$state] = [
+            'start' => (!isset($previous_end)) ? $end - 7 : $previous_end,
+            'end' => $end,
+        ];
+        $previous_end = $end;
+    }
+
+    return $deadline_bar;
+}
+
+function magnet_generate_bar_string($data, $state, $nid, $id = 'revision-bars') {
+
+    $bar = '';
+    $before = 0;
+    $inner  = 0;
+    $after = 0;
+
+    $in_progress = '';
+    if ($data['end'] == '?') {
+        $before = $data['start'];
+        $inner = 6;
+        $after = 59 - $before - $inner;
+
+        $in_progress = 'in-progress';
+    } else {
+        $before = $data['start'];
+        $inner = $data['end'] - $data['start'] + 1;
+        $after = 59 - $before - $inner;
+    }
+
+    $before_string = '<span class="before" style="width: ' . ($before * 25) . 'px"></span>';
+    $inner_string = '<span class="inner ' . $in_progress . '" style="width: ' . ($inner * 25) . 'px"><a href="/node/' . $nid . '">' . magnet_nid_to_serial($nid) . '</a></span>';
+    $after_string = '<span class="after" style="width: ' . ($after * 25) . 'px"></span>';
+    $full_string = $before_string . $inner_string . $after_string;
+
+    $content = '<div class="' . $id . '">' . $full_string . '</div>';
+    return $content;
+}
+
+function magnet_calendar() {
+
+    $states = ['Drawing', 'Dimpleing', 'Shaping', 'Tunings and heat treatments', 'Gluing'];
+    $bars = [
+        magnet_product_calendar_bar_revisions(6267),
+    ];
+
+    $deadline_bars = [
+        magnet_product_calendar_bar_deadlines(6267),
+    ];
+    
+    $content = '';
+
+    $cc = 0;
+    foreach ($states as $state) {
+        $content_bars = '';
+        $c = 0;
+        foreach ($bars as $key => $bar) {
+            $nid = key($bar);
+            $bar = reset($bar);
+            if (isset($bar[$state])) {
+                $content_bars .= magnet_generate_bar_string($bar[$state], $state, $nid);
+                $c++;
+
+                if ($state == 'Tunings and heat treatments') {
+                    $state = 'Tunings and heat';
+                }
+
+                if (isset($deadline_bars[$key]) && isset($deadline_bars[$key][$nid][$state])) {
+                    $content_bars .= magnet_generate_bar_string($deadline_bars[$key][$nid][$state], $state, $nid, 'deadline-bars');
+                    $c++;
+                }
+            }
+        }
+
+        $odd = '';
+        if ($cc % 2) {
+            $odd = 'odd';
+        }
+
+        $content .= '<div class="state-label" style="font-size:' . ($c * 26) . 'px;margin-top: ' . ($c * -5) . 'px">' . $state . '</div><div class="bars-wrapper ' . $odd . '">' . $content_bars . '</div>';
+        $cc++;
+    }
+
+    return $content;
+}
+
+function magnet_states_owners($nid) {
+    $node = Node::load($nid);
+    $vids = \Drupal::entityTypeManager()->getStorage('node')->revisionIds($node);
+
+    $states_list = [];
+    foreach ($vids as $vid) {
+        $current_state = magnet_get_revision_state($vid);
+        $uid = magnet_get_revision_user($vid);
+        $user = Drupal\user\Entity\User::load($uid);
+        $worker = $user->name->value;
+
+
+        $states_list[$current_state] = $worker;
+    }
+
+    return $states_list;
+}
+
+function magnet_get_revision_creation_by_date($nid, $state_tid) {
+    $database = \Drupal::database();
+    $query = $database->select('node_revision__field_state', 's');
+    $query
+      ->fields('s', array('revision_id'))
+      ->condition('s.entity_id', $nid)
+      ->condition('s.field_state_target_id', $state_tid);
+
+    $results = $query->execute()->fetchAll();
+}
+
+function magnet_coming_soon() {
+
+    $uid = \Drupal::currentUser()->id();
+    $user_states = magnet_get_user_state_permissions($uid);
+    $prevstates = [0];
+    $products = [];
+    foreach ($user_states as $state) {
+        $prevstates[] = magnet_get_prev_state_tid($state);
+        $prevstatesname[] = magnet_get_prev_state($state);
+    }
+
+    $query = \Drupal::entityQuery('node');
+    $before = date('Y-m-d', strtotime('-3 days'));
+    $after = date('Y-m-d', strtotime('+10 days'));
+    $now = date('Y-m-d');
+    
+    // Filter all products any of state deadline is in
+    $group1 = $query
+    ->andConditionGroup()
+    ->condition('field_date_dimpleing', $before, '>')
+    ->condition('field_date_dimpleing', $now, '>')
+    ->condition('field_date_dimpleing', $after, '<');
+    $group2 = $query
+    ->andConditionGroup()
+    ->condition('field_date_drawing', $before, '>')
+    ->condition('field_date_drawing', $now, '>')
+    ->condition('field_date_drawing', $after, '<');
+    $group3 = $query
+    ->andConditionGroup()
+    ->condition('field_date_fine_tuning', $before, '>')
+    ->condition('field_date_fine_tuning', $now, '>')
+    ->condition('field_date_fine_tuning', $after, '<');
+    $group4 = $query
+    ->andConditionGroup()
+    ->condition('field_date_flexing', $before, '>')
+    ->condition('field_date_flexing', $now, '>')
+    ->condition('field_date_flexing', $after, '<');
+    $group5 = $query
+    ->andConditionGroup()
+    ->condition('field_date_gluing', $before, '>')
+    ->condition('field_date_gluing', $now, '>')
+    ->condition('field_date_gluing', $after, '<');
+    $group6 = $query
+    ->andConditionGroup()
+    ->condition('field_date_last_check', $before, '>')
+    ->condition('field_date_last_check', $now, '>')
+    ->condition('field_date_last_check', $after, '<');
+    $group7 = $query
+    ->andConditionGroup()
+    ->condition('field_date_packaging', $before, '>')
+    ->condition('field_date_packaging', $now, '>')
+    ->condition('field_date_packaging', $after, '<');
+    $group8 = $query
+    ->andConditionGroup()
+    ->condition('field_date_shaping', $before, '>')
+    ->condition('field_date_shaping', $now, '>')
+    ->condition('field_date_shaping', $after, '<');
+    $group9 = $query
+    ->andConditionGroup()
+    ->condition('field_date_tunings_and_heat', $before, '>')
+    ->condition('field_date_tunings_and_heat', $now, '>')
+    ->condition('field_date_tunings_and_heat', $after, '<');
+    $group = $query
+      ->orConditionGroup()
+      ->condition($group1)
+      ->condition($group2)
+      ->condition($group3)
+      ->condition($group4)
+      ->condition($group5)
+      ->condition($group6)
+      ->condition($group7)
+      ->condition($group8)
+      ->condition($group9);
+    $results = $query->condition($group)
+      ->condition('status', 1)
+      ->condition('field_state', $prevstates, 'IN')
+      ->accessCheck(TRUE)
+      ->execute();
+
+    // Load all unstarted with no state...
+    $query = \Drupal::entityQuery('node');
+    $results2 = $query->condition($group)
+      ->condition('status', 1)
+      ->notExists('field_state')
+      ->accessCheck(TRUE)
+      ->execute();
+
+    // ...and merge together.
+    $results = array_merge($results, $results2);
+    
+    foreach ($results as $nid) {
+
+    /* Tuners shall pickup products (and should be listed) for these works: 
+    Tunings and heat treatments
+    Gluing
+    Fine tuning
+    Last check
+
+    only if they are the tuners of that product (field_tuner).
+    If not skip product.
+    */
+
+    $node = Node::load($nid);
+    $state_tid = $node->get('field_state')->getValue()[0]['target_id'];
+    $state_obj = Term::load($state_tid);
+
+    if (is_null($state_obj)) {
+        // Unstarted products only for workers with draeing permission.
+        if (!in_array('Drawing', $user_states)) {
+            continue;
+        }
+    } else {
+        // Tuners gets only products where they are the tuner.
+        $state_name = $state_obj->getName();
+        $next_state = magnet_get_next_state($state_name);
+        $tuner = $node->get('field_tuner')->getValue()[0]['target_id'];
+        
+        if (in_array($next_state, [
+          'Tunings and heat treatments', 
+          'Gluing', 
+          'Fine tuning', 
+          'Last check',
+        ]) && ($uid !== $tuner)) {
+          
+          continue;
+        }
+    }
+
+    $products[] = $nid;
+  }
+
+    if (empty($products)) {
+        $content = 'No results for the given period.';
+
+    } else {
+
+        $views = views_embed_view('coming_soon', 'block_2', implode('+', $products));
+        $content = \Drupal::service('renderer')->render($views);
+    }
+
+    return [
+      '#theme' => 'magnet_coming_soon',
+      '#attached' => [
+        'library' => [
+          'magnet/coming_soon',
+        ],
+      ],
+      '#content' => $content,
+      '#date' => $before . ' - ' . $after,
+    ];
+}

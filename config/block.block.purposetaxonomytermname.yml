@@ -1,0 +1,28 @@
+uuid: 687ae122-f26e-479d-9f6f-bbce8f68f93f
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.purpose_taxonomy_term_name
+  module:
+    - collapsiblock
+    - facets
+  theme:
+    - mapvr
+third_party_settings:
+  collapsiblock:
+    collapse_action: 3
+id: purposetaxonomytermname
+theme: mapvr
+region: content
+weight: -8
+provider: null
+plugin: 'facet_block:purpose_taxonomy_term_name'
+settings:
+  id: 'facet_block:purpose_taxonomy_term_name'
+  label: Purpose
+  label_display: visible
+  provider: facets
+  context_mapping: {  }
+  block_id: purposetaxonomytermname
+visibility: {  }

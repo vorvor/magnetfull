@@ -1,0 +1,19 @@
+uuid: a40179e7-8935-4597-af0f-52bea2e742c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_scale_notes
+    - node.type.product
+id: node.product.field_scale_notes
+field_name: field_scale_notes
+entity_type: node
+bundle: product
+label: 'Scale notes'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

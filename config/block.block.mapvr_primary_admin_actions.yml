@@ -1,0 +1,20 @@
+uuid: 4a4696ea-b555-48cd-aa1c-6b6d59c1c732
+langcode: en
+status: false
+dependencies:
+  theme:
+    - mapvr
+_core:
+  default_config_hash: Q9_2whdOj1YIomfvsIfopROW4FT_X5pY0DjdOiOaQ5U
+id: mapvr_primary_admin_actions
+theme: mapvr
+region: header
+weight: -11
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

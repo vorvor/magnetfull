@@ -1,0 +1,8 @@
+uuid: 334fbcfb-5c72-4436-9806-08106fa09d61
+langcode: en
+status: true
+dependencies: {  }
+name: Scale
+vid: scale
+description: ''
+weight: 0

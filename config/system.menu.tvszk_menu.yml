@@ -1,0 +1,8 @@
+uuid: d3dc7bae-a432-4f22-8af7-5e4682d70f57
+langcode: en
+status: true
+dependencies: {  }
+id: tvszk_menu
+label: 'Tvszk menu 1'
+description: 'Lorem ipsum'
+locked: false

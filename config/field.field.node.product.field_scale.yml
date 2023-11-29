@@ -1,0 +1,29 @@
+uuid: 887221f1-673c-4751-a379-0700ea03151c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_scale
+    - node.type.product
+    - taxonomy.vocabulary.scale
+id: node.product.field_scale
+field_name: field_scale
+entity_type: node
+bundle: product
+label: Scale
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      scale: scale
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

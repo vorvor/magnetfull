@@ -1,0 +1,13 @@
+name: 'Masquerade as Role'
+description: 'Masquerades a user based on role, and not as another user'
+package: 'Administration'
+type: module
+core_version_requirement: ^9.4 || ^10
+configure: msqrole.settings_form
+dependencies:
+  - token:token
+
+# Information added by Drupal.org packaging script on 2023-04-02
+version: '1.0.9'
+project: 'msqrole'
+datestamp: 1680442879

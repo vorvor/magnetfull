@@ -1,0 +1,19 @@
+uuid: 669aa9c3-bbef-46fe-927a-5f8293678f6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_customer_contact
+    - node.type.product
+id: node.product.field_customer_contact
+field_name: field_customer_contact
+entity_type: node
+bundle: product
+label: 'Customer contact'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

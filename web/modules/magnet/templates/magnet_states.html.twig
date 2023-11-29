@@ -1,0 +1,38 @@
+<div id="states-wrapper">
+	<div id="states">
+	{% for state in states_list %}
+		<div class="state {{state.class}}">
+			<div class="date">
+					{{ state.deadline }}
+			</div>
+			<div class="name">
+				{{ state.state|raw }}
+			</div>
+			<div class="worker">
+				{{ state.worker }}
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+	<div id="state-buttons">
+		{% if user_had_permission == 1 %}
+			{% if (phase == 'finished' or phase == 'init') %}
+				<div id="pickup">
+					<img src="/core/misc/throbber-active.gif" style="display: none;" class="loader">
+					<a href="/magnet/setstate/{{ nid }}/{{ next_state }}">Pickup for {{ next_state }}</a>
+				</div>
+			{% endif %}
+
+			{% if phase == 'in-progress' %}
+				<div id="pickup">
+					<img src="/core/misc/throbber-active.gif" style="display: none;" class="loader">
+					<a href="/magnet/setstate/{{ nid }}/{{ next_state }}">{{ next_state }}</a>
+				</div>
+				<div id="drop-state">
+				<img src="/core/misc/throbber-active.gif" style="display: none;" class="drop-loader">
+					<a href="/magnet/dropstate/{{ nid }}">Drop</a>
+				</div>
+			{% endif %}
+		{% endif %}
+	</div>
+</div>

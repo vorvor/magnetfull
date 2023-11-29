@@ -1,0 +1,28 @@
+uuid: f32439ee-5038-437e-9b33-a916c4a61659
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.purpose_exclude
+  module:
+    - collapsiblock
+    - facets
+  theme:
+    - mapvr
+third_party_settings:
+  collapsiblock:
+    collapse_action: 3
+id: purposeexclude
+theme: mapvr
+region: content
+weight: -7
+provider: null
+plugin: 'facet_block:purpose_exclude'
+settings:
+  id: 'facet_block:purpose_exclude'
+  label: 'Purpose exclude'
+  label_display: visible
+  provider: facets
+  context_mapping: {  }
+  block_id: purposeexclude
+visibility: {  }

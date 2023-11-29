@@ -1,0 +1,28 @@
+uuid: 1c4deea1-d404-4472-b572-d49e19d117fc
+langcode: en
+status: true
+dependencies:
+  module:
+    - magnet
+    - node
+  theme:
+    - mapvr
+id: magnetinventoryaddblock
+theme: mapvr
+region: content
+weight: -12
+provider: null
+plugin: magnet_inventory_add
+settings:
+  id: magnet_inventory_add
+  label: 'Magnet inventory add block'
+  label_display: '0'
+  provider: magnet
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      product: product

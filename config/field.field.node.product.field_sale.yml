@@ -1,0 +1,23 @@
+uuid: fea38c9a-e366-401c-972e-7ff09b33cbf4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sale
+    - node.type.product
+id: node.product.field_sale
+field_name: field_sale
+entity_type: node
+bundle: product
+label: Sale
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

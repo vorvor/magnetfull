@@ -1,0 +1,19 @@
+uuid: 2c261481-8fe6-4592-81dc-2a9c64f4e343
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_timeframe
+    - taxonomy.vocabulary.state
+id: taxonomy_term.state.field_timeframe
+field_name: field_timeframe
+entity_type: taxonomy_term
+bundle: state
+label: Timeframe
+description: 'Timeframe in days.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

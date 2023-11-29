@@ -1,0 +1,14 @@
+uuid: 56424cfa-11fe-4ea5-9da5-e15723c5db87
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_db
+id: sitewide_search
+name: 'Sitewide search'
+description: ''
+backend: search_api_db
+backend_config:
+  database: 'default:default'
+  min_chars: 3
+  matching: partial

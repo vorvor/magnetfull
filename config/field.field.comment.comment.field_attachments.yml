@@ -1,0 +1,27 @@
+uuid: 4c8b1f62-4a7e-48e9-9e44-1802f3b17219
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.comment
+    - field.storage.comment.field_attachments
+  module:
+    - file
+id: comment.comment.field_attachments
+field_name: field_attachments
+entity_type: comment
+bundle: comment
+label: Attachments
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: comments_attachments
+  file_extensions: 'txt pdf xls xlsx doc docx'
+  max_filesize: ''
+  description_field: false
+field_type: file

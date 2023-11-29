@@ -1,0 +1,134 @@
+A Aegean,,
+A Amara,"A2/ E3, G3, A3, B3, C4, D4, E4, G4",9
+A Amara 11,"A2/ (C3, D3), E3, G3, A3, B3, C4, D4, E4, G4",11
+A Amara 14,"A2/ (C3, D3), E3, (F3), G3, A3, B3, C4, D4, E4, (F4), G4, (A4)",14
+A Amara 17,"A2/ (C3, D3), E3, (F3), G3, A3, B3, C4, D4, E4, (F4), G4, (A4, B4, C5, D5)",17
+A Amara custom,,
+A Hijaz,"A2 / E3, G3, A3, Bb3, C#4, D4, E4, G4",9
+A Hijaz 13,"A2 / (D3), E3, (F3), G3, A3, Bb3, C#4, D4, E4, (F4), G4, (A4)",13
+A Hijaz 15,"A2 / (D3), E3, (F3), G3, A3, Bb3, C#4, D4, E4, (F4), G4, (A4, D5, E5)",15
+A Hijaz custom,,
+A Harmonic minor,,
+A La Sirena,,
+A Pygmy,,
+B Amara,"B2/ F#3, A3, B3, C#4, D4, E4, F#4, A4",9
+B Amara 11,"B2/ (D3, E3) F#3, A3, B3, C#4, D4, E4, F#4, A4",11
+B Amara 12,"B2/ (D3, E3) F#3, A3, B3, C#4, D4, E4, F#4, A4, (B4)",12
+B Amara 14,"B2/ (D3, E3) F#3, (G3), A3, B3, C#4, D4, E4, F#4, (G4), A4, (B4)",14
+B Amara 17,"B2/ (D3, E3) F#3, (G3), A3, B3, C#4, D4, E4, F#4, (G4), A4, (B4, C#5, D5, E5)",17
+B Amara custom,,
+B Hijaz,"B2 / F#3, A3, B3, C4, D#4, E4, F#4, A4",9
+B Hijaz 12,"B2 / (D#3, E3), F#3, A3, B3, C4, D#4, E4, F#4, A4, (B4)",12
+B Hijaz custom,,
+B Kurd,"B2 / F#3, G3, A3, B3, C#4, D4, E4, F#4",9
+B Kurd 11,"B2 / (D3, E3), F#3, G3, A3, B3, C#4, D4, E4, F#4",11
+B Kurd 14,"B2 / (D3, E3), F#3, G3, A3, B3, C#4, D4, E4, F#4, (G4, A4, B4)",14
+B Kurd 17,"B2 / (D3, E3), F#3, G3, A3, B3, C#4, D4, E4, F#4, (G4, A4, B4, C#5, D5, E5)",17
+B Kurd custom,,
+B Pygmy,,
+Bb Amara,,
+Bb Kronos,,
+C Aegean,"C3 / E3, G3, B3, C4, E4, F#4, G4, B4, E5",10
+C Aegean 13,"C3 / E3, (F#3), G3, (A3), B3, C4, (D4), E4, F#4, G4, B4, E5",13
+C Aegean 15,"C3 / E3, (F#3), G3, (A3), B3, C4, (D4), E4, F#4, G4, (A4), B4, (C5), E5",15
+C Aegean 17,"C3 / E3, (F#3), G3, (A3), B3, C4, (D4), E4, F#4, G4, (A4), B4, (C5, D5), E5, (G5)",17
+C Aegean cyclops 19,"C3 / (D3), E3, (F#3), G3, (A3), B3, C4, (D4), E4, F#4, G4, (A4), B4, (C5, D5), E5, F#5, (G5)",19
+C Aegean custom,,
+C Asha,"C3 / F3, G3, A3, B3, C4, D4, E4, G4",9
+C Asha 12,"C3 / (D3, E3), F3, G3, A3, B3, C4, D4, E4, (F4), G4",12
+C Ashakiran 17,"C3/ (D3, E3), F3, G3, A3, B3, C4, D4, E4, (F4), G4, (A4, B4, C5, D5, E5)",17
+C Asha custom,,
+C harmonic cyclops ,"C3 / G3, Ab3, B3, C4, D4, Eb4, F4, G4, C5",10
+C harmonic cyclops 18,"C3 / (Eb3, F3), G3, Ab3, B3, C4, D4, Eb4, F4, G4, (Ab4, B4) C5, (D5, Eb5, F5, G5)",18
+C harmonic cyclops 19 (+simple),"C3 / (Eb3, F3), G3, Ab3, (Bb3), B3, C4, D4, Eb4, F4, G4, (Ab4, B4) C5, (D5, Eb5, F5, G5)",19
+C harmonic cyclops14,"C3 / (Eb3, F3), G3, Ab3, B3, C4, D4, Eb4, F4, G4, (Ab4, B4), C5",14
+C harmonic custom,,
+C Saldin,,
+C Minor,,
+C# Aegean,,
+C# Amara,,
+C# Annaziska,"C#3 / G#3, A3, B3, C#4, D#4, E4, F#4, G#4, B4",10
+C# Annaziska 13,"C#3 / (E3, F#3) G#3, A3, B3, C#4, D#4, E4, F#4, G#4, (A4), B4",13
+C# Annaziska 14,"C#3 / (E3, F#3) G#3, A3, B3, C#4, D#4, E4, F#4, G#4, (A4), B4, (C#5)",14
+C# Annaziska 17,"C#3 / (D#3, E3, F#3), G#3, (A3), B3, C#4, D#4, E4, F#4, G#4, (A4), B4, (C#5, D#5, E5)",17
+C# Annaziska custom,,
+C# Pygmy,"C#3 / F#3, G#3, A3, C#4, E4, F#4, G#4, A4",9
+C# Pygmy 13,"C#3 / (E3), F#3, G#3, A3, (B3), C#4, E4, F#4, G#4, A4, (B4, C#5)",13
+C# Pygmy 15,"C#3 / (E3), F#3, G#3, A3, (B3), C#4, E4, F#4, G#4, A4, (B4, C#5, D5, E5)",15
+C# Pygmy 17,"C#3 / (D3, E3), F#3, G#3, A3, (B3), C#4, (D4), E4, F#4, G#4, A4, (B4, C#5, D5, E5)",17
+C# Pygmy custom,,
+D Amara,"D3 / A3, C4, D4, E4, F4, G4, A4, C5, D5",10
+D Amara 12,"D3 / (F3, G3) A3, C4, D4, E4, F4, G4, A4, C5, D5",12
+D Amara 14,"(C3), D3 / (E3, F3, G3) A3, C4, D4, E4, F4, G4, A4, C5, D5",14
+D Amara 18,"(C3), D3 / (E3, F3, G3) A3, C4, D4, E4, F4, G4, A4, C5, D5, (E5, F5, G5, A5)",18
+D Amara custom,,
+D Asha,"D3/ G3, A3, B3, C#4, D4, E4, F#4, A4, B4",10
+D Asha 13,"D3 / (E3, F#3) G3, A3, B3, C#4, D4, E4, F#4, (G4), A4, B4",13
+D Ashakiran 16,"D3/ (E3, F#3) G3, A3, B3, C#4, D4, E4, F#4, (G4), A4, B4, (C#5, D5, E5)",16
+D Asha custom,,
+D Kurd,"D3/ A3, A#3, C4, D4, E4, F4, G4, A4, C5",10
+D Kurd 12,"D3 / (F3, G3) A3, A#3, C4, D4, E4, F4, G4, A4, C5",12
+D Kurd 16,"Bb2, C3), D3 / (E3, F3, G3), A3, A#3, C4, D4, E4, F4, G4, A4, C5, (D5)",16
+D Kurd custom,,
+D kurd cyclops,"D3 / A3, A#3, C4, D4, E4, F4, G4, A4, C5, D5",11
+D kurd cyclops 13,"D3 / (F3, G3), A3, A#3, C4, D4, E4, F4, G4, A4, C5, D5",13
+D Kurd cyclops 14,"D3 / (F3, G3), A3, A#3, C4, D4, E4, F4, G4, A4, C5, D5, (E5)",14
+D Kurd cyclops 17,"(Bb2, C3), D3 / (E3, F3, G3) A3, A#3, C4, D4, E4, F4, G4, A4, C5, D5, (E5)",17
+D Kurd cyclops 19,"(C3), D3 / (E3, F3, G3) A3, A#3, C4, D4, E4, F4, G4, A4, C5, D5, (E5, F5, G5, A5)",19
+D Kurd cyclops custom,,
+D Kurd mutant,,
+D Kurd mutant 14,,
+D Kurd mutant 17,,
+D Mali,,
+D Harmonic minor,,
+D Hijaz,,
+D Paradiso,,
+E Amara,"E3 / B3, D4, E4, F#4, G4, A4, B4, D5, E5",10
+E Amara 13,"E3 / (F#3, G3, A3), B3, D4, E4, F#4, G4, A4, B4, D5, E5",13
+E Amara custom,,
+E Amara mutant ,"E3 / B3, D4, E4, F#4, G4, A4, B4, D5, E5, F#5, G5, A5",13
+E Amara mutant 16,"E3 / (F#3, G3, A3), B3, D4, E4, F#4, G4, A4, B4, D5, E5, F#5, G5, A5",16
+E Amara mutant 20 (B bottom),"(B2, D3), E3/ (F#3, G3, A3), B3, (C4), D4, E4, F#4, G4, A4, B4, (C5), D5, E5, F#5, G5, A5",20
+E Amara mutant 20 (C bottom),"(C3, D3), E3/ (F#3, G3, A3), B3, (C4), D4, E4, F#4, G4, A4, B4, (C5), D5, E5, F#5, G5, A5",20
+E Amara mutant custom,,
+E Kurd,,
+E Kurd mutant ,"E3 / B3, C4, D4, E4, F#4, G4, A4, B4, C5, D5, E5",12
+E Kurd mutant 17,"(C3, D3), E3 / (F#3, G3, A3), B3, C4, D4, E4, F#4, G4, A4, B4, C5, D5, E5",17
+E Kurd mutant custom,,
+E La Sirena,,
+E Hijaz,,
+E Minor,,
+E Romanian Hijaz,,
+E Unibearsum mutant 16,"(C#3, F#3) E3 / G#3, (A3), B3, C#4, D#4, E4, F#4, G#4, A4, B4, C#5, D#5, (E5)",16
+F2 Pygmy,,
+F Pygmy,"F3 / G3, Ab3, C4, Eb4, F4, G4, Ab4, C5, Eb5, F5, G5",10
+F Pygmy mutant ,"F3 / G3, Ab3, C4, Eb4, F4, G4, Ab4, C5, Eb5, F5, G5",12
+F Pygmy mutant 16,"(C3, Eb3), F3 / G3, Ab3, (Bb3), C4, (Db4), Eb4, F4, G4, Ab4, C5, Eb5, F5, G5",16
+F Pygmy mutant 20,"(Db3, Eb3), F3 / G3, Ab3, (Bb3), C4, (Db4), Eb4, F4, G4, Ab4, C5, (Db5),Eb5, F5, G5, (Ab5, Bb5, C6)",20
+F Pygmy mutant custom,,
+F Hijazkar,,
+F Savitar,,
+F Minor mutant,,
+F Integral,,
+F# La Sirena,,
+F# Kurd mutant,"F#3 / C#4, D4, E4, F#4, G#4, A4, B4, C#5, D5, E5, F#5, G5, A5",14
+F# Kurd mutant 20,"(C#3, D3, E3) F#3/ (G#3, A3, B3), C#4, D4, E4, F#4, G#4, A4, B4, C#5, D5, E5, F#5, G#5, A5",20
+F# Kurd mutant custom,,
+F# Pygmy mutant ,"F#3 / G#3, A3, C#4, E4, F#4, G#4, A4, C#5, E5, F#5, G#5",12
+F# Pygmy mutant 15,"(D3, E3), F#3 / G#3, A3, (B3), C#4, E4, F#4, G#4, A4, C#5, E5, F#5, G#5",15
+F# Pygmy mutant 18,"(D3, E3), F#3 / G#3, A3, (B3), C#4, (D4), E4, F#4, G#4, A4, (B4), C#5, (D5), E5, F#5, G#5",18
+F# Pygmy mutant 21,"(D3, E3), F#3 / G#3, A3, (B3), C#4, (D4), E4, F#4, G#4, A4, (B4), C#5, (D5), E5, F#5, G#5, (A5, B5, C#6)",21
+F# Pygmy mutant custom,,
+F# Romanian hijaz mutant,"F#3 / B3, C#4, D4, F4, F#4, G#4, A4, B4, C#5, D5, F5, F#5",13
+F# Romanian hijaz mutant 17,"(C#3, D3) F#3 / (G#3, A3), B3, C#4, D4, F4, F#4, G#4, A4, B4, C#5, D5, F5, F#5",17
+F# Romanian hijaz mutant 20,"(C#3, D3), F#3 / (G#3, A3), B3, C#4, D4, F4, F#4, G#4, A4, B4,C#5, D5, F5, F#5, (G#5, A5, B5)",20
+F# Romanian hijaz mutant custom,,
+F#2 Pygmy,,
+F#2 Kurd,,
+F#2 Minor,,
+G Akebono,,
+G Oxalista,,
+G Harmonic Minor,,
+G2 Hijaz,,
+G2 Minor Custom,,
+G#2 Dark Aegean,,

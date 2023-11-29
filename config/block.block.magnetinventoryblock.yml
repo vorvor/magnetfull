@@ -1,0 +1,25 @@
+uuid: c29197cc-ffd5-49a3-a242-c32241ee99c8
+langcode: en
+status: true
+dependencies:
+  module:
+    - magnet
+    - system
+  theme:
+    - mapvr
+id: magnetinventoryblock
+theme: mapvr
+region: content
+weight: 2
+provider: null
+plugin: magnet_inventory
+settings:
+  id: magnet_inventory
+  label: 'Magnet inventory block'
+  label_display: visible
+  provider: magnet
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /magnet/inventory

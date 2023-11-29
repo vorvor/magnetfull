@@ -1,0 +1,19 @@
+uuid: f5e69782-a76b-4277-97a8-60ed5ae1e52f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_scale_notes
+    - taxonomy.vocabulary.scale
+id: taxonomy_term.scale.field_scale_notes
+field_name: field_scale_notes
+entity_type: taxonomy_term
+bundle: scale
+label: 'Scale notes'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

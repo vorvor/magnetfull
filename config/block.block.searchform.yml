@@ -1,0 +1,21 @@
+uuid: 397ee9bf-76f0-48f7-8643-66cbd730585f
+langcode: en
+status: false
+dependencies:
+  module:
+    - search
+  theme:
+    - mapvr
+id: searchform
+theme: mapvr
+region: header
+weight: -14
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Site  wide search'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }

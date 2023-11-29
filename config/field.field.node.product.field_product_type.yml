@@ -1,0 +1,33 @@
+uuid: 53e135fe-a94e-4522-9c96-7309a3e5cc37
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_product_type
+    - node.type.product
+    - taxonomy.vocabulary.product_type
+  content:
+    - 'taxonomy_term:product_type:e53af6f2-9759-4153-81f5-58c2183ec8cd'
+id: node.product.field_product_type
+field_name: field_product_type
+entity_type: node
+bundle: product
+label: 'Product type'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: e53af6f2-9759-4153-81f5-58c2183ec8cd
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      product_type: product_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

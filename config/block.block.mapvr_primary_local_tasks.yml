@@ -1,0 +1,22 @@
+uuid: b008ad87-90e3-4778-b358-fcaebfcdbbbb
+langcode: en
+status: false
+dependencies:
+  theme:
+    - mapvr
+_core:
+  default_config_hash: nGE3EoPQQaQCuqTUtZgw0-KIzmrqdKDzdNQf2JyPUt4
+id: mapvr_primary_local_tasks
+theme: mapvr
+region: header
+weight: -9
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

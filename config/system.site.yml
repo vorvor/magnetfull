@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: VDJxTZtQR21qB4lvOq8zszJZLvLKrSPQpdn2E3T71Ww
+langcode: en
+uuid: 39ad451b-89b6-44b1-9128-b1db3dd0e6f1
+name: magnet
+mail: vorosborisz@gmail.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /products
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: ''

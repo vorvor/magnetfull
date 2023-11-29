@@ -1,0 +1,31 @@
+uuid: fa660f80-8730-409d-8d48-976703376296
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.comment
+    - core.entity_view_mode.comment.full
+    - field.field.comment.comment.comment_body
+    - field.field.comment.comment.field_attachments
+  module:
+    - text
+_core:
+  default_config_hash: aBQUGsQ46M4048fIlFuTXwl2zV0j2cJX89CTUobh9hA
+id: comment.comment.full
+targetEntityType: comment
+bundle: comment
+mode: full
+content:
+  comment_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_attachments: true
+  search_api_excerpt: true

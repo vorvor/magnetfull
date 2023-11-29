@@ -1,0 +1,40 @@
+uuid: ba7a1946-2452-405f-b130-8513be5a408e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.inventory_control.field_closed
+    - field.field.node.inventory_control.field_product
+    - node.type.inventory_control
+  module:
+    - user
+id: node.inventory_control.default
+targetEntityType: node
+bundle: inventory_control
+mode: default
+content:
+  field_closed:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_product:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  search_api_excerpt: true

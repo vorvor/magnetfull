@@ -1,0 +1,98 @@
+uuid: 15a76c36-3043-49ab-a1c5-8a0970b7b719
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.basic_html
+    - node.type.product
+  module:
+    - comment
+    - contact
+    - field_permissions
+    - filter
+    - node
+    - search
+    - shortcut
+    - system
+_core:
+  default_config_hash: I44QAB4es39lNzMQWiJLq2dfjX7VRSOzT_5KzAcUq_M
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access shortcuts'
+  - 'access site-wide contact form'
+  - 'create field_comment'
+  - 'create product content'
+  - 'edit any product content'
+  - 'edit field_customer'
+  - 'edit field_customer_contact'
+  - 'edit field_location'
+  - 'edit field_purpose'
+  - 'edit own comments'
+  - 'edit own field_comment'
+  - 'edit own field_customer'
+  - 'edit own field_customer_contact'
+  - 'edit own field_location'
+  - 'edit own field_purpose'
+  - 'post comments'
+  - 'search content'
+  - 'skip comment approval'
+  - 'use text format basic_html'
+  - 'view field_bottom_notes'
+  - 'view field_comment'
+  - 'view field_custom_scale_notes'
+  - 'view field_customer'
+  - 'view field_customer_contact'
+  - 'view field_date_dimpleing'
+  - 'view field_date_drawing'
+  - 'view field_date_fine_tuning'
+  - 'view field_date_flexing'
+  - 'view field_date_gluing'
+  - 'view field_date_last_check'
+  - 'view field_date_nanoing'
+  - 'view field_date_packaging'
+  - 'view field_date_shaping'
+  - 'view field_date_tunings_and_heat'
+  - 'view field_deadline'
+  - 'view field_location'
+  - 'view field_material'
+  - 'view field_material_batch'
+  - 'view field_percent'
+  - 'view field_purpose'
+  - 'view field_sale'
+  - 'view field_scale'
+  - 'view field_scale_notes'
+  - 'view field_serial_2'
+  - 'view field_state'
+  - 'view field_tuner'
+  - 'view own field_bottom_notes'
+  - 'view own field_comment'
+  - 'view own field_custom_scale_notes'
+  - 'view own field_customer'
+  - 'view own field_customer_contact'
+  - 'view own field_date_dimpleing'
+  - 'view own field_date_drawing'
+  - 'view own field_date_fine_tuning'
+  - 'view own field_date_flexing'
+  - 'view own field_date_gluing'
+  - 'view own field_date_last_check'
+  - 'view own field_date_nanoing'
+  - 'view own field_date_packaging'
+  - 'view own field_date_shaping'
+  - 'view own field_date_tunings_and_heat'
+  - 'view own field_deadline'
+  - 'view own field_location'
+  - 'view own field_material'
+  - 'view own field_material_batch'
+  - 'view own field_percent'
+  - 'view own field_purpose'
+  - 'view own field_sale'
+  - 'view own field_scale'
+  - 'view own field_scale_notes'
+  - 'view own field_serial_2'
+  - 'view own field_state'
+  - 'view own field_tuner'

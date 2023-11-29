@@ -1,0 +1,21 @@
+uuid: deff1e5b-6e6c-407d-b218-dbdd2e08ff91
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_packaging
+    - node.type.product
+  module:
+    - datetime
+id: node.product.field_date_packaging
+field_name: field_date_packaging
+entity_type: node
+bundle: product
+label: 'date packaging'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

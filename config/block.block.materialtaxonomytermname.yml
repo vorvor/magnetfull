@@ -1,0 +1,28 @@
+uuid: 3f7acef2-7465-4f3c-809c-579df6325e7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.material_taxonomy_term_name
+  module:
+    - collapsiblock
+    - facets
+  theme:
+    - mapvr
+third_party_settings:
+  collapsiblock:
+    collapse_action: 3
+id: materialtaxonomytermname
+theme: mapvr
+region: content
+weight: -1
+provider: null
+plugin: 'facet_block:material_taxonomy_term_name'
+settings:
+  id: 'facet_block:material_taxonomy_term_name'
+  label: Material
+  label_display: visible
+  provider: facets
+  context_mapping: {  }
+  block_id: materialtaxonomytermname
+visibility: {  }

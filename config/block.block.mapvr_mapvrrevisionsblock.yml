@@ -1,0 +1,33 @@
+uuid: ac53457d-600e-4eb5-8e98-bfbfd6c86ceb
+langcode: en
+status: true
+dependencies:
+  module:
+    - magnet
+    - node
+    - system
+  theme:
+    - mapvr
+id: mapvr_mapvrrevisionsblock
+theme: mapvr
+region: content
+weight: -14
+provider: null
+plugin: magnet_revisions_block
+settings:
+  id: magnet_revisions_block
+  label: 'Magnet revisions block'
+  label_display: visible
+  provider: magnet
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/node/*'
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      product: product

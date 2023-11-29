@@ -1,0 +1,21 @@
+uuid: 23fccd69-19af-4d7d-838a-65c678d8cef0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_source
+    - node.type.product
+id: node.product.field_source
+field_name: field_source
+entity_type: node
+bundle: product
+label: Source
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: new
+default_value_callback: ''
+settings: {  }
+field_type: string

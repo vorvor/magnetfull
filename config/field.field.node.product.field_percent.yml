@@ -1,0 +1,23 @@
+uuid: 78a5a035-6908-4d21-a3d2-67a9a6a884d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_percent
+    - node.type.product
+id: node.product.field_percent
+field_name: field_percent
+entity_type: node
+bundle: product
+label: 100%
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

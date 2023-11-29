@@ -1,0 +1,29 @@
+uuid: ee7f1421-8eb8-4e75-ac1f-a0ed4994f82f
+langcode: en
+status: true
+dependencies:
+  module:
+    - collapsiblock
+    - magnet
+    - system
+  theme:
+    - mapvr
+third_party_settings:
+  collapsiblock:
+    collapse_action: 0
+id: magnetcomingsoon
+theme: mapvr
+region: content
+weight: -2
+provider: null
+plugin: magnet_coming_sooon
+settings:
+  id: magnet_coming_sooon
+  label: 'Coming Soon...'
+  label_display: visible
+  provider: magnet
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/user/*'

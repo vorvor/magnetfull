@@ -1,0 +1,21 @@
+uuid: 718d8ca3-5788-4a5f-85a7-a72c863b2fd9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_dimpleing
+    - node.type.product
+  module:
+    - datetime
+id: node.product.field_date_dimpleing
+field_name: field_date_dimpleing
+entity_type: node
+bundle: product
+label: 'date dimpleing'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

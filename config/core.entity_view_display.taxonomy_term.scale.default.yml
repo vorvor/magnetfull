@@ -1,0 +1,39 @@
+uuid: 8defbd1c-6dd8-4460-963b-c0d97e814bd3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.scale.field_notes_number
+    - field.field.taxonomy_term.scale.field_scale_notes
+    - taxonomy.vocabulary.scale
+  module:
+    - text
+id: taxonomy_term.scale.default
+targetEntityType: taxonomy_term
+bundle: scale
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_notes_number:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_scale_notes:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

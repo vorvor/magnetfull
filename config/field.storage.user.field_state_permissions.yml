@@ -1,0 +1,20 @@
+uuid: 5ef2b6a8-bf7e-4c18-bb6d-1c49f71e2c6f
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - user
+id: user.field_state_permissions
+field_name: field_state_permissions
+entity_type: user
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,25 @@
+uuid: 7c89fed3-199e-42fa-ad6e-73c6543ab9bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.state.field_state
+    - paragraphs.paragraphs_type.state
+id: paragraph.state.default
+targetEntityType: paragraph
+bundle: state
+mode: default
+content:
+  field_state:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

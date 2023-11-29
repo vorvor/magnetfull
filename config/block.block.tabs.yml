@@ -1,0 +1,20 @@
+uuid: 62b7b8bc-e299-4fed-b434-0981642272da
+langcode: en
+status: true
+dependencies:
+  theme:
+    - mapvr
+id: tabs
+theme: mapvr
+region: content
+weight: -15
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

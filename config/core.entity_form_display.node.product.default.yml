@@ -1,0 +1,281 @@
+uuid: fca5d0f3-ee56-43cd-8724-360f875105c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.product.field_bottom_notes
+    - field.field.node.product.field_comment
+    - field.field.node.product.field_comments
+    - field.field.node.product.field_custom_scale_notes
+    - field.field.node.product.field_customer
+    - field.field.node.product.field_customer_contact
+    - field.field.node.product.field_date_dimpleing
+    - field.field.node.product.field_date_drawing
+    - field.field.node.product.field_date_fine_tuning
+    - field.field.node.product.field_date_flexing
+    - field.field.node.product.field_date_gluing
+    - field.field.node.product.field_date_last_check
+    - field.field.node.product.field_date_nanoing
+    - field.field.node.product.field_date_packaging
+    - field.field.node.product.field_date_shaping
+    - field.field.node.product.field_date_tunings_and_heat
+    - field.field.node.product.field_deadline
+    - field.field.node.product.field_location
+    - field.field.node.product.field_material
+    - field.field.node.product.field_material_batch
+    - field.field.node.product.field_percent
+    - field.field.node.product.field_product_type
+    - field.field.node.product.field_purpose
+    - field.field.node.product.field_sale
+    - field.field.node.product.field_scale
+    - field.field.node.product.field_scale_notes
+    - field.field.node.product.field_serial
+    - field.field.node.product.field_serial_2
+    - field.field.node.product.field_source
+    - field.field.node.product.field_source_data
+    - field.field.node.product.field_state
+    - field.field.node.product.field_stock
+    - field.field.node.product.field_tuner
+    - node.type.product
+  module:
+    - comment
+    - datetime
+    - path
+id: node.product.default
+targetEntityType: node
+bundle: product
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_bottom_notes:
+    type: boolean_checkbox
+    weight: 16
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_comments:
+    type: comment_default
+    weight: 22
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_custom_scale_notes:
+    type: boolean_checkbox
+    weight: 12
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_customer:
+    type: string_textfield
+    weight: 18
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_customer_contact:
+    type: string_textarea
+    weight: 19
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_date_dimpleing:
+    type: datetime_default
+    weight: 25
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_drawing:
+    type: datetime_default
+    weight: 24
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_fine_tuning:
+    type: datetime_default
+    weight: 29
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_flexing:
+    type: datetime_default
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_gluing:
+    type: datetime_default
+    weight: 28
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_last_check:
+    type: datetime_default
+    weight: 32
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_nanoing:
+    type: datetime_default
+    weight: 31
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_packaging:
+    type: datetime_default
+    weight: 33
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_shaping:
+    type: datetime_default
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_date_tunings_and_heat:
+    type: datetime_default
+    weight: 27
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_deadline:
+    type: datetime_default
+    weight: 23
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_location:
+    type: options_select
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_material:
+    type: options_select
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_material_batch:
+    type: string_textarea
+    weight: 10
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_percent:
+    type: boolean_checkbox
+    weight: 20
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_purpose:
+    type: options_select
+    weight: 15
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_sale:
+    type: boolean_checkbox
+    weight: 21
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_scale:
+    type: options_select
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_scale_notes:
+    type: string_textarea
+    weight: 13
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_serial_2:
+    type: number
+    weight: 7
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_state:
+    type: options_select
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_tuner:
+    type: options_select
+    weight: 14
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  field_comment: true
+  field_product_type: true
+  field_serial: true
+  field_source: true
+  field_source_data: true
+  field_stock: true

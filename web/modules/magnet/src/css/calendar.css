@@ -1,0 +1,124 @@
+#calendar {
+    width:  2000px;
+}
+
+#calendar-header {
+    width: 100%;
+    background-color: #ccc;
+}
+
+#button-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 12px;
+}
+
+.calendar-buttons {
+    background: #fff;
+    color: #445500;
+    display: block;
+    border-radius: 100px;
+    padding: 4px 20px;
+    border: 1px solid #919297;
+    width: fit-content;
+}
+
+.calendar-buttons.active {
+    background: #445500;
+    color: #fff;
+}
+
+.state {
+    display: inline-block;
+    width:  200px;
+}
+
+.state-label {
+    position: absolute;
+    opacity: 0.2;
+}
+
+.bars-wrapper {
+    border-bottom: 2px solid #ccc;
+    position: relative;
+}
+
+.bars-wrapper.odd {
+
+}
+
+.char {
+    display: inline-block;
+    width: 25px;
+    background-color: #fff;
+    font-size:  12px;
+    text-align: center;
+}
+
+.char.active {
+    background-color: green;
+}
+
+.char.header {
+    background-color: #bbb;
+    color:  #fff;
+}
+
+.before, .inner, .after {
+    display: inline-block;
+    height: 21px;
+    line-height: 32px;
+}
+
+.inner {
+    background-color: green;
+    text-align: center;
+    opacity: 0.65;
+}
+
+.inner a {
+    color:  #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -5px;
+}
+
+.inner.in-progress {
+    background-color: yellow;
+}
+
+.inner.in-progress a {
+    color: #333;
+    text-decoration: none;
+}
+
+.deadline-bars, .revision-bars {
+    height:  20px;
+}
+
+.revision-bars {
+    margin-top: 10px;
+    clear: both;
+}
+
+.deadline-bars {
+    margin-bottom: 10px;
+    clear: both;
+}
+
+.deadline-bars .inner {
+    background-color: orange;
+    opacity: 0.75;
+}
+
+.deadline-bars span,
+.revision-bars span {
+    display: block;
+    float:  left;
+    position: relative;
+}

@@ -1,0 +1,22 @@
+uuid: f63a67b6-b38c-4461-a9b2-12f097c5558b
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - mapvr
+_core:
+  default_config_hash: eYL19CLDyinGTWYQfBD1DswWzglEotE_kHnHx3AxTXM
+id: mapvr_powered
+theme: mapvr
+region: header
+weight: -4
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

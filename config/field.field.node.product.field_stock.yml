@@ -1,0 +1,23 @@
+uuid: 2810483f-5dc1-40fd-bdfb-469c2c37313d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_stock
+    - node.type.product
+id: node.product.field_stock
+field_name: field_stock
+entity_type: node
+bundle: product
+label: Stock
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,140 @@
+#states {
+	display: flex;
+	align-items:  center;
+	text-align: center;
+	gap:  5px;
+	width:  100%;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+#state-buttons {
+	display: flex;
+	justify-content: center;
+	margin:  12px 0;
+	gap:  24px;
+}
+
+.state .name,
+#pickup, #drop-state {
+	border-radius: 100px;
+	padding: 3px 10px;
+	color:  #333;
+	width:  fit-content;
+	flex-grow: 0;
+	flex-shrink: 0;
+	text-transform: uppercase;
+	font-size: 13px;
+	background-color: #ccc;
+	color: #fff;
+	font-weight: bold;
+}
+
+#drop-state {
+	background-color: red;
+}
+
+.date {
+	font-weight: bold;
+	font-size: 11px;
+	min-height: 16px;
+}
+
+#pickup {
+	/*animation: shake 3s;
+	animation-iteration-count: infinite;*/
+	background-color: green;
+}
+
+#pickup a, #drop-state a {
+	text-decoration: none;
+	color:  #fff;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.state.drawing .name,
+.state.drawing-finished .name {
+	background-color: rgb(255, 153, 51);
+}
+
+.state.dimpleing .name,
+.state.dimpleing-finished .name {
+	background-color: rgb(85, 255, 51);
+}
+
+.state.shaping .name,
+.state.shaping-finished .name {
+	background-color: rgb(51, 255, 255);
+}
+
+.state.tunings-and-heat-treatments .name,
+.state.tunings-and-heat-treatments-finished .name {
+	background-color: rgb(168, 102, 255);
+}
+
+.state.gluing .name,
+.state.gluing-finished .name {
+	background-color: rgb(255, 221, 51);
+}
+
+.state.fine-tuning .name,
+.state.fine-tuning-finished .name {
+	background-color: rgb(85, 255, 51);
+}
+
+.state.flexing .name,
+.state.flexing-finished .name {
+	background-color: rgb(61, 51, 255);
+}
+
+.state.nanoing .name,
+.state.nanoing-finished .name {
+	background-color: rgb(51, 167, 255);
+}
+
+.state.last-check .name,
+.state.last-check-finished .name {
+	background-color: rgb(51, 255, 61);
+}
+
+.state.packaging .name,
+.state.packaging-finished .name {
+	background-color: rgb(255, 51, 51);
+}
+
+.state.undone .name {
+	background-color: #ccc;
+	color: #000;
+}
+
+.state.in-progress .name {
+	background-color: #ccc;
+	color: #000;
+	border:  5px solid orange;
+}
+
+.state.init {
+	display:  none;
+}
+
+@media only screen and (max-width: 700px) {
+	.state {
+		width: 100%;
+	}
+	.state-name {
+		width: 100%;
+	}
+}

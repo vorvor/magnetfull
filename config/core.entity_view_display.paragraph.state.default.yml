@@ -1,0 +1,21 @@
+uuid: 63708ee1-ff62-492c-b0ec-17e7e54fbe2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.state.field_state
+    - paragraphs.paragraphs_type.state
+id: paragraph.state.default
+targetEntityType: paragraph
+bundle: state
+mode: default
+content:
+  field_state:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

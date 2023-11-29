@@ -1,0 +1,4 @@
+administer magnet configuration:
+  title: 'Administer magnet configuration'
+  description: 'Optional description.'
+  restrict access: true

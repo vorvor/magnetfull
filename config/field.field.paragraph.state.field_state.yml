@@ -1,0 +1,21 @@
+uuid: 59efe478-57f2-41d2-b4f9-2d130a5d9e62
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_state
+    - paragraphs.paragraphs_type.state
+id: paragraph.state.field_state
+field_name: field_state
+entity_type: paragraph
+bundle: state
+label: State
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings: {  }
+field_type: entity_reference

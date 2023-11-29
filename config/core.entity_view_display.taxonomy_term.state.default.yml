@@ -1,0 +1,31 @@
+uuid: 71a64cb2-b1ae-4569-add7-5bce3a08ac38
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.state.field_timeframe
+    - taxonomy.vocabulary.state
+  module:
+    - text
+id: taxonomy_term.state.default
+targetEntityType: taxonomy_term
+bundle: state
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_timeframe:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

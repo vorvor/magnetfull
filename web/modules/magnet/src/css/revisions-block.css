@@ -1,0 +1,49 @@
+.state-cols {
+	display: flex;
+	gap:  12px;
+	border-radius: 100px;
+	margin:  3px 0;
+	padding: 3px 20px;
+	color:  #333;
+	width:  400px;
+}
+
+.state-drawing {
+	background-color: rgb(255, 153, 51);
+}
+
+.state-dimpleing {
+	background-color: rgb(85, 255, 51);
+}
+
+.state-shaping {
+	background-color: rgb(51, 255, 255);
+}
+
+.state-tunings-and-heat-treatments {
+	background-color: rgb(168, 102, 255);
+}
+
+.state-gluing {
+	background-color: rgb(255, 221, 51);
+}
+
+.state-fine-tuning {
+	background-color: rgb(85, 255, 51);
+}
+
+.state-flexing {
+	background-color: rgb(61, 51, 255);
+}
+
+.state-nanoing {
+	background-color: rgb(51, 167, 255);
+}
+
+.state-last-check {
+	background-color: rgb(51, 255, 61);
+}
+
+.state-packaging {
+	background-color: rgb(255, 51, 51);
+}

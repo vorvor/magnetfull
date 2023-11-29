@@ -1,0 +1,21 @@
+uuid: 4286d3e2-b02b-4ae9-8366-679bc3421abb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_gluing
+    - node.type.product
+  module:
+    - datetime
+id: node.product.field_date_gluing
+field_name: field_date_gluing
+entity_type: node
+bundle: product
+label: 'date gluing'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

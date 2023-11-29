@@ -1,0 +1,140 @@
+uuid: 7a8e8b41-6450-4c8d-9ea6-69c9333a6f8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bottom_notes
+    - field.storage.node.field_location
+    - field.storage.node.field_material
+    - field.storage.node.field_purpose
+    - field.storage.node.field_scale
+    - field.storage.node.field_serial
+    - field.storage.node.field_state
+    - field.storage.node.field_tuner
+    - search_api.server.facet_search
+  module:
+    - taxonomy
+    - node
+    - user
+    - search_api
+id: product_search
+name: 'product search'
+description: ''
+read_only: false
+field_settings:
+  field_bottom_notes:
+    label: 'Bottom notes'
+    datasource_id: 'entity:node'
+    property_path: field_bottom_notes
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.node.field_bottom_notes
+  field_serial:
+    label: Serial
+    datasource_id: 'entity:node'
+    property_path: field_serial
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_serial
+  field_tuner:
+    label: Tuner
+    datasource_id: 'entity:node'
+    property_path: field_tuner
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_tuner
+  name:
+    label: 'Scale » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_scale:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_scale
+      module:
+        - taxonomy
+  name_1:
+    label: 'Tuner » User » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_tuner:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_tuner
+      module:
+        - user
+  name_2:
+    label: 'State » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_state:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_state
+      module:
+        - taxonomy
+  name_3:
+    label: 'Purpose » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_purpose:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_purpose
+      module:
+        - taxonomy
+  name_4:
+    label: 'Material » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_material:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_material
+      module:
+        - taxonomy
+  name_5:
+    label: 'Location » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_location:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_location
+      module:
+        - taxonomy
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: string
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - product
+    languages:
+      default: false
+      selected:
+        - en
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  entity_type: {  }
+  language_with_fallback: {  }
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  index_directly: true
+  track_changes_in_references: true
+server: facet_search

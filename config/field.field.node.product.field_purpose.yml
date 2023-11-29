@@ -1,0 +1,29 @@
+uuid: bece56db-9df5-446a-8a1a-43890e99e422
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_purpose
+    - node.type.product
+    - taxonomy.vocabulary.purpose
+id: node.product.field_purpose
+field_name: field_purpose
+entity_type: node
+bundle: product
+label: Purpose
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      purpose: purpose
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

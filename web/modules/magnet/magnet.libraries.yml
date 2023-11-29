@@ -1,0 +1,68 @@
+# Custom module library for general purposes.
+magnet:
+  js:
+    js/magnet.js: {}
+  css:
+    component:
+      css/magnet.css: {}
+  dependencies:
+    - core/drupalSettings
+
+statesblock:
+  css:
+    component:
+      src/css/states-block.css: {}
+  js:
+    src/js/magnet-states.js: {}
+
+myworks:
+  css:
+    component:
+      src/css/magnet-myworks.css: {}
+  js:
+    src/js/magnet-myworks.js: {}
+
+addproduct:
+  js:
+    src/js/magnet-product-add.js: {}
+  css:
+    component:
+      css/magnet-product-add.css: {}
+  dependencies:
+    - core/drupalSettings
+
+admin:
+  css:
+    component:
+      src/css/admin.css: {}
+  js:
+    src/js/admin.js: {}
+
+inventory:
+  js:
+    src/js/magnet-inventory.js: {}
+  css:
+    component:
+      src/css/magnet-inventory.css: {}
+  dependencies:
+    - core/drupalSettings
+
+calendar:
+  css:
+    component:
+      src/css/calendar.css: {}
+  js:
+    src/js/calendar.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+
+calcdeadlines:
+  js:
+    src/js/magnet-calc-deadlines.js: {}
+  css:
+    component:
+      src/css/magnet-calc-deadlines.css: {}
+  dependencies:
+    - core/drupalSettings

@@ -1,0 +1,23 @@
+uuid: 9e5dbec9-8324-413f-93d6-e1db5e540365
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_closed
+    - node.type.inventory_control
+id: node.inventory_control.field_closed
+field_name: field_closed
+entity_type: node
+bundle: inventory_control
+label: Closed
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

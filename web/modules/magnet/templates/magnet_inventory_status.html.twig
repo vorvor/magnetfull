@@ -1,0 +1,10 @@
+<div id="inventory-status-wrapper">
+	<div id="inventory-status-background">
+		<div class="left" style="width: {{ width_left }}%"></div>
+		<div class="right" style="width: {{ 100 - width_left }}%"></div>
+	</div>
+	<div id="inventory-status">
+		{{ status|raw }}
+	</div>
+	<a class="goto-button" href="/magnet/inventory">Go to inventory page.</a>
+</div>

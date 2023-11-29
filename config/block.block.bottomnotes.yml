@@ -1,0 +1,28 @@
+uuid: b8393716-30f5-4b2a-b058-bb6a82a29345
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.bottom_notes
+  module:
+    - collapsiblock
+    - facets
+  theme:
+    - mapvr
+third_party_settings:
+  collapsiblock:
+    collapse_action: 3
+id: bottomnotes
+theme: mapvr
+region: content
+weight: -9
+provider: null
+plugin: 'facet_block:bottom_notes'
+settings:
+  id: 'facet_block:bottom_notes'
+  label: 'Bottom notes'
+  label_display: visible
+  provider: facets
+  context_mapping: {  }
+  block_id: bottomnotes
+visibility: {  }

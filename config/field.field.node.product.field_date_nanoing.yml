@@ -1,0 +1,21 @@
+uuid: 98b48d0e-61bf-40eb-b148-b4afa3ecdb82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_nanoing
+    - node.type.product
+  module:
+    - datetime
+id: node.product.field_date_nanoing
+field_name: field_date_nanoing
+entity_type: node
+bundle: product
+label: 'date nanoing'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

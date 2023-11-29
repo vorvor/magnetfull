@@ -1,0 +1,23 @@
+uuid: 8adbb4ca-651c-45fc-a07b-e6ca6f91972f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_notes_number
+    - taxonomy.vocabulary.scale
+id: taxonomy_term.scale.field_notes_number
+field_name: field_notes_number
+entity_type: taxonomy_term
+bundle: scale
+label: 'Notes number'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,22 @@
+uuid: befc98e1-9a1b-4e3c-8abc-2869927f15e4
+langcode: en
+status: false
+dependencies:
+  module:
+    - help
+  theme:
+    - mapvr
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: mapvr_help
+theme: mapvr
+region: header
+weight: -5
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

@@ -1,0 +1,22 @@
+uuid: 3fc51749-4b2b-4786-82f5-f2a17422d548
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: custom
+id: node.field_bottom_notes
+field_name: field_bottom_notes
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

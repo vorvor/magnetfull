@@ -1,0 +1,28 @@
+uuid: b0a25e91-9d9e-4abb-87ed-a8e4e3318da8
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.state_taxonomy_term_name
+  module:
+    - collapsiblock
+    - facets
+  theme:
+    - mapvr
+third_party_settings:
+  collapsiblock:
+    collapse_action: 3
+id: statetaxonomytermname
+theme: mapvr
+region: content
+weight: -6
+provider: null
+plugin: 'facet_block:state_taxonomy_term_name'
+settings:
+  id: 'facet_block:state_taxonomy_term_name'
+  label: State
+  label_display: visible
+  provider: facets
+  context_mapping: {  }
+  block_id: statetaxonomytermname
+visibility: {  }

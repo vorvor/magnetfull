@@ -1,0 +1,81 @@
+magnet.inventory:
+  path: '/magnet/inventory'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\magnet\Controller\MagnetController::inventory'
+  requirements:
+    _permission: 'access content'
+
+magnet.importtest:
+  path: '/magnet/import-test'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\magnet\Controller\MagnetController::importTest'
+  requirements:
+    _permission: 'access content'
+
+magnet.setstate:
+  path: '/magnet/setstate/{nid}/{state}'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\magnet\Controller\MagnetController::setState'
+  requirements:
+    _permission: 'access content'
+
+magnet.dropstate:
+  path: '/magnet/dropstate/{nid}'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\magnet\Controller\MagnetController::dropState'
+  requirements:
+    _permission: 'access content'
+
+magnet.setnextstate:
+  path: '/magnet/setnextstate/{nid}'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\magnet\Controller\MagnetController::setNextState'
+  requirements:
+    _permission: 'access content'
+
+magnet.settings_form:
+  path: '/admin/config/system/magnet'
+  defaults:
+    _title: 'magnet settings'
+    _form: 'Drupal\magnet\Form\SettingsForm'
+  requirements:
+    _permission: 'administer magnet configuration'
+
+magnet.importform:
+  path: '/admin/import'
+  defaults:
+    _title: 'Base'
+    _form: 'Drupal\magnet\Form\baseForm'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: 'TRUE'
+
+magnet.inventoryadd:
+  path: '/magnet/inventory-add/{nid}'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\magnet\Controller\MagnetController::inventoryAdd'
+  requirements:
+    _permission: 'access content'
+
+magnet.calendar:
+  path: '/magnet/calendar'
+  defaults:
+    _title: 'Calendar'
+    _controller: '\Drupal\magnet\Controller\MagnetController::calendar'
+  requirements:
+    _permission: 'access content'
+
+magnet.test:
+  path: '/magnet/test'
+  defaults:
+    _title: 'Test'
+    _form: 'Drupal\magnet\Form\TestForm'
+  requirements:
+    _permission: 'access content'

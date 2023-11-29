@@ -1,0 +1,7 @@
+#edit-field-state-permissions .form-item:nth-child(2n) {
+    display: none;
+}
+
+.messages-list {
+    display: none;
+}

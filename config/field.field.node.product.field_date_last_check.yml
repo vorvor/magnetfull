@@ -1,0 +1,21 @@
+uuid: a469ce7d-d2ad-4942-9363-6c32dedb6729
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_last_check
+    - node.type.product
+  module:
+    - datetime
+id: node.product.field_date_last_check
+field_name: field_date_last_check
+entity_type: node
+bundle: product
+label: 'date last check'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

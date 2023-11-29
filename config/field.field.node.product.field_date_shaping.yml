@@ -1,0 +1,21 @@
+uuid: 1bd551d8-6d62-4db1-adec-8cb5f829b9c8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date_shaping
+    - node.type.product
+  module:
+    - datetime
+id: node.product.field_date_shaping
+field_name: field_date_shaping
+entity_type: node
+bundle: product
+label: 'date shaping'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

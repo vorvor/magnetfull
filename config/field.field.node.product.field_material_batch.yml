@@ -1,0 +1,19 @@
+uuid: f8a8b0aa-9303-4086-9d0a-2ce5d5fe3231
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_material_batch
+    - node.type.product
+id: node.product.field_material_batch
+field_name: field_material_batch
+entity_type: node
+bundle: product
+label: 'Material batch'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

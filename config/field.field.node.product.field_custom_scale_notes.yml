@@ -1,0 +1,23 @@
+uuid: 178ed299-2853-4575-93e0-a4edd3636f52
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_custom_scale_notes
+    - node.type.product
+id: node.product.field_custom_scale_notes
+field_name: field_custom_scale_notes
+entity_type: node
+bundle: product
+label: 'Custom scale notes'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

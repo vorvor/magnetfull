@@ -1,0 +1,25 @@
+uuid: 7a70c318-f290-443b-9fb5-6eaae8f64c19
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.inventory_control.field_closed
+    - field.field.node.inventory_control.field_product
+    - node.type.inventory_control
+  module:
+    - user
+id: node.inventory_control.teaser
+targetEntityType: node
+bundle: inventory_control
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_closed: true
+  field_product: true
+  search_api_excerpt: true

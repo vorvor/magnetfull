@@ -1,0 +1,23 @@
+uuid: 37d0485b-1a93-43ce-a96c-63550496b2cd
+langcode: en
+status: false
+dependencies:
+  module:
+    - search
+  theme:
+    - mapvr
+_core:
+  default_config_hash: imMyHD6LYci0gtXq56qr9ZKGHzbEG9uFydrN5EhKtSU
+id: mapvr_search_form_wide
+theme: mapvr
+region: header
+weight: -10
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form (wide)'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }

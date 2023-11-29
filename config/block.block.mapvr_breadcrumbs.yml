@@ -1,0 +1,22 @@
+uuid: e63ec290-b200-4b24-81fd-3a709ac69366
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - mapvr
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: mapvr_breadcrumbs
+theme: mapvr
+region: header
+weight: -6
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

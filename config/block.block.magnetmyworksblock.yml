@@ -1,0 +1,25 @@
+uuid: e1efcc00-1ac9-44c5-bdef-5e64ba3ebae5
+langcode: en
+status: true
+dependencies:
+  module:
+    - magnet
+    - system
+  theme:
+    - mapvr
+id: magnetmyworksblock
+theme: mapvr
+region: content
+weight: 1
+provider: null
+plugin: magnet_my_works_block
+settings:
+  id: magnet_my_works_block
+  label: 'Magnet my works block'
+  label_display: '0'
+  provider: magnet
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/user/*'

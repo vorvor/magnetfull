@@ -1,0 +1,42 @@
+a {
+    color:  red;
+}
+
+.node--unpublished {
+    background: transparent;
+}
+
+.hidden {
+    display: none;
+}
+
+.pager {
+    width:  100%;
+}
+
+.pager__items {
+    clear: both;
+    text-align: center;
+}
+
+.pager__item {
+    display: inline;
+}
+
+.tabs>li {
+    display: inline-block;
+    margin-right: 0.3em;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    width: 1px;
+    height: 1px;
+    word-wrap: normal;
+}
+
+.site-logo img {
+    width:  80px;
+}

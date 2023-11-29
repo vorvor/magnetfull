@@ -1,0 +1,16 @@
+<?php
+
+/*
+function mapvr_tablesort_indicator($variables) {
+  if ($variables['style'] == "asc") {
+    //return render('image', array('path' => 'misc/arrow-asc.png', 'alt' => t('sort ascending'), 'title' => t('sort ascending')));
+  }
+  else {
+    //return render('image', array('path' => 'misc/arrow-desc.png', 'alt' => t('sort descending'), 'title' => t('sort descending')));
+  }
+}
+*/
+
+function mapvr_preprocess_views_view_field(&$variables) {
+
+}

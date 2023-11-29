@@ -1,0 +1,25 @@
+uuid: 2d6902b6-a689-4b25-aa79-cf5098114973
+langcode: en
+status: true
+dependencies:
+  module:
+    - magnet
+    - system
+  theme:
+    - olivero
+id: magnetrevisionsblock
+theme: olivero
+region: content
+weight: 0
+provider: null
+plugin: magnet_revisions_block
+settings:
+  id: magnet_revisions_block
+  label: 'Magnet revisions block'
+  label_display: visible
+  provider: magnet
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/node/*'

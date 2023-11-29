@@ -1,0 +1,20 @@
+uuid: e7ae6991-c621-4fe0-9196-f399a411d0fc
+langcode: en
+status: false
+dependencies:
+  theme:
+    - mapvr
+_core:
+  default_config_hash: 6aOgWsNTXjqrDm98TXSAjP6qd2nCijD1xw45MrnbK-Y
+id: mapvr_page_title
+theme: mapvr
+region: header
+weight: -12
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }
