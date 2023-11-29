@@ -1,0 +1,7 @@
+screenshot.send:
+  path: '/ajax/screenshot/send/{selector}'
+  defaults:
+    _controller: '\Drupal\screenshot\Form\SendImageForm::saveImage'
+    _title: 'Send screenshot'
+  requirements:
+    _permission: 'access content'

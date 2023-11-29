@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Signature Module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function screenshot_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the sign_widget module.
+    case 'help.page.sign_widget':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module will use api to Screen Capture, after capture screen you can take note on image') . '</p>';
+      $output .= '<p>' . t('How to use:') . '</p>';
+      $output .= '<ul><li>' . t('Add block Screenshot.') . '</li>';
+      $output .= '<li>' . t('Add image field, in field widget select Screenshot') . '</li></ul>';
+      return $output;
+
+    default:
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function screenshot_theme($existing, $type, $theme, $path) {
+  return [
+    'screenshot' => [
+      'variables' => [
+        'id_image' => NULL,
+        'attributes' => [],
+      ],
+    ],
+  ];
+}

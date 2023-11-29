@@ -1,0 +1,7 @@
+<div class="masquerade-role-status">
+  <div class="roles">
+    <label>{{ 'Masquerade Role'|t }}</label>
+    <br />{{- roles|join(', ', ' and '|t) -}}
+    <div class="reset"><a href="{{ reset_url }}">{{ 'Reset roles'|t }}</a></div>
+  </div>
+</div>
