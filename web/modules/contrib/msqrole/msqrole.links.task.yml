@@ -1,5 +1,0 @@
-msqrole.form:
-  title: 'Masquerade Role'
-  route_name: msqrole.form
-  base_route: entity.user.collection
-  weight: 20

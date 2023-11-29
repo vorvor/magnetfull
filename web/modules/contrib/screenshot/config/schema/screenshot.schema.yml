@@ -1,6 +1,0 @@
-field.widget.settings.screenshot_widget:
-  type: field.widget.settings.screenshot
-  mapping:
-    show_file_input:
-      type: boolean
-      label: 'Show remove button'
