@@ -76,23 +76,13 @@ class CollapsiblockGlobalSettings extends ConfigFormBase {
       '#type' => 'number',
       '#step' => '0.01',
       '#title' => $this->t('Cookie lifetime (days)'),
-      '#description' => $this->t('This field accepts days or part of the day, if you set to 0.5 for example, it will be a half day(12 hours)</br> If you leave it blank, the cookie will expire at the time the user closes the browser. <br />'),
+      '#description' => $this->t('This field accepts days or part of the day, if you set to 0.5 for example, it will be a half day(12 hours)
+                                    <br/>If you leave it blank, the cookie will expire at the time the user closes the browser.
+                                    <br/>Insert a negative number (-1) if you don\'t want to store a cookie at all, for GDPR compliance for example.'),
       '#default_value' => $config->get('cookie_lifetime'),
     ];
 
     return parent::buildForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    $cookieLifetime = $form_state->getValue('cookie_lifetime');
-    if ($cookieLifetime != "" && $cookieLifetime <= 0) {
-      $form_state->setErrorByName('cookie_lifetime', $this->t('The cookie expiration time must be a value greater than 0.'));
-    }
-
-    parent::validateForm($form, $form_state);
   }
 
   /**

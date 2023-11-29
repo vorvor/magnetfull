@@ -25,25 +25,18 @@ class RoleManager implements RoleManagerInterface {
   protected UserDataInterface $userData;
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected ConfigFactoryInterface $configFactory;
+
+  /**
    * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected EntityTypeManagerInterface $entityTypeManager;
-
-  /**
-   * The msqrole config.
-   *
-   * @var \Drupal\Core\Config\ImmutableConfig
-   */
-  protected ImmutableConfig $config;
-
-  /**
-   * The theme config.
-   *
-   * @var \Drupal\Core\Config\ImmutableConfig
-   */
-  protected ImmutableConfig $themeConfig;
 
   /**
    * The token service.
@@ -65,8 +58,7 @@ class RoleManager implements RoleManagerInterface {
   public function __construct(UserDataInterface $user_data, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, Token $token) {
     $this->userData = $user_data;
     $this->entityTypeManager = $entity_type_manager;
-    $this->config = $config_factory->get('msqrole.settings');
-    $this->themeConfig = $config_factory->get('system.theme');
+    $this->configFactory = $config_factory;
     $this->token = $token;
   }
 
@@ -184,13 +176,15 @@ class RoleManager implements RoleManagerInterface {
    */
   public function invalidateTags($uid) {
     $user = User::load($uid);
-    $admin_theme = $this->themeConfig->get('admin');
-    $default_theme = $this->themeConfig->get('default');
+    $config = $this->configFactory->get('msqrole.settings');
+    $theme_config = $this->configFactory->get('system.theme');
+    $admin_theme = $theme_config->get('admin');
+    $default_theme = $theme_config->get('default');
 
     // Replace possible variables in the tags.
     $tags = Cache::mergeTags(
       RoleManagerInterface::TAGS_TO_INVALIDATE,
-      (unserialize($this->config->get('tags_to_invalidate')) ?: [])
+      (unserialize($config->get('tags_to_invalidate')) ?: [])
     );
     foreach ($tags as &$tag) {
       $tag = $this->token->replace($tag, [

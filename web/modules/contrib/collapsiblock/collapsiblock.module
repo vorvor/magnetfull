@@ -5,11 +5,11 @@
  * Make blocks collapsible.
  */
 
+use Drupal\block\BlockInterface;
+use Drupal\block\Entity\Block;
 use Drupal\collapsiblock\Form\CollapsiblockGlobalSettings;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\block\BlockInterface;
-use Drupal\block\Entity\Block;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**

@@ -54,7 +54,7 @@ class MasqueradeAccountProxy extends AccountProxy implements AccountProxyInterfa
    */
   public function getRoles($exclude_locked_roles = FALSE) {
     if (!$this->roleManager->isActive($this->getAccount()->id())) {
-      return $this->getAccount()->getRoles($exclude_locked_roles);
+      return parent::getRoles($exclude_locked_roles);
     }
     return $this->roleManager->getRoles($this->getAccount()->id());
   }
@@ -63,7 +63,7 @@ class MasqueradeAccountProxy extends AccountProxy implements AccountProxyInterfa
    * {@inheritdoc}
    */
   public function hasPermission($permission) {
-    $default = $this->getAccount()->hasPermission($permission);
+    $default = parent::hasPermission($permission);
     if (!$this->roleManager->isActive($this->getAccount()->id())) {
       return $default;
     }

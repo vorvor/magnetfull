@@ -31,10 +31,24 @@ function msqrole_theme() {
 }
 
 /**
+ * Implements hook_entity_type_alter().
+ */
+function msqrole_entity_type_alter(array &$entity_types) {
+  /**
+   * @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types
+   */
+  // Set the user class, because we need to override the getRoles method.
+  $entity_types['user']
+    ->setClass('Drupal\\msqrole\\Entity\\MasqueradeRoleUser');
+}
+
+/**
  * Implements hook_user_logout().
  */
 function msqrole_user_logout($account) {
-  /** @var RoleManager $roleManager */
+  /**
+   * @var \Drupal\msqrole\RoleManagerInterface $roleManager
+   */
   if (!$role_manager = \Drupal::service('msqrole.manager')) {
     return;
   }

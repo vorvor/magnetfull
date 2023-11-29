@@ -1,0 +1,8 @@
+/web/core/
+/web/libraries/
+/web/modules/contrib/
+/web/profiles/contrib/
+/web/themes/contrib/
+/web/themes/custom/*/.bundle/
+/web/themes/custom/*/node_modules/
+/web/themes/custom/*/dist/

@@ -41,8 +41,11 @@
         }
 
         const id = titleElement.id.split('-').pop()
-        titleElement.innerHTML = '<button id="#collapse-' + id + '" role="link" />' + titleElement.innerHTML + '</button>'
+        titleElement.innerHTML = '<button id="#collapse-' + id + '" aria-controls="collapse-' + id + '-content">' + titleElement.innerHTML + '</button>'
         targetElement.classList.add(['collapsiblockContent'])
+        targetElement.setAttribute('id', 'collapse-' + id + '-content')
+
+        const collapseButton = document.getElementById('#collapse-' + id)
 
         /**
          * Click event
@@ -52,8 +55,7 @@
             titleElement.classList.remove('collapsiblockTitleCollapsed')
             targetElement.classList.remove('collapsiblockContentCollapsed')
             SlideElement.down(targetElement, { duration: slideSpeed })
-            titleElement.setAttribute('aria-expanded', true)
-            targetElement.setAttribute('aria-hidden', false)
+            collapseButton.setAttribute('aria-expanded', true)
 
             if (useCookie) {
               cookieData[id] = 1
@@ -63,8 +65,7 @@
             titleElement.classList.add('collapsiblockTitleCollapsed')
             targetElement.classList.add('collapsiblockContentCollapsed')
             SlideElement.up(targetElement, { duration: slideSpeed })
-            titleElement.setAttribute('aria-expanded', false)
-            targetElement.setAttribute('aria-hidden', true)
+            collapseButton.setAttribute('aria-expanded', false)
 
             if (useCookie) {
               cookieData[id] = 0
@@ -106,16 +107,17 @@
             // just ajaxly updated and should be visible
             || targetElement.classList.contains('collapsiblock-force-open')
             || targetElement.querySelectorAll('.collapsiblock-force-open').length > 0) {
-            titleElement.setAttribute('aria-expanded', true)
-            targetElement.setAttribute('aria-hidden', false)
+            collapseButton.setAttribute('aria-expanded', true)
             continue
           }
 
           titleElement.classList.add('collapsiblockTitleCollapsed')
           targetElement.classList.add('collapsiblockContentCollapsed')
           targetElement.style.display = 'none'
-          titleElement.setAttribute('aria-expanded', false)
-          targetElement.setAttribute('aria-hidden', true)
+          collapseButton.setAttribute('aria-expanded', false)
+        }
+        else {
+          collapseButton.setAttribute('aria-expanded', true)
         }
       }
 
