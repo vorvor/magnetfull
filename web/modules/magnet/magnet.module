@@ -1512,11 +1512,11 @@ function magnet_calendar() {
 
     $states = ['Drawing', 'Dimpleing', 'Shaping', 'Tunings and heat treatments', 'Gluing'];
     $bars = [
-        magnet_product_calendar_bar_revisions(6267),
+        magnet_product_calendar_bar_revisions(13274),
     ];
 
     $deadline_bars = [
-        magnet_product_calendar_bar_deadlines(6267),
+        magnet_product_calendar_bar_deadlines(13274),
     ];
 
     $content = '';

@@ -3,7 +3,6 @@
 
     attach: function(context, settings) {
 
-
       $('.calendar-buttons', context).once().click(function(e) {
         if (!$(this).hasClass('active')) {
           $(this).addClass('active');

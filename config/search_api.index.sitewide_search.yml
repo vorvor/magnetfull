@@ -9,6 +9,7 @@ dependencies:
     - field.storage.node.field_material
     - field.storage.node.field_scale_notes
     - search_api.server.sitewide_search
+    - core.entity_view_mode.node.search_index
   module:
     - node
     - search_api
@@ -66,7 +67,7 @@ field_settings:
         - authenticated
       view_mode:
         'entity:node':
-          product: default
+          product: search_index
   uid:
     label: 'Authored by'
     datasource_id: 'entity:node'

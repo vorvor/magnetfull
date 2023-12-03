@@ -45,6 +45,7 @@
         "drupal/schema_metatag": "^3.0",
         "drupal/screenshot": "^1.0",
         "drupal/search_api": "^1.29",
+        "drupal/search_api_sorts": "^1.1",
         "drupal/taxonomy_manager": "^2.0",
         "drupal/token": "^1.13",
         "drupal/twig_tweak": "^3.2",

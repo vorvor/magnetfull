@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '71dd2dceacfb04696583b1e0bc0d9f6a7746d3e5',
+        'reference' => 'd2f875b40706e43ff01f743d3f6551b1596b600a',
         'name' => 'drupal/recommended-project',
         'dev' => true,
     ),
@@ -592,7 +592,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '71dd2dceacfb04696583b1e0bc0d9f6a7746d3e5',
+            'reference' => 'd2f875b40706e43ff01f743d3f6551b1596b600a',
             'dev_requirement' => false,
         ),
         'drupal/schema_metatag' => array(
@@ -620,6 +620,15 @@
             'install_path' => __DIR__ . '/../../web/modules/contrib/search_api',
             'aliases' => array(),
             'reference' => '8.x-1.31',
+            'dev_requirement' => false,
+        ),
+        'drupal/search_api_sorts' => array(
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/search_api_sorts',
+            'aliases' => array(),
+            'reference' => '8.x-1.1',
             'dev_requirement' => false,
         ),
         'drupal/stable' => array(

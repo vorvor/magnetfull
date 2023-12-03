@@ -36,9 +36,9 @@ class MagnetController extends ControllerBase {
     }
 */
 
-    
 
-    
+
+
 
     $build['content'] = [
       '#type' => 'item',
@@ -99,7 +99,12 @@ class MagnetController extends ControllerBase {
   }
 
   public function calendar() {
-    
+
+    $im = imagegrabscreen();
+    imagepng($im, "myscreenshot.png");
+    imagedestroy($im);
+
+
     $content = magnet_calendar();
 
     // Header days.
