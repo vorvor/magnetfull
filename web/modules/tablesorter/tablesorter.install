@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Tablesorter installation.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function tablesorter_uninstall() {
+  // Using \Drupal::configFactory()
+  \Drupal::configFactory()->getEditable('tablesorter.settings')->delete();
+}

@@ -1,0 +1,13 @@
+{
+  "name": "drupal/tablesorrter",
+  "type": "drupal-module",
+  "description": "tablesorter is a jQuery plugin for turning a standard HTML table with THEAD and TBODY tags into a sortable table without page refreshes.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/tablesorter",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/tablesorter",
+    "source": "https://git.drupalcode.org/project/tablesorter/tree/8.x-1.x"
+  }
+}

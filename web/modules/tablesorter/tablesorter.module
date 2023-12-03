@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * tablesorter.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function tablesorter_help($route_name) {
+  switch ($route_name) {
+    case 'help.page.tablesorter':
+      return '<p>' . t('Add class "tablesorter" to your Table code like in example given. <table id="myTable" class="tablesorter"> .') . '</p>';
+  }
+}
+
+
+/**
+ * Implements hook_page_attachments().
+ */
+function tablesorter_page_attachments(array &$page) {
+  $config = \Drupal::config('tablesorter.settings');
+  $theme = $config->get('tablesorter_theme');
+
+  // Set JS variables.
+  $zebra = $config->get('tablesorter_zebra');
+  $odd_class = $config->get('tablesorter_zebra_odd_class');
+  $even_class = $config->get('tablesorter_zebra_even_class');
+
+  // Attach Tablesorter library to all pages.
+  $page['#attached']['library'][] = 'tablesorter/mottie.tablesorter';
+
+  $settings = ['zebra' => $zebra, 'odd' => $odd_class, 'even' => $even_class];
+  $page['#attached']['drupalSettings']['tablesorter'] = $settings;
+
+  switch ($theme) {
+    case 'blue':
+      $page['#attached']['library'][] = 'tablesorter/tablesorter.blue';
+      break;
+
+    case 'green':
+      $page['#attached']['library'][] = 'tablesorter/tablesorter.green';
+      break;
+  }
+
+}

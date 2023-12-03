@@ -1,0 +1,26 @@
+mottie.tablesorter:
+  remote: https://github.com/Mottie/tablesorter
+  version: 1.x
+  license:
+    name: MIT
+    remote: https://github.com/christianbach/tablesorter/blob/master/LICENSE
+    gpl-compatible: false
+  js:
+    /libraries/tablesorter/dist/js/jquery.tablesorter.min.js: { minified: true }
+    /libraries/tablesorter/dist/js/extras/jquery.metadata.min.js: { minified: true }
+    /libraries/tablesorter/dist/js/extras/jquery.tablesorter.pager.min.js: { minified: true }
+    js/tablesortervar.js: {}
+
+tablesorter.green:
+  version: 1.x
+  css:
+    theme:
+      css/themes/green/style.css: {}
+      css/themes/tablesortertheme.css: {}
+
+tablesorter.blue:
+  version: 1.x
+  css:
+    theme:
+      css/themes/blue/style.css: {}
+      css/themes/tablesortertheme.css: {}

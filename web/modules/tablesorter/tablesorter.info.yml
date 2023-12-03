@@ -1,0 +1,12 @@
+name: Tablesorter
+description: Displays rows as a table sortable using the jQuery tablesorter plugin.
+type: module
+package: Table
+core_version_requirement: ^8 || ^9 || ^10
+
+configure: tablesorter.settings
+
+# Information added by Drupal.org packaging script on 2021-09-21
+version: '2.0.1-rc1'
+project: 'tablesorter'
+datestamp: 1632193388
