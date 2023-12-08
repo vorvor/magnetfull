@@ -24,7 +24,7 @@
         }
 
         Cookies.set('currenturl', window.location.href);
-        
+
         $.expr[":"].contains = $.expr.createPseudo(function(arg) {
             return function( elem ) {
                 return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
@@ -44,7 +44,7 @@
             txt = txt.replace(new RegExp(param, 'ig'), '<span class="highlighted-search-result">' + word + '</span>');
             $(this).html(txt);
           })
-          
+
         }
 
         $('#edit-search-api-fulltext').attr('placeholder', 'site wide search');
@@ -64,16 +64,16 @@
             $(this).addClass('hider');
             Cookies.set('show-finished', '1');
           }
-        })  
+        })
       })
 
-      
+
 
     },
     detach: function(context, settings, trigger) {
-      $('.example', context).removeOnce('example-behavior').each(function() {
-        // Undo stuff.
-      });
+      const removedElements = once.remove('magnetBehavior', '.example', context);
+      $(removedElements).each(function () {
+      })
     }
 
   };

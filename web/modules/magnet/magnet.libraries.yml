@@ -55,7 +55,7 @@ calendar:
     src/js/calendar.js: {}
   dependencies:
     - core/jquery
-    - core/jquery.once
+    - core/once
     - core/drupal
 
 calcdeadlines:
@@ -66,3 +66,4 @@ calcdeadlines:
       src/css/magnet-calc-deadlines.css: {}
   dependencies:
     - core/drupalSettings
+    - core/once
