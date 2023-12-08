@@ -1,0 +1,24 @@
+uuid: 8962c78a-6271-4a99-85f3-849b0d71c791
+langcode: en
+status: true
+dependencies:
+  module:
+    - collapsiblock
+    - search_api_sorts
+  theme:
+    - mapvr
+third_party_settings:
+  collapsiblock:
+    collapse_action: 0
+id: mapvr_sortbyviewfulltextsearchdisplaypage
+theme: mapvr
+region: content
+weight: -19
+provider: null
+plugin: 'search_api_sorts_block:views_page:fulltext_search__page_1'
+settings:
+  id: 'search_api_sorts_block:views_page:fulltext_search__page_1'
+  label: 'Sort by (View Fulltext search, display Page)'
+  label_display: visible
+  provider: search_api_sorts
+visibility: {  }
