@@ -15,7 +15,7 @@ third_party_settings:
 id: statetaxonomytermname
 theme: mapvr
 region: content
-weight: -6
+weight: -5
 provider: null
 plugin: 'facet_block:state_taxonomy_term_name'
 settings:

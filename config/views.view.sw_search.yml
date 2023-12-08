@@ -1307,7 +1307,7 @@ display:
         type: mini
         options:
           offset: 0
-          items_per_page: 100
+          items_per_page: 0
           total_pages: null
           id: 0
           tags:
@@ -1555,6 +1555,7 @@ display:
         - 'config:field.storage.node.field_state'
         - 'config:field.storage.node.field_tuner'
         - 'config:search_api.index.sitewide_search'
+        - 'search_api_list:sitewide_search'
   page_1:
     id: page_1
     display_title: Page
@@ -1587,3 +1588,4 @@ display:
         - 'config:field.storage.node.field_state'
         - 'config:field.storage.node.field_tuner'
         - 'config:search_api.index.sitewide_search'
+        - 'search_api_list:sitewide_search'

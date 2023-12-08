@@ -15,7 +15,7 @@ third_party_settings:
 id: stateexclude
 theme: mapvr
 region: content
-weight: 3
+weight: 4
 provider: null
 plugin: 'facet_block:state_exclude'
 settings:

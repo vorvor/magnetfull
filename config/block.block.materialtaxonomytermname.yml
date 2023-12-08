@@ -15,7 +15,7 @@ third_party_settings:
 id: materialtaxonomytermname
 theme: mapvr
 region: content
-weight: -1
+weight: 0
 provider: null
 plugin: 'facet_block:material_taxonomy_term_name'
 settings:

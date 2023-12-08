@@ -1365,7 +1365,7 @@ display:
             field_customer_contact: field_customer_contact
             name_5: name_5
             nid_1: nid_1
-          default: '-1'
+          default: field_serial_1
           info:
             search_api_url:
               align: ''
@@ -1379,7 +1379,7 @@ display:
               responsive: ''
             field_serial_1:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
@@ -1503,6 +1503,7 @@ display:
         - 'config:field.storage.node.field_serial'
         - 'config:field.storage.node.field_tuner'
         - 'config:search_api.index.product_search'
+        - 'search_api_list:product_search'
   page_1:
     id: page_1
     display_title: Page
@@ -1539,3 +1540,4 @@ display:
         - 'config:field.storage.node.field_serial'
         - 'config:field.storage.node.field_tuner'
         - 'config:search_api.index.product_search'
+        - 'search_api_list:product_search'

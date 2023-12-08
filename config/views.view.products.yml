@@ -1870,7 +1870,7 @@ display:
             field_location: field_location
             nid_1: nid_1
             node_type_flagger: node_type_flagger
-          default: nid
+          default: field_serial
           info:
             nid:
               sortable: true
@@ -1880,7 +1880,7 @@ display:
               empty_column: false
               responsive: ''
             view_node:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1888,7 +1888,7 @@ display:
               responsive: ''
             field_serial:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
@@ -1908,7 +1908,7 @@ display:
               empty_column: false
               responsive: ''
             nid_3:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1936,21 +1936,21 @@ display:
               empty_column: false
               responsive: ''
             field_scale_notes:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_bottom_notes:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_material_batch:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1964,7 +1964,7 @@ display:
               empty_column: false
               responsive: ''
             field_serial_2:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1978,35 +1978,35 @@ display:
               empty_column: false
               responsive: ''
             field_purpose:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_customer:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_customer_contact:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_percent:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_sale:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -2020,7 +2020,7 @@ display:
               empty_column: false
               responsive: ''
             nid_1:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''

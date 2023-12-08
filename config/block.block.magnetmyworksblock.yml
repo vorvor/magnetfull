@@ -10,7 +10,7 @@ dependencies:
 id: magnetmyworksblock
 theme: mapvr
 region: content
-weight: 1
+weight: 2
 provider: null
 plugin: magnet_my_works_block
 settings:
