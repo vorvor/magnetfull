@@ -11,13 +11,13 @@
         console.log('once?');
 
         $(this).parent().hide();
-        parentrow = $(this).parent().parent();
-        picked = parentrow.html();
+        let parentrow = $(this).parent().parent();
+        let picked = parentrow.html();
         $('.view-display-id-page_2 tbody').prepend('<tr class="picked-up">' + picked + '</tr>');
         parentrow.remove();
 
-        
-        nid = $(this).data('nid');
+
+        let nid = $(this).data('nid');
 
         console.log(nid);
 
@@ -25,10 +25,10 @@
           scrollTop: $('.pickup-from-list[data-nid="' + nid +'"]').parent().parent().offset().top
         }, 2000);
 
-        
-        url = '/magnet/setnextstate/' + nid;
+
+        let url = '/magnet/setnextstate/' + nid;
         $.ajax
-            ({ 
+            ({
               url: url,
               type: 'post',
               success: function(result)  {
@@ -36,7 +36,7 @@
                 //  location.reload(true);
               }
         });
-        
+
       })
     },
     detach: function(context, settings, trigger) {
