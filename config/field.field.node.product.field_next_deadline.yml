@@ -1,0 +1,21 @@
+uuid: 11def24c-a30c-4819-9058-f31ba3afd1bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_next_deadline
+    - node.type.product
+  module:
+    - datetime
+id: node.product.field_next_deadline
+field_name: field_next_deadline
+entity_type: node
+bundle: product
+label: 'Next deadline'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

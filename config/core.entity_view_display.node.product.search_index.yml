@@ -25,6 +25,7 @@ dependencies:
     - field.field.node.product.field_location
     - field.field.node.product.field_material
     - field.field.node.product.field_material_batch
+    - field.field.node.product.field_next_deadline
     - field.field.node.product.field_percent
     - field.field.node.product.field_product_type
     - field.field.node.product.field_purpose
@@ -242,6 +243,7 @@ hidden:
   field_date_packaging: true
   field_date_shaping: true
   field_date_tunings_and_heat: true
+  field_next_deadline: true
   field_percent: true
   field_product_type: true
   field_sale: true

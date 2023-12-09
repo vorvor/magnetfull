@@ -18,9 +18,9 @@ use Drupal\taxonomy\Entity\Term;
  *
  * @ingroup views_field_handlers
  *
- * @ViewsField("node_type_flagger")
+ * @ViewsField("magnet_ndfield")
  */
-class NodeTypeFlagger extends FieldPluginBase {
+class MagnetNDField extends FieldPluginBase {
 
   /**
    * @{inheritdoc}
@@ -82,14 +82,14 @@ class NodeTypeFlagger extends FieldPluginBase {
             $state_name = 'tunings_and_heat';
         }
 
-        
+
         if ($state_name !== 'packaging_finished') {
             if ($node->hasField('field_date_' . $state_name)) {
                 $next_deadline = $node->get('field_date_' . $state_name)->getValue();
                 if (empty($next_deadline)) {
                     $date = 'no data.';
                 } else {
-                    $date = $next_deadline[0]['value'] . '<br />(' . $state_human_name . ')';
+                    $date = $next_deadline[0]['value'] . '<br />(->' . $state_human_name . ')';
                 }
             } else {
                 $date = 'no data';

@@ -3,18 +3,6 @@
 
     attach: function(context, settings) {
 
-      if (Cookies.get('show-finished') == 1) {
-        $('.Packaging.finished').show().css('background','#ffb94f');
-        $('#show-finished-products #finished-inside').html('Hide finished products');
-        $(this).addClass('hider');
-      }
-
-      if (Cookies.get('show-finished') == 0) {
-        $('.Packaging.finished').hide().css('background','#ffb94f');
-        $('#show-finished-products #finished-inside').html('Show finished products');
-        $(this).addClass('hider');
-      }
-
       const elements = once('magnet-behaviour', '#block-mapvr-content', context);
       $(elements).each(function () {
       //$(window).once('magnetBehavior').each(function() {
@@ -48,21 +36,35 @@
         }
 
         $('#edit-search-api-fulltext').attr('placeholder', 'site wide search');
+
       })
 
       $(once('bind-click-event', '#show-finished-products', context)).each(function() {
+
+        if (Cookies.get('show-finished') == 1) {
+          console.log('A');
+          $('#show-finished-products #finished-inside').html('Hide finished products');
+          $('#show-finished-products').addClass('hider');
+        }
+
+        if (Cookies.get('show-finished') == 0) {
+          console.log('B');
+          $('#show-finished-products #finished-inside').html('Show finished products');
+          $('#show-finished-products').removeClass('hider');
+        }
+
         $(this).click(function() {
 
           if ($(this).hasClass('hider')) {
             $(this).removeClass('hider');
-            $('.Packaging.finished').hide().css('background','#ffb94f');
             $('#finished-inside', this).html('Show finished products');
             Cookies.set('show-finished', '0');
+            location.reload();
           } else {
-            $('.Packaging.finished').show().css('background','#ffb94f');
             $('#finished-inside', this).html('Hide finished products');
             $(this).addClass('hider');
             Cookies.set('show-finished', '1');
+            location.reload();
           }
         })
       })

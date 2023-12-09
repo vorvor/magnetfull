@@ -79,3 +79,11 @@ magnet.test:
     _form: 'Drupal\magnet\Form\TestForm'
   requirements:
     _permission: 'access content'
+
+magnet.update_products:
+  path: '/magnet/update-products'
+  defaults:
+    _title: 'Update Products'
+    _form: 'Drupal\magnet\Form\UpdateProducts'
+  requirements:
+    _permission: 'access content'

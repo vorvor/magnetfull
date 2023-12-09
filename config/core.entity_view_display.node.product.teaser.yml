@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.product.field_location
     - field.field.node.product.field_material
     - field.field.node.product.field_material_batch
+    - field.field.node.product.field_next_deadline
     - field.field.node.product.field_percent
     - field.field.node.product.field_product_type
     - field.field.node.product.field_purpose
@@ -71,6 +72,7 @@ hidden:
   field_location: true
   field_material: true
   field_material_batch: true
+  field_next_deadline: true
   field_percent: true
   field_product_type: true
   field_purpose: true

@@ -18,6 +18,8 @@ use Drupal\block_content\Entity\BlockContent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\Core\Url;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
 
 function magnet_theme($existing, $type, $theme, $path) {
 
@@ -1090,10 +1092,20 @@ function magnet_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
                 $entity->setOwnerId(0);
             }
 
+            // Set current deadline in separate field.
+            $entity->set('field_next_deadline', magnet_get_current_deadline($entity));
+
             $entity->save();
         }
     }
 
+}
+
+function magnet_entity_presave(\Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node' && $entity->getType() == 'product') {
+      // Set current deadline in separate field.
+      $entity->set('field_next_deadline', magnet_get_current_deadline($entity));
+  }
 }
 
 function magnet_get_user_state_permissions($uid) {
@@ -1735,4 +1747,78 @@ function magnet_coming_soon() {
       '#content' => $content,
       '#date' => $before . ' - ' . $after,
     ];
+}
+
+function magnet_get_current_deadline($entity) {
+
+      $date = 'no data';
+      if (!empty($entity->get('field_state')->getValue())) {
+
+        $state_tid = $entity->get('field_state')->getValue()[0]['target_id'];
+        $state_obj = Term::load($state_tid);
+        $state_human_name = $state_obj->getName();
+        $state_name = str_replace(' ', '_', strtolower($state_human_name));
+
+
+        if (strpos($state_human_name, 'finished') !== FALSE) {
+          $state_human_name = magnet_get_next_state($state_human_name);
+          $state_name = str_replace(' ', '_', strtolower($state_human_name));
+        }
+
+        if ($state_name == 'tunings_and_heat_treatments') {
+          $state_name = 'tunings_and_heat';
+        }
+
+
+        if ($state_name !== 'packaging_finished') {
+          if ($entity->hasField('field_date_' . $state_name)) {
+            $next_deadline = $entity->get('field_date_' . $state_name)->getValue();
+            if (empty($next_deadline)) {
+              $date = '1978-01-04';
+            } else {
+              $date = $next_deadline[0]['value'];
+            }
+          } else {
+            $date = '1978-01-04';
+          }
+        } else {
+          $date = '1978-01-04';
+        }
+
+      } else {
+        $next_deadline = $entity->get('field_date_drawing')->getValue();
+        if (empty($next_deadline)) {
+          $date = '1978-01-04';
+        } else {
+          $date = $next_deadline[0]['value'];
+        }
+      }
+
+     return $date;
+}
+
+function magnet_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+
+
+  if ($view->id() == 'products' && isset($_COOKIE['show-finished']) && $_COOKIE['show-finished'] == '0') {
+
+    $configuration = [
+      'type'       => 'LEFT',
+      'table'      => 'node__field_state',
+      'field'      => 'entity_id',
+      'left_table' => 'node_field_data',
+      'left_field' => 'nid',
+      'operator'   => '=',
+    ];
+    $join_obj = \Drupal\views\Views::pluginManager('join')
+      ->createInstance('standard', $configuration);
+    $rel = $query->addRelationship('node__field_state', $join_obj, 'node_field_data');
+    $query->addTable('node__field_state', $rel, $join_obj, 'field_state_target_id');
+
+    $join_obj->extra_type = 'AND';
+
+    $query->addWhere(0, 'node__field_state.field_state_target_id', '18922', '<>');
+
+    //$query->addTag('debug');
+  }
 }
