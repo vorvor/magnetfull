@@ -1,0 +1,9 @@
+uuid: 9b74f087-57b7-4f08-ab4a-a57d2a9cd398
+langcode: en
+status: true
+dependencies: {  }
+id: search_api__views_data_export__search_product__data_export_2
+name: 'search_api:views_data_export__search_product__data_export_2'
+filter_key: null
+url_processor: query_string
+breadcrumb: {  }
