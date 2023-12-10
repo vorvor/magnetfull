@@ -42,6 +42,7 @@
         "drupal/metatag": "^2.0",
         "drupal/msqrole": "^1.0",
         "drupal/paragraphs": "^1.16",
+        "drupal/pdf_serialization": "^2.2",
         "drupal/schema_metatag": "^3.0",
         "drupal/screenshot": "^1.0",
         "drupal/search_api": "^1.29",
@@ -50,7 +51,8 @@
         "drupal/token": "^1.13",
         "drupal/twig_tweak": "^3.2",
         "drupal/verf": "^2.0",
-        "drupal/views_bulk_operations": "^4.2"
+        "drupal/views_bulk_operations": "^4.2",
+        "drupal/views_data_export": "^1.4"
     },
     "conflict": {
         "drupal/drupal": "*"

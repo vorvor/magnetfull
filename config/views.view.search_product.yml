@@ -17,8 +17,12 @@ dependencies:
     - user.role.authenticated
   module:
     - datetime
+    - pdf_serialization
+    - rest
     - search_api
+    - serialization
     - user
+    - views_data_export
 id: search_product
 label: 'Search product'
 module: views
@@ -1480,7 +1484,7 @@ display:
           preserve_facet_query_args: false
           query_tags: {  }
       relationships: {  }
-      use_ajax: true
+      use_ajax: false
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -1490,6 +1494,64 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - 'user.node_grants:view'
+        - user.roles
+      tags:
+        - 'config:field.storage.node.field_bottom_notes'
+        - 'config:field.storage.node.field_customer'
+        - 'config:field.storage.node.field_customer_contact'
+        - 'config:field.storage.node.field_deadline'
+        - 'config:field.storage.node.field_material'
+        - 'config:field.storage.node.field_material_batch'
+        - 'config:field.storage.node.field_scale_notes'
+        - 'config:field.storage.node.field_serial'
+        - 'config:field.storage.node.field_tuner'
+        - 'config:search_api.index.product_search'
+        - 'search_api_list:product_search'
+  data_export_2:
+    id: data_export_2
+    display_title: 'Data export 2'
+    display_plugin: data_export
+    position: 1
+    display_options:
+      style:
+        type: data_export
+        options:
+          formats:
+            pdf: pdf
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+          pdf_settings:
+            format: a4
+            show_page_number: 1
+            show_header: 0
+            header_content: ''
+            show_footer: 0
+            footer_content: ''
+      display_extenders: {  }
+      path: search-product/pdf
+      displays:
+        page_1: page_1
+        default: '0'
+      filename: ''
+      automatic_download: false
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
         - 'user.node_grants:view'
         - user.roles
       tags:
