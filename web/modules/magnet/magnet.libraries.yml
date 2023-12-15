@@ -67,3 +67,16 @@ calcdeadlines:
   dependencies:
     - core/drupalSettings
     - core/once
+
+report:
+  js:
+    https://cdn.jsdelivr.net/npm/chart.js: { type: external, minified: true }
+    src/js/magnet-report.js: {}
+  css:
+    component:
+      src/css/magnet-report.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/js-cookie

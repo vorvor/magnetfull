@@ -87,3 +87,19 @@ magnet.update_products:
     _form: 'Drupal\magnet\Form\UpdateProducts'
   requirements:
     _permission: 'access content'
+
+magnet.track_states:
+  path: '/magnet/track-states'
+  defaults:
+    _title: 'Track states'
+    _controller: '\Drupal\magnet\Controller\MagnetController::trackStates'
+  requirements:
+    _permission: 'access content'
+
+magnet.report:
+  path: '/magnet/report'
+  defaults:
+    _title: 'Report'
+    _form: 'Drupal\magnet\Form\ReportForm'
+  requirements:
+    _permission: 'access content'

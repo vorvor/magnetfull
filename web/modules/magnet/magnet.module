@@ -9,6 +9,7 @@
  * @see https://www.drupal.org/node/2217931
  */
 
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\User;
 use Drupal\node\Entity\Node;
@@ -20,6 +21,7 @@ use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\Core\Url;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 function magnet_theme($existing, $type, $theme, $path) {
 
@@ -860,7 +862,7 @@ function magnet_save_product($product, &$context) {
 
             $node->set('field_state',  magnet_create_term($new_state, 'state'));
 
-            if (strpos($new_state, 'finished') == FALSE) {
+            if (!strpos($new_state, 'finished')) {
                 $uid = magnet_get_user($product['history'][$c]['worker']);
             } else {
                 $uid = 0;
@@ -1821,4 +1823,121 @@ function magnet_views_query_alter(ViewExecutable $view, QueryPluginBase $query) 
 
     //$query->addTag('debug');
   }
+}
+
+function magnet_report($from = null, $to = null) {
+
+  if (is_null($from)) {
+    $from = strtotime('2000-01-04');
+  } else {
+    $from = strtotime($from);
+  }
+
+  if (is_null($to)) {
+    $to = strtotime('now + 10 days');
+  } else {
+    $to = strtotime($to);
+  }
+
+  $tids = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'state')
+    ->sort('weight')
+    ->accessCheck(TRUE)
+    ->execute();
+
+  // Load all finishing states.
+  $states = [];
+  foreach ($tids as $tid) {
+    $state_obj = Term::load($tid);
+    $state = $state_obj->getName();
+
+    if (strpos($state,'finished') !== FALSE) {
+      $states[] = ['tid' => $tid, 'state' => $state];
+    }
+  }
+
+  // Read the data from db.
+  $database = \Drupal::database();
+  $query = $database->select('node_revision__field_state', 's');
+  $query->leftJoin('node_revision', 'r', 'r.vid = s.revision_id');
+  $query
+    ->fields('s', [])
+    ->fields('r', [])
+    ->condition('r.revision_timestamp', $from, '>')
+    ->condition('r.revision_timestamp', $to, '<');
+    //->range(0, 10);
+
+  $results = $query->execute()->fetchAll();
+  //dpm($results);
+
+  // Build the report.
+  // Sum count on daterange.
+  $sum_count = [];
+  foreach ($results as $row) {
+    $state_obj = Term::load($row->field_state_target_id);
+    $state = $state_obj->getName();
+    if (!isset($sum_count[$row->field_state_target_id]['name'])) {
+      $sum_count[$row->field_state_target_id]['name'] = $state;
+    }
+    if (!isset($sum_count[$row->field_state_target_id]['date'])) {
+      $sum_count[$row->field_state_target_id]['name'] = $state;
+    }
+    if (!isset($sum_count[$row->field_state_target_id]['count'])) {
+      $sum_count[$row->field_state_target_id]['count'] = 1;
+    } else {
+      $sum_count[$row->field_state_target_id]['count']++;
+    }
+  }
+
+  $output = [];
+  foreach ($states as $state) {
+    if (isset($sum_count[$state['tid']]['count'])) {
+      $output[] = $state['state'] . ': ' . $sum_count[$state['tid']]['count'];
+    }
+  }
+
+  // All data per week for chart.
+  // Read the data from db.
+  $database = \Drupal::database();
+  $query = $database->select('node_revision__field_state', 's');
+  $query->leftJoin('node_revision', 'r', 'r.vid = s.revision_id');
+  $query
+    ->fields('s', [])
+    ->fields('r', [])
+    ->condition('r.revision_timestamp', $from, '>')
+    ->condition('r.revision_timestamp', $to, '<')
+    ->orderBy('r.revision_timestamp', 'ASC');
+    //->range(0, 10);
+
+  $results = $query->execute()->fetchAll();
+
+  $all_count = [];
+  $weeks = [];
+  foreach ($results as $row) {
+    $state_obj = Term::load($row->field_state_target_id);
+    $state = $state_obj->getName();
+
+    if (strpos($state,'finished') !== FALSE) {
+      if (!isset($all_count[$row->field_state_target_id]['name'])) {
+        $all_count[$row->field_state_target_id]['name'] = $state;
+      }
+
+      $week = date('y-W', $row->revision_timestamp);
+      if (!isset($all_count[$row->field_state_target_id]['count'][$week])) {
+        $all_count[$row->field_state_target_id]['count'][$week] = 1;
+      } else {
+        $all_count[$row->field_state_target_id]['count'][$week]++;
+      }
+
+      if (!in_array($week, $weeks)) {
+        $weeks[] = $week;
+      }
+    }
+  }
+
+  return [
+    'text' => implode('<br>', $output),
+    'dataset' => $all_count,
+    'chart_labels' => $weeks,
+  ];
 }

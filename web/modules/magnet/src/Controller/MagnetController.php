@@ -126,4 +126,15 @@ class MagnetController extends ControllerBase {
       '#content' => $content,
     ];
   }
+
+  public function trackStates() {
+    magnet_report('2023-11-01', '2023-12-12');
+
+    $build['content'] = [
+      '#type' => 'item',
+      '#markup' => $this->t('Inventory'),
+    ];
+
+    return $build;
+  }
 }
