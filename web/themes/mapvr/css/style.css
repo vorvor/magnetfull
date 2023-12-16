@@ -474,6 +474,20 @@ section.comment-wrapper .field--name-field-attachments .field__item {
     background-color: rgb(255, 51, 51);
 }
 
+.region-footer {
+  padding-top: 50px;
+  margin-top: 30px;
+  border-top: 1px solid #ccc;
+}
+
+.pdf-feed.views-data-export-feed .feed-icon {
+  width: auto;
+  display: initial;
+  padding-left: 50px;
+  text-decoration: none;
+  background-position-x: 0%;
+  background-position-y: 50%;
+}
 
 /* 720 x 1440 */
 
