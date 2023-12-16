@@ -42,7 +42,7 @@ final class ReportForm extends FormBase {
       '#type' => 'actions',
       'submit' => [
         '#type' => 'submit',
-        '#value' => $this->t('Send'),
+        '#value' => $this->t('Create report'),
       ],
     ];
 
