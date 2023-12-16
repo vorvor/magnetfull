@@ -27,14 +27,14 @@ final class ReportForm extends FormBase {
     $form['#attached']['drupalSettings']['magnet']['datasets'] = $form_state->getStorage();
 
     $form['datefrom'] = [
-      '#type' => 'Start date',
-      '#title' => $this->t('from'),
+      '#type' => 'date',
+      '#title' => $this->t('Start date'),
       '#required' => FALSE,
     ];
 
     $form['dateto'] = [
-      '#type' => 'End date',
-      '#title' => $this->t('to'),
+      '#type' => 'date',
+      '#title' => $this->t('End date'),
       '#required' => FALSE,
     ];
 
