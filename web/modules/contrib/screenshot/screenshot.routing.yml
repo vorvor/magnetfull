@@ -5,3 +5,12 @@ screenshot.send:
     _title: 'Send screenshot'
   requirements:
     _permission: 'access content'
+
+screenshot.save:
+  path: '/ajax/screenshot/save'
+  defaults:
+    _title: 'Save screenshot image from ckeditor'
+    _controller: '\Drupal\screenshot\Controller\ScreenshotController::save'
+  methods: [POST]
+  requirements:
+    _permission: 'access content'

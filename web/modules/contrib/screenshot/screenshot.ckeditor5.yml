@@ -1,0 +1,19 @@
+# @see core/modules/ckeditor5/ckeditor5.ckeditor5.yml
+# @see https://www.drupal.org/project/ckeditor5_dev
+screenshot_plugin:
+  # Configuration that will be sent to CKEditor 5 JavaScript plugins.
+  ckeditor5:
+    plugins:
+      - screenshot.Screenshot
+
+  # Configuration that will be used directly by Drupal.
+  drupal:
+    label: 'Screenshot'
+    library: screenshot/screenshot.ckeditor
+    admin_library: screenshot/admin.screenshot
+    toolbar_items:
+      screenshot:
+        label: 'Screenshot'
+    # The plugin does not provide elements.
+    elements: false
+    class: Drupal\screenshot\Plugin\CKEditor5Plugin\Screenshot

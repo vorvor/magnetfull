@@ -5,7 +5,7 @@ package: 'Block'
 core_version_requirement: ^8.8 || ^9 || ^10
 configure: screenshot.settings
 
-# Information added by Drupal.org packaging script on 2023-08-28
-version: '1.0.1'
+# Information added by Drupal.org packaging script on 2023-12-11
+version: '1.0.2'
 project: 'screenshot'
-datestamp: 1693206133
+datestamp: 1702253095

@@ -34,3 +34,18 @@ screenshot:
     - core/once
     - core/drupal
     - core/drupal.ajax
+
+screenshot.ckeditor:
+  js:
+    js/build/screenshot.js: { preprocess: false, minified: true }
+  dependencies:
+    - ckeditor5/ckeditor5
+    - screenshot/cropperjs
+    - screenshot/markerjs2
+
+# Loaded in the text format configuration form to provide styling for the icon
+# used in toolbar config.
+admin.screenshot:
+  css:
+    theme:
+      css/screenshot.admin.css: { }

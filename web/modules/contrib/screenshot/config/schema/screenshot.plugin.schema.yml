@@ -1,0 +1,7 @@
+ckeditor5.plugin.screenshot_plugin:
+  type: mapping
+  label: 'Screenshot ckeditor configuration'
+  mapping:
+    file_directory:
+      type: string
+      label: 'File directory'

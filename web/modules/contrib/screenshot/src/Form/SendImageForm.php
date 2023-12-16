@@ -55,10 +55,12 @@ class SendImageForm extends ConfigFormBase {
         }
       }
       // Convert image base64 to file.
-      $encoded_image = explode(",", $encoded_image)[1];
+      [$dataImage, $encoded_image] = explode(",", $encoded_image);
+      [$tmp, $ext] = explode('/', str_replace([';', 'base64', ','], '', $dataImage));
+      unset($tmp);
       $encoded_image = str_replace(' ', '+', $encoded_image);
       $decoded_image = base64_decode($encoded_image);
-      $filename = date('ymd') . '_' . rand(1000, 9999) . '.jpeg';
+      $filename = date('ymd') . '_' . rand(1000, 9999) . '.' . $ext;
       // Saves a file to the specified destination and creates a database entry.
       $file = \Drupal::service('file.repository')->writeData($decoded_image, $uri . $filename, FileSystemInterface::EXISTS_REPLACE);
       $fid = $file->id();

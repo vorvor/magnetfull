@@ -40,18 +40,19 @@
     drawImageOnCanvas(bitmap, canvas);
     let htmlCode = '';
     if(config.mode == 'modal'){
-      let idCapture = 'captured-image';
-      htmlCode = `<img id="${idCapture}" src="${canvas.toDataURL()}"/>`;
-      $('#'+config.id).html(htmlCode);
-      let markerArea = new markerjs2.MarkerArea(document.getElementById(idCapture));
+      const capture = document.createElement('img');
+      capture.id = 'captured-image';
+      capture.src = canvas.toDataURL();
+      $('#'+config.id).html(capture);
+      let markerArea = new markerjs2.MarkerArea(capture);
       markerArea.settings.displayMode = 'popup';
-      markerArea.addEventListener(
-        "render",
-        (event) => (document.getElementById(idCapture).src = event.dataUrl)
+      markerArea.addEventListener("render",
+        (event) => (capture.src = event.dataUrl)
       );
       markerArea.show();
       markerArea.addEventListener("close", (event) => {
-        const base64Image = document.getElementById(idCapture).src;
+        const base64Image = capture.src;
+        capture.remove();
         if (config.url != undefined) {
           config.screenshot = base64Image;
           $.ajax({
