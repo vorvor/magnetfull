@@ -38,22 +38,24 @@ final class ReportForm extends FormBase {
       '#required' => FALSE,
     ];
 
-    $form['markup'] = [
-      '#type' => 'markup',
-      '#markup' => $form_state->getValue('markup'),
-    ];
-
-    $form['chart'] = [
-      '#type' => 'markup',
-      '#markup' => Markup::create('<canvas id="canvas2" width="200"></canvas>'),
-    ];
-
     $form['actions'] = [
       '#type' => 'actions',
       'submit' => [
         '#type' => 'submit',
         '#value' => $this->t('Send'),
       ],
+    ];
+
+    $form['markup'] = [
+      '#type' => 'markup',
+      '#markup' => $form_state->getValue('markup'),
+      '#weight' => 1000,
+    ];
+
+    $form['chart'] = [
+      '#type' => 'markup',
+      '#markup' => Markup::create('<canvas id="canvas2" width="200"></canvas>'),
+      '#weight' => 1001,
     ];
 
     return $form;
