@@ -76,7 +76,6 @@ module:
   views_bulk_operations: 0
   views_data_export: 0
   views_ui: 0
-  xls_serialization: 0
   views: 10
   paragraphs: 11
   standard: 1000
