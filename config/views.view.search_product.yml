@@ -2710,8 +2710,8 @@ display:
       displays:
         page_1: page_1
         default: '0'
-      filename: ''
-      automatic_download: false
+      filename: magnet-export.pdf
+      automatic_download: true
       store_in_public_file_directory: null
       custom_redirect_path: false
       redirect_to_display: none
