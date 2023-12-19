@@ -37,18 +37,24 @@
 
         $('#edit-search-api-fulltext').attr('placeholder', 'site wide search');
 
+        // Show finished products on facet search.
+        setTimeout(function() {
+          if (Cookies.get('show-finished') == 0) {
+            $('#state-exclude-packaging-finished').click().css('color', 'red');
+          }
+        }, 1500)
+
+
       })
 
       $(once('bind-click-event', '#show-finished-products', context)).each(function() {
 
         if (Cookies.get('show-finished') == 1) {
-          console.log('A');
           $('#show-finished-products #finished-inside').html('Hide finished products');
           $('#show-finished-products').addClass('hider');
         }
 
         if (Cookies.get('show-finished') == 0) {
-          console.log('B');
           $('#show-finished-products #finished-inside').html('Show finished products');
           $('#show-finished-products').removeClass('hider');
         }
