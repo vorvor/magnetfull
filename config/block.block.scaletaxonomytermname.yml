@@ -15,7 +15,7 @@ third_party_settings:
 id: scaletaxonomytermname
 theme: mapvr
 region: content
-weight: -10
+weight: -11
 provider: null
 plugin: 'facet_block:scale_taxonomy_term_name'
 settings:

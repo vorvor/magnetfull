@@ -11,7 +11,7 @@ dependencies:
 id: mapvr_mapvrrevisionsblock
 theme: mapvr
 region: content
-weight: -13
+weight: -14
 provider: null
 plugin: magnet_revisions_block
 settings:

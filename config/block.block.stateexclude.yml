@@ -1,6 +1,6 @@
 uuid: 707a8230-8387-4222-80df-019bd7b92b04
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - facets.facet.state_exclude
@@ -15,7 +15,7 @@ third_party_settings:
 id: stateexclude
 theme: mapvr
 region: content
-weight: 4
+weight: -5
 provider: null
 plugin: 'facet_block:state_exclude'
 settings:

@@ -15,7 +15,7 @@ third_party_settings:
 id: bottomnotes
 theme: mapvr
 region: content
-weight: -8
+weight: -9
 provider: null
 plugin: 'facet_block:bottom_notes'
 settings:
