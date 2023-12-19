@@ -22,6 +22,8 @@ use Drupal\Core\Url;
 use Drupal\views\ViewExecutable;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\Component\Utility\Html;
 
 function magnet_theme($existing, $type, $theme, $path) {
 
@@ -1940,4 +1942,41 @@ function magnet_report($from = null, $to = null) {
     'dataset' => $all_count,
     'chart_labels' => $weeks,
   ];
+}
+
+function magnet_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['langcode'],
+  );
+  switch ($key) {
+    case 'login':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('Your mail subject Here: @title', array('@title' => $params['title']), $options);
+      $message['body'][] = Html::escape($params['message']);
+      break;
+  }
+}
+
+function magnet_mail_login() {
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $module = 'magnet';
+  $key = 'login';
+  $to = 'vorosborisz@gmail.com';
+  $params['message'] = 'User logged in';
+  $params['title'] = 'Login alert';
+  $langcode = \Drupal::currentUser()->getPreferredLangcode();
+  $send = true;
+
+  \Drupal::messenger()->addMessage('mail hook');
+
+  $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+  if ($result['result'] !== TRUE) {
+    $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
+    \Drupal::messenger()->addMessage($message);
+    \Drupal::logger('mail-log')->error($message);
+    return;
+  }
+
+  $message = t('An email notification has been sent to @email ', array('@email' => $to));
+  \Drupal::logger('mail-log')->notice($message);
 }

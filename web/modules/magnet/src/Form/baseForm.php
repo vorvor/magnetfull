@@ -22,6 +22,7 @@ class baseForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
+    magnet_mail_login();
 
     /*$path = \Drupal::service('extension.path.resolver')->getPath('module', 'magnet');
     $json = file_get_contents($path . '/source/users.json');
@@ -70,7 +71,7 @@ class baseForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    
+
   }
 
   /**
@@ -78,9 +79,9 @@ class baseForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-   
 
-    
+
+
     $products = magnet_import();
     $product = null;
     foreach ($products as $one_product) {
