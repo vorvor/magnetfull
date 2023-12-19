@@ -1,0 +1,11 @@
+christmas_snow: 1
+christmas_snow_flakes_max: '64'
+christmas_snow_snowcolor: '#FFFFFF'
+christmas_snow_flake_bottom: '500'
+christmas_snow_follow_mouse: 'true'
+christmas_snow_melt: 'false'
+christmas_snow_stick: 'false'
+christmas_snow_twinkle: 'false'
+christmas_snow_character: •
+christmas_snow_animation_int: '33'
+christmas_snow_minified: 0

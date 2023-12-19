@@ -15,7 +15,7 @@ third_party_settings:
 id: purposeexclude
 theme: mapvr
 region: content
-weight: -7
+weight: -6
 provider: null
 plugin: 'facet_block:purpose_exclude'
 settings:

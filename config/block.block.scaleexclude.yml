@@ -15,7 +15,7 @@ third_party_settings:
 id: scaleexclude
 theme: mapvr
 region: content
-weight: -10
+weight: -9
 provider: null
 plugin: 'facet_block:scale_exclude'
 settings:

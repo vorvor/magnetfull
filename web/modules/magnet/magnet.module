@@ -1951,7 +1951,7 @@ function magnet_mail($key, &$message, $params) {
   switch ($key) {
     case 'login':
       $message['from'] = \Drupal::config('system.site')->get('mail');
-      $message['subject'] = t('Your mail subject Here: @title', array('@title' => $params['title']), $options);
+      $message['subject'] = t('@title', array('@title' => $params['title']), $options);
       $message['body'][] = Html::escape($params['message']);
       break;
   }
@@ -1962,7 +1962,8 @@ function magnet_mail_login() {
   $module = 'magnet';
   $key = 'login';
   $to = 'vorosborisz@gmail.com';
-  $params['message'] = 'User logged in';
+  $user_account_name = \Drupal::currentUser()->getAccountName();
+  $params['message'] = t('User @user logged in', array('@user' => $user_account_name = \Drupal::currentUser()->getAccountName()));
   $params['title'] = 'Login alert';
   $langcode = \Drupal::currentUser()->getPreferredLangcode();
   $send = true;
@@ -1979,4 +1980,9 @@ function magnet_mail_login() {
 
   $message = t('An email notification has been sent to @email ', array('@email' => $to));
   \Drupal::logger('mail-log')->notice($message);
+}
+
+function magnet_user_login($account) {
+  // Send an email when a user logs in.
+  magnet_mail_login();
 }

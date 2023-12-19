@@ -488,6 +488,28 @@ section.comment-wrapper .field--name-field-attachments .field__item {
   background-position-y: 50%;
 }
 
+#block-mapvr-notification {
+  background: rgba(136, 170, 0, .9);
+  padding: 10px 16px;
+  color: #fff;
+  text-align: right;
+  border-radius: 4px;
+}
+
+#block-mapvr-notification h2 {
+  font-size: 18px;
+  margin: 0 0 8px 0;
+}
+
+#block-mapvr-notification a {
+  color: #fff;
+  text-decoration: none;
+}
+
+#block-mapvr-notification span {
+  margin: 0 6px;
+}
+
 /* 720 x 1440 */
 
 @media only screen and (max-width: 768px) {

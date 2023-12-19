@@ -1904,6 +1904,66 @@
             "install-path": "../../web/modules/contrib/better_exposed_filters"
         },
         {
+            "name": "drupal/christmas_snow",
+            "version": "2.0.1",
+            "version_normalized": "2.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/christmas_snow.git",
+                "reference": "2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/christmas_snow-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "1847c368658198292919c629ff97fe8767abb83a"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.1",
+                    "datestamp": "1671192307",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Rohit Rajput (rohit-drupal)",
+                    "homepage": "https://www.drupal.org/u/rohit-drupal",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "introfini",
+                    "homepage": "https://www.drupal.org/user/42293"
+                },
+                {
+                    "name": "rmiddle",
+                    "homepage": "https://www.drupal.org/user/192183"
+                },
+                {
+                    "name": "rohit-rajput-sahab",
+                    "homepage": "https://www.drupal.org/user/2036406"
+                }
+            ],
+            "description": "Add christmas snow to your site.",
+            "homepage": "https://www.drupal.org/project/christmas_snow",
+            "support": {
+                "source": "https://git.drupalcode.org/project/christmas_snow"
+            },
+            "install-path": "../../web/modules/contrib/christmas_snow"
+        },
+        {
             "name": "drupal/classy",
             "version": "1.0.2",
             "version_normalized": "1.0.2.0",

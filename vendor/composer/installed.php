@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '031a8e499421a842478021f21f29f62599399628',
+        'reference' => 'a1390ead90b230c0cd34b489f151844dd1c76057',
         'name' => 'drupal/recommended-project',
         'dev' => true,
     ),
@@ -242,6 +242,15 @@
             'install_path' => __DIR__ . '/../../web/modules/contrib/better_exposed_filters',
             'aliases' => array(),
             'reference' => '6.0.3',
+            'dev_requirement' => false,
+        ),
+        'drupal/christmas_snow' => array(
+            'pretty_version' => '2.0.1',
+            'version' => '2.0.1.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/christmas_snow',
+            'aliases' => array(),
+            'reference' => '2.0.1',
             'dev_requirement' => false,
         ),
         'drupal/classy' => array(
@@ -619,7 +628,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '031a8e499421a842478021f21f29f62599399628',
+            'reference' => 'a1390ead90b230c0cd34b489f151844dd1c76057',
             'dev_requirement' => false,
         ),
         'drupal/schema_metatag' => array(

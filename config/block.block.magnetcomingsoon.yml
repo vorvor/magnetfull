@@ -14,7 +14,7 @@ third_party_settings:
 id: magnetcomingsoon
 theme: mapvr
 region: content
-weight: -1
+weight: 0
 provider: null
 plugin: magnet_coming_sooon
 settings:
