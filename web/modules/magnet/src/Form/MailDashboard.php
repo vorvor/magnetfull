@@ -26,6 +26,7 @@ class MailDashboard extends FormBase {
       '#type' => 'checkboxes',
       '#title' => $this->t('E-mails to send'),
       '#options' => [
+        'login' => 'Login',
         'upcoming_deadlines' => 'Upcoming deadlines',
       ],
     ];
@@ -61,9 +62,9 @@ class MailDashboard extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    if ($form_state->getValue('email_types') !== 0) {
+
+    if (in_array('upcoming_deadlines', $form_state->getValue('email_types'))) {
       magnet_mail_upcoming_deadlines();
     }
   }
-
 }
