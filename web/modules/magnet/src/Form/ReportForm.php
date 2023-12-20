@@ -81,7 +81,6 @@ final class ReportForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this->messenger()->addStatus($this->t('The message has been sent.'));
 
     $form_state->setRebuild(TRUE);
 

@@ -1829,13 +1829,13 @@ function magnet_views_query_alter(ViewExecutable $view, QueryPluginBase $query) 
 
 function magnet_report($from = null, $to = null) {
 
-  if (is_null($from)) {
+  if (empty($from)) {
     $from = strtotime('2000-01-04');
   } else {
     $from = strtotime($from);
   }
 
-  if (is_null($to)) {
+  if (empty($to)) {
     $to = strtotime('now + 10 days');
   } else {
     $to = strtotime($to);
@@ -1949,7 +1949,7 @@ function magnet_mail($key, &$message, $params) {
     'langcode' => $message['langcode'],
   );
   switch ($key) {
-    case 'login':
+    case 'base':
       $message['from'] = \Drupal::config('system.site')->get('mail');
       $message['subject'] = t('@title', array('@title' => $params['title']), $options);
       $message['body'][] = Html::escape($params['message']);
@@ -1960,7 +1960,7 @@ function magnet_mail($key, &$message, $params) {
 function magnet_mail_login() {
   $mailManager = \Drupal::service('plugin.manager.mail');
   $module = 'magnet';
-  $key = 'login';
+  $key = 'base';
   $to = 'vorosborisz@gmail.com';
   $user_account_name = \Drupal::currentUser()->getAccountName();
   $params['message'] = t('User @user logged in', array('@user' => $user_account_name = \Drupal::currentUser()->getAccountName()));
@@ -1982,7 +1982,27 @@ function magnet_mail_login() {
   \Drupal::logger('mail-log')->notice($message);
 }
 
-function magnet_user_login($account) {
-  // Send an email when a user logs in.
-  magnet_mail_login();
+function magnet_mail_upcoming_deadlines() {
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $module = 'magnet';
+  $key = 'base';
+  $to = 'vorosborisz@gmail.com';
+  $user_account_name = \Drupal::currentUser()->getAccountName();
+  $params['message'] = t('User @user logged in', array('@user' => $user_account_name = \Drupal::currentUser()->getAccountName()));
+  $params['title'] = 'Login alert';
+  $langcode = \Drupal::currentUser()->getPreferredLangcode();
+  $send = true;
+
+  \Drupal::messenger()->addMessage('mail hook');
+
+  $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
+  if ($result['result'] !== TRUE) {
+    $message = t('There was a problem sending your email notification to @email.', array('@email' => $to));
+    \Drupal::messenger()->addMessage($message);
+    \Drupal::logger('mail-log')->error($message);
+    return;
+  }
+
+  $message = t('An email notification has been sent to @email ', array('@email' => $to));
+  \Drupal::logger('mail-log')->notice($message);
 }

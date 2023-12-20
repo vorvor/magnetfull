@@ -8,7 +8,7 @@
         console.log('report js appendded.');
 
         drawDiagram(drupalSettings.magnet.datasets.dataset);
-        console.log(drupalSettings.magnet.datasets);
+        console.log(drupalSettings.magnet.datasets.dataset);
         function drawDiagram(dataSets) {
 
           const colorDefault = '54, 162, 235';

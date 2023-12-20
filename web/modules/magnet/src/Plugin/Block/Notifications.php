@@ -26,7 +26,7 @@ class Notifications extends BlockBase {
   public function build() {
 
     $config = \Drupal::service('config.factory')->getEditable('magnet.mail');
-    dpm($config->get('mail.sent.login'));
+
     $config->set('mail.sent.login', 2);
     $config->save();
 

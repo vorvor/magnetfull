@@ -103,3 +103,11 @@ magnet.report:
     _form: 'Drupal\magnet\Form\ReportForm'
   requirements:
     _permission: 'access content'
+
+magnet.magnet_email_dashboard:
+  path: '/magnet/email-dashboard'
+  defaults:
+    _title: 'E-mail Dashboard'
+    _form: 'Drupal\magnet\Form\MailDashboard'
+  requirements:
+    _permission: 'access content'

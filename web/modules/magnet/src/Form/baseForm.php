@@ -79,9 +79,6 @@ class baseForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-
-
-
     $products = magnet_import();
     $product = null;
     foreach ($products as $one_product) {
