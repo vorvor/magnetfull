@@ -32,6 +32,8 @@ class Notifications extends BlockBase {
 
     $actual_deadlines = magnet_upcoming_deadlines();
 
+    $now = date('Y-m-d, D');
+
     $build['content'] = [
       '#markup' => '<div><h2>Upcoming deadlines (' . $now . ')</h2></div>' . implode('<br />', $actual_deadlines),
       '#cache' => ['contexts' => ['user']],
