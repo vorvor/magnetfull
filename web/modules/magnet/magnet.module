@@ -1998,8 +1998,6 @@ function magnet_mail_upcoming_deadlines() {
   $langcode = \Drupal::currentUser()->getPreferredLangcode();
   $send = true;
 
-  dpm($params['message']);
-
   \Drupal::messenger()->addMessage('upcoming deadlines mail');
 
   $result = $mailManager->mail($module, $key, $to, $langcode, $params, NULL, $send);
