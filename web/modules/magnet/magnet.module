@@ -1955,6 +1955,7 @@ function magnet_mail($key, &$message, $params) {
       $message['from'] = \Drupal::config('system.site')->get('mail');
       $message['subject'] = t('@title', array('@title' => $params['title']), $options);
       $message['body'][] = Html::escape($params['message']);
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8';
       break;
   }
 }
