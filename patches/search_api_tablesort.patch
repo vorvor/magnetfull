@@ -1,0 +1,30 @@
+diff --git a/src/Plugin/views/field/SearchApiFieldTrait.php b/src/Plugin/views/field/SearchApiFieldTrait.php
+index 572266cf..2f251fe8 100644
+--- a/src/Plugin/views/field/SearchApiFieldTrait.php
++++ b/src/Plugin/views/field/SearchApiFieldTrait.php
+@@ -306,7 +306,7 @@ public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+    * @see \Drupal\views\Plugin\views\field\FieldHandlerInterface::clickSort()
+    */
+   public function clickSort($order) {
+-    $this->getQuery()->sort($this->definition['search_api field'], $order);
++    $this->getQuery()->sort($this->definition['search_api field'], trim($order));
+   }
+
+   /**
+diff --git a/src/Query/Query.php b/src/Query/Query.php
+index 8e034410..d6ab650b 100644
+--- a/src/Query/Query.php
++++ b/src/Query/Query.php
+@@ -471,8 +471,11 @@ public function addCondition($field, $value, $operator = '=') {
+   public function sort($field, $order = self::SORT_ASC) {
+     $order = strtoupper(trim($order));
+     $order = $order == self::SORT_DESC ? self::SORT_DESC : self::SORT_ASC;
++
+     if (!isset($this->sorts[$field])) {
+-      $this->sorts[$field] = $order;
++      if ($field != 'asc' && $field != 'desc') {
++        $this->sorts = [$field => $order];
++      }
+     }
+     return $this;
+   }

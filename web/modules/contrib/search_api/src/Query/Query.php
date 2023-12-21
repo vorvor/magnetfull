@@ -471,8 +471,11 @@ class Query implements QueryInterface, RefinableCacheableDependencyInterface {
   public function sort($field, $order = self::SORT_ASC) {
     $order = strtoupper(trim($order));
     $order = $order == self::SORT_DESC ? self::SORT_DESC : self::SORT_ASC;
+
     if (!isset($this->sorts[$field])) {
-      $this->sorts[$field] = $order;
+      if ($field != 'asc' && $field != 'desc') {
+        $this->sorts = [$field => $order];
+      }
     }
     return $this;
   }

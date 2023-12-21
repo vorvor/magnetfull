@@ -76,6 +76,9 @@
         "patches": {
             "drupal/core": {
                 "Passing null to parameter #1 ($haystack) of type string is deprecated": "https://www.drupal.org/files/issues/2023-10-17/3344629-29.patch"
+            },
+            "drupal/search_api": {
+                "table header sort fix": "patches/search_api_tablesort.patch"
             }
         },
         "drupal-scaffold": {

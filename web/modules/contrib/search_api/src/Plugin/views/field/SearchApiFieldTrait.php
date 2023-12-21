@@ -306,7 +306,7 @@ trait SearchApiFieldTrait {
    * @see \Drupal\views\Plugin\views\field\FieldHandlerInterface::clickSort()
    */
   public function clickSort($order) {
-    $this->getQuery()->sort($this->definition['search_api field'], $order);
+    $this->getQuery()->sort($this->definition['search_api field'], trim($order));
   }
 
   /**
