@@ -9,7 +9,7 @@ dependencies:
 id: magnetinventorystatusblock
 theme: mapvr
 region: content
-weight: -17
+weight: -18
 provider: null
 plugin: magnet_inventory_status
 settings:

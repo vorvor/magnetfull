@@ -1,5 +1,5 @@
 #calendar {
-    width:  2000px;
+    width:  auto;
 }
 
 #calendar-header {
@@ -29,7 +29,8 @@
     color: #fff;
 }
 
-.state {
+
+#block-mapvr-statechanges .state {
     display: inline-block;
     width:  200px;
 }

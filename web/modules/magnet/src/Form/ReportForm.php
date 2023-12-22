@@ -86,7 +86,10 @@ final class ReportForm extends FormBase {
 
     $values = magnet_report($form_state->getValue('datefrom'), $form_state->getValue('dateto'));
 
-    $form_state->setValue('markup', $values['text']);
+    $states_dates_report = magnet_product_history_list($form_state->getValue('datefrom'), $form_state->getValue('dateto'));
+    $states_dates_report = '<div id="state-change-report-per-products"><h2 id="opener">State change report per product (open)</h2><div id="report-wrapper" class="hidden">' . $states_dates_report . '</div></div>';
+
+    $form_state->setValue('markup', $values['text'] . $states_dates_report);
     $form_state->setStorage($values);
 
   }

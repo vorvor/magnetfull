@@ -510,6 +510,10 @@ section.comment-wrapper .field--name-field-attachments .field__item {
   margin: 0 6px;
 }
 
+#state-change-report-per-products #opener {
+
+}
+
 /* 720 x 1440 */
 
 @media only screen and (max-width: 768px) {

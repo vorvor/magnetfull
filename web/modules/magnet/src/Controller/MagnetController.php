@@ -22,7 +22,6 @@ class MagnetController extends ControllerBase {
      foreach ($products as $product) {
       if ($product['serial'] == '1938') {
         magnet_save_product($product);
-        dpm($product);
       }
      }
 
@@ -100,12 +99,7 @@ class MagnetController extends ControllerBase {
 
   public function calendar() {
 
-    $im = imagegrabscreen();
-    imagepng($im, "myscreenshot.png");
-    imagedestroy($im);
-
-
-    $content = magnet_calendar();
+    $content = magnet_calendar(13273);
 
     // Header days.
     $header_string = '';

@@ -30,6 +30,9 @@ addproduct:
       css/magnet-product-add.css: {}
   dependencies:
     - core/drupalSettings
+    - core/jquery
+    - core/once
+    - core/drupal
 
 admin:
   css:

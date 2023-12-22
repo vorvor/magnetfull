@@ -1,25 +1,26 @@
-uuid: 3d25c207-293f-4295-a4b6-8d73e5baeb5c
+uuid: 88e6c3da-d1e1-42e5-bb41-cd54bede9c11
 langcode: en
 status: true
 dependencies:
   module:
     - collapsiblock
     - magnet
+    - node
     - user
   theme:
     - mapvr
 third_party_settings:
   collapsiblock:
     collapse_action: 0
-id: magnetuser
+id: mapvr_statechanges
 theme: mapvr
 region: content
-weight: -17
+weight: -13
 provider: null
-plugin: magnet_user
+plugin: magnet_magnet_state_changes
 settings:
-  id: magnet_user
-  label: 'Magnet User'
+  id: magnet_magnet_state_changes
+  label: 'State changes'
   label_display: '0'
   provider: magnet
 visibility:
@@ -29,6 +30,11 @@ visibility:
     context_mapping:
       user: '@user.current_user_context:current_user'
     roles:
-      authenticated: authenticated
-      content_editor: content_editor
       administrator: administrator
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      product: product

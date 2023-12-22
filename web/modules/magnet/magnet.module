@@ -1487,7 +1487,7 @@ function magnet_product_calendar_bar_deadlines($nid) {
 
         $end = (int)date('d', strtotime($node->get('field_date_' . strtolower(str_replace(' ', '_', $state)))->value));
 
-        $deadline_bar[$nid][$state] = [
+        $deadline_bar[$nid][$state . ' finished'] = [
             'start' => (!isset($previous_end)) ? $end - 7 : $previous_end,
             'end' => $end,
         ];
@@ -1513,7 +1513,11 @@ function magnet_generate_bar_string($data, $state, $nid, $id = 'revision-bars') 
         $in_progress = 'in-progress';
     } else {
         $before = $data['start'];
-        $inner = $data['end'] - $data['start'] + 1;
+        if ((int)$data['end'] < (int)$data['start']) {
+         $inner = 31 -   $data['start'] + 1;
+        } else {
+          $inner = $data['end'] - $data['start'] + 1;
+        }
         $after = 59 - $before - $inner;
     }
 
@@ -1526,15 +1530,15 @@ function magnet_generate_bar_string($data, $state, $nid, $id = 'revision-bars') 
     return $content;
 }
 
-function magnet_calendar() {
+function magnet_calendar($nid) {
 
-    $states = ['Drawing', 'Dimpleing', 'Shaping', 'Tunings and heat treatments', 'Gluing'];
+    $states = ['Drawing finished', 'Dimpleing finished', 'Shaping finished', 'Tunings and heat treatments', 'Gluing'];
     $bars = [
-        magnet_product_calendar_bar_revisions(13274),
+        magnet_product_calendar_bar_revisions($nid),
     ];
 
     $deadline_bars = [
-        magnet_product_calendar_bar_deadlines(13274),
+        magnet_product_calendar_bar_deadlines($nid),
     ];
 
     $content = '';
@@ -2069,4 +2073,105 @@ function magnet_upcoming_deadlines() {
 
   return $actual_deadlines;
 
+}
+
+function magnet_product_history($nids) {
+
+
+
+    if (!is_array($nids)) {
+      $nids = [$nids];
+    }
+    // state changes.
+    foreach ($nids as $nid) {
+      $node = Node::load($nid);
+      $vids = \Drupal::entityTypeManager()->getStorage('node')->revisionIds($node);
+
+      $open = 1;
+      $vid_bar = [];
+      $state = 'Init';
+      $table_tpl = '<table><tr><th>#' . $node->get('field_serial')->value . ' - state</th><th>Planned</th><th>State change</th></tr>###output###</table>';
+      $output = '';
+      foreach ($vids as $vid) {
+        $node_rev = \Drupal::entityTypeManager()->getStorage('node')->loadRevision($vid);
+        $date = date('Y-m-d', magnet_get_revision_date($vid));
+        $current_state = magnet_get_revision_state($vid);
+
+        if ($current_state !== $state) {
+          if ($open == 1) {
+            $state_date_start = $date;
+            $open_state = $current_state;
+            $open = 0;
+
+            $vid_bar[$nid][$open_state] = [
+              'start' => $state_date_start,
+              'end' => '?',
+            ];
+          } else {
+            $state_date_end = $date;
+            $open = 1;
+
+            $vid_bar[$nid][$open_state] = [
+              'start' => $state_date_start,
+              'end' => $state_date_end,
+            ];
+          }
+        }
+
+        $state = $current_state;
+      }
+
+      $state_changes = $vid_bar;
+
+
+      // deadlines.
+      $states = ['Drawing', 'Dimpleing', 'Shaping', 'Tunings and heat treatments', 'Gluing'];
+
+      $node = Node::load($nid);
+
+      $deadline_bar = [];
+      $former_start = 0;
+      foreach ($states as $state) {
+
+        if ($state == 'Tunings and heat treatments') {
+          $state = 'Tunings and heat';
+        }
+
+        $end = date('Y-m-d', strtotime($node->get('field_date_' . strtolower(str_replace(' ', '_', $state)))->value));
+
+        $deadline_bar[$nid][$state . ' finished'] = [
+          'start' => (!isset($previous_end)) ? 0 : $previous_end,
+          'end' => $end,
+        ];
+        $previous_end = $end;
+      }
+
+      $deadlines = $deadline_bar;
+
+      $states = ['Drawing finished', 'Dimpleing finished', 'Shaping finished', 'Tunings and heat treatments finished', 'Gluing finished'];
+
+      $a = reset($state_changes);
+      $b = reset($deadlines);
+
+      foreach ($states as $state) {
+        $output .= '<tr><td>' . $state . '</td><td>' . $b[$state]['end'] . '</td><td>' . $a[$state]['end'] . '</td></tr>';
+      }
+
+      $table[] = str_replace('###output###', $output, $table_tpl);
+    }
+
+  return implode($table);
+}
+
+function magnet_product_history_list($start_date, $end_date) {
+  $query = \Drupal::entityQuery('node')
+    ->accessCheck(TRUE)
+    ->condition('created', strtotime($start_date), '>')
+    ->condition('created', strtotime($end_date), '<');
+
+  $results = $query->execute();
+
+  return magnet_product_history($results);
+
+  return 1;
 }

@@ -90,6 +90,8 @@
 
       })
 
+      state-change-report-per-products
+
     },
     detach: function(context, settings, trigger) {
       const removedElements = once.remove('magnetReport', '.example', context);

@@ -3,42 +3,46 @@
 
     attach: function(context, settings) {
 
-      $('.calendar-buttons', context).once().click(function(e) {
-        if (!$(this).hasClass('active')) {
-          $(this).addClass('active');
-        } else {
-          $(this).removeClass('active');
-        }
+      //$('.calendar-buttons', context).once().click(function(e) {
 
-        if ($(this).attr('id') == 'button-dreams') {
-          $('.deadline-bars').slideToggle();
-        }
+        once('magnetCalendarBehavior','.calendar-buttons', context).forEach(function(e) {
+          e.onclick = function (e) {
 
-        if ($(this).attr('id') == 'button-reality') {
-          $('.revision-bars').slideToggle();
-        }
+            if (!$(this).hasClass('active')) {
+              $(this).addClass('active');
+            } else {
+              $(this).removeClass('active');
+            }
 
-        if ($('.calendar-buttons.active').length == 1) {
+            if ($(this).attr('id') == 'button-dreams') {
+              $('.deadline-bars').slideToggle();
+            }
 
-          $('.state-label').each(function() {
-            height = parseFloat($(this).css('font-size')) / 1.5;
-            $(this).css('font-size', height + 'px');
-          })
-        } else {
-          $('.state-label').each(function() {
-            height = parseFloat($(this).css('font-size')) * 1.5;
-            $(this).css('font-size', height + 'px');
-          })
-        }
+            if ($(this).attr('id') == 'button-reality') {
+              $('.revision-bars').slideToggle();
+            }
+
+            if ($('.calendar-buttons.active').length == 1) {
+
+              $('.state-label').each(function () {
+                height = parseFloat($(this).css('font-size')) / 1.5;
+                $(this).css('font-size', height + 'px');
+              })
+            } else {
+              $('.state-label').each(function () {
+                height = parseFloat($(this).css('font-size')) * 1.5;
+                $(this).css('font-size', height + 'px');
+              })
+            }
+          }
 
       })
 
     },
     detach: function(context, settings, trigger) {
-      $('.example', context).removeOnce('magnetStatesBehavior').each(function() {
-        // Undo stuff.
-      });
-    }
-
+        const removedElements = once.remove('magnetBehavior', '.example', context);
+        $(removedElements).each(function () {
+        })
+      }
   };
 }(jQuery, Drupal, drupalSettings));

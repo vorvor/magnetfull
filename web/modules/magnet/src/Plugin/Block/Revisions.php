@@ -28,21 +28,22 @@ class Revisions extends BlockBase {
       $nid = $parts[2];
     }
 
+
     $states = '';
-    
-    
+
+
       $node = Node::load($nid);
       if (is_null($node)) {
         return null;
       }
-      
+
       $type_name = $node->type->entity->label();
-      
+
       if ($type_name == 'Product') {
         $states = magnet_show_statebar($nid);
       }
 
-    
+
 
 
 
@@ -60,8 +61,8 @@ class Revisions extends BlockBase {
       '#user_had_permission' => $states['user_had_permission'],
     ];
 
-   
-    
+
+
 
   }
 

@@ -42,7 +42,7 @@
           if (Cookies.get('show-finished') == 0) {
             $('#state-exclude-packaging-finished').click().css('color', 'red');
           }
-        }, 1500)
+        }, 2000)
 
 
       })

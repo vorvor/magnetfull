@@ -15,7 +15,7 @@ third_party_settings:
 id: magnetfinishedexcludebutton
 theme: mapvr
 region: content
-weight: -18
+weight: -19
 provider: null
 plugin: magnet_finished_exclude_button
 settings:
