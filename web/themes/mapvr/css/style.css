@@ -514,6 +514,14 @@ section.comment-wrapper .field--name-field-attachments .field__item {
 
 }
 
+.view-report-kolos.view-display-id-page_1 .late {
+  background: red;
+}
+
+.view-report-kolos.view-display-id-page_1 .within-5-days {
+  background: orange;
+}
+
 /* 720 x 1440 */
 
 @media only screen and (max-width: 768px) {
