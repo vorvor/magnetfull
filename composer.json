@@ -21,6 +21,7 @@
         "drupal/auto_entitylabel": "^3.0",
         "drupal/backup_migrate": "^5.0",
         "drupal/better_exposed_filters": "^6.0",
+        "drupal/calendar_view": "^2.1",
         "drupal/christmas_snow": "^2.0",
         "drupal/classy": "^1.0",
         "drupal/collapsiblock": "^4.1",

@@ -1323,8 +1323,50 @@ function magnet_preprocess_views_view_field(&$variables) {
 
   // Show partial deadline on product page.
   $view = $variables['view'];
-  $field = $variables['field'];
+  $view_id = $view->storage->id();
+  $display = $view->current_display;
+  $field = $variables['field']->field;
 
+  if ($view_id == 'report_kolos' && $display == 'page_1') {
+    if ($field == 'field_deadline') {
+      $before = strtotime('now -5 day');
+      $after = strtotime('now');
+      $date = strtotime(trim(strip_tags($variables['output']->__toString())));
+      $now = strtotime('now');
+      if ($date < $now) {
+        $variables['class'] = 'late';
+      }
+
+      if ($date > $before && $date <= $after) {
+        $variables['class'] = 'within-5-days';
+      }
+
+    }
+
+    if ($field == 'field_next_deadline') {
+      $before = strtotime('now -5 day');
+      $after = strtotime('now + 5 day');
+      $date = strtotime(trim(strip_tags($variables['output']->__toString())));
+      $now = strtotime('now');
+      if ($date < $now) {
+        $variables['class'] = 'late';
+      }
+
+      if ($date > $before && $date <= $after) {
+        $variables['class'] = 'within-5-days';
+      }
+
+    }
+    if ($field == 'created') {
+      $date = strtotime(trim(strip_tags($variables['output']->__toString())));
+      $monday = date('Y-M-d', strtotime('monday this week', $date));
+      $friday = date('d', strtotime('friday this week', $date));
+      $variables['output'] = $monday . ' - ' . $friday;
+    }
+  }
+
+  // TODO: unused alterations delete it.
+  /*
   $views = ['products', 'coming_soon'];
   $pages = ['page_1', 'page_2', 'page_3', 'block_2'];
 
@@ -1382,7 +1424,7 @@ function magnet_preprocess_views_view_field(&$variables) {
         '#markup' => $date,
       ];
 
-  }
+  } */
 }
 
 
@@ -1711,7 +1753,9 @@ function magnet_coming_soon() {
 
     $node = Node::load($nid);
     $state_tid = $node->get('field_state')->getValue()[0]['target_id'];
-    $state_obj = Term::load($state_tid);
+    if (!is_null($state_tid)) {
+      $state_obj = Term::load($state_tid);
+    }
 
     if (is_null($state_obj)) {
         // Unstarted products only for workers with draeing permission.
@@ -2174,4 +2218,8 @@ function magnet_product_history_list($start_date, $end_date) {
   return magnet_product_history($results);
 
   return 1;
+}
+
+function magnet_report_kolos() {
+
 }
