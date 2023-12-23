@@ -9,6 +9,7 @@ dependencies:
     - field.storage.node.field_deadline
     - field.storage.node.field_material
     - field.storage.node.field_material_batch
+    - field.storage.node.field_next_deadline
     - field.storage.node.field_scale_notes
     - field.storage.node.field_serial
     - field.storage.node.field_tuner
@@ -312,6 +313,77 @@ display:
           type: string
           settings:
             link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          field_rendering: true
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+        field_next_deadline:
+          id: field_next_deadline
+          table: search_api_index_product_search
+          field: field_next_deadline
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_field
+          label: 'Next deadline'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: html_date
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1356,6 +1428,7 @@ display:
             nid: nid
             field_serial_1: field_serial_1
             name_2: name_2
+            field_next_deadline: field_next_deadline
             uid: uid
             field_material: field_material
             name: name
@@ -1389,6 +1462,13 @@ display:
               empty_column: false
               responsive: ''
             name_2:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_next_deadline:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1503,6 +1583,7 @@ display:
         - 'config:field.storage.node.field_deadline'
         - 'config:field.storage.node.field_material'
         - 'config:field.storage.node.field_material_batch'
+        - 'config:field.storage.node.field_next_deadline'
         - 'config:field.storage.node.field_scale_notes'
         - 'config:field.storage.node.field_serial'
         - 'config:field.storage.node.field_tuner'
@@ -2768,6 +2849,7 @@ display:
         - 'config:field.storage.node.field_deadline'
         - 'config:field.storage.node.field_material'
         - 'config:field.storage.node.field_material_batch'
+        - 'config:field.storage.node.field_next_deadline'
         - 'config:field.storage.node.field_scale_notes'
         - 'config:field.storage.node.field_serial'
         - 'config:field.storage.node.field_tuner'
