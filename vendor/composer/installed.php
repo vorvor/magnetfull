@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '29532c7f3cbdc83464fa6578e1b4e1f93963d53b',
+        'reference' => '1305be09c07f431bea4d6c9078f1de3e6e9749fb',
         'name' => 'drupal/recommended-project',
         'dev' => true,
     ),
@@ -242,6 +242,15 @@
             'install_path' => __DIR__ . '/../../web/modules/contrib/better_exposed_filters',
             'aliases' => array(),
             'reference' => '6.0.3',
+            'dev_requirement' => false,
+        ),
+        'drupal/calendar_view' => array(
+            'pretty_version' => '2.1.7',
+            'version' => '2.1.7.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/calendar_view',
+            'aliases' => array(),
+            'reference' => '2.1.7',
             'dev_requirement' => false,
         ),
         'drupal/christmas_snow' => array(
@@ -646,7 +655,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '29532c7f3cbdc83464fa6578e1b4e1f93963d53b',
+            'reference' => '1305be09c07f431bea4d6c9078f1de3e6e9749fb',
             'dev_requirement' => false,
         ),
         'drupal/schema_metatag' => array(
