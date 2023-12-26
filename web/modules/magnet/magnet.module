@@ -1853,8 +1853,9 @@ function magnet_get_current_deadline($entity) {
 
 function magnet_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
 
-
   if ($view->id() == 'products' && isset($_COOKIE['show-finished']) && $_COOKIE['show-finished'] == '0') {
+
+
 
     $configuration = [
       'type'       => 'LEFT',

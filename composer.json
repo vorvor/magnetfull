@@ -42,6 +42,7 @@
         "drupal/jquery_ui_slider": "^2.0",
         "drupal/jquery_ui_touch_punch": "^1.1",
         "drupal/masquerade": "^2.0@RC",
+        "drupal/menu_export": "^1.4",
         "drupal/metatag": "^2.0",
         "drupal/mimemail": "^1.0@alpha",
         "drupal/msqrole": "^1.0",

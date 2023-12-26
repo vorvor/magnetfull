@@ -26,7 +26,7 @@ class FinishedExcludeButton extends BlockBase {
 
     return [
       '#type' => 'markup',
-      '#markup' => '<div id="show-finished-products"><div id="finished-inside">Show finished products</div></div>',
+      '#markup' => '<div id="show-finished-products"><div id="finished-inside">finished products hided (show them)</div></div>',
     ];
   }
 

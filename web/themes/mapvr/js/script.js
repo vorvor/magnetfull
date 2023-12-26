@@ -50,13 +50,19 @@
       $(once('bind-click-event', '#show-finished-products', context)).each(function() {
 
         if (Cookies.get('show-finished') == 1) {
-          $('#show-finished-products #finished-inside').html('Hide finished products');
+          $('#show-finished-products #finished-inside').html('finished products are seen (hide them)');
           $('#show-finished-products').addClass('hider');
+
+          // Search results hide finished products if.
+          $('.view-sw-search .Packaging.finished').show();
         }
 
         if (Cookies.get('show-finished') == 0) {
-          $('#show-finished-products #finished-inside').html('Show finished products');
+          $('#show-finished-products #finished-inside').html('finished products hided (show them)');
           $('#show-finished-products').removeClass('hider');
+
+          // Search results hide finished products if.
+          $('.view-sw-search .Packaging.finished').hide();
         }
 
         $(this).click(function() {
