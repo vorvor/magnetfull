@@ -761,7 +761,7 @@ display:
         type: normal
         title: 'Report deadlines'
         description: ''
-        weight: 0
+        weight: -47
         expanded: false
         menu_name: footer
         parent: ''
@@ -1349,7 +1349,7 @@ display:
         type: normal
         title: 'Report deadlines (Calendar)'
         description: ''
-        weight: 0
+        weight: -48
         expanded: false
         menu_name: footer
         parent: ''

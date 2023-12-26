@@ -46,6 +46,7 @@ module:
   link: 0
   magnet: 0
   mailsystem: 0
+  menu_export: 0
   menu_link_content: 0
   menu_ui: 0
   mimemail: 0
