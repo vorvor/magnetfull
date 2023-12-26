@@ -1,0 +1,172 @@
+12:
+  id:
+    value: '12'
+  uuid:
+    value: 1115d240-7e8f-4aea-ae51-9c79dec9aa5f
+  revision_id:
+    value: '12'
+  langcode:
+    value: en
+  bundle:
+    value: menu_link_content
+  revision_created:
+    value: '1702673335'
+  revision_user: false
+  revision_log_message: false
+  enabled:
+    value: '1'
+  title:
+    value: 'Report (Diagram)'
+  description: false
+  menu_name:
+    value: footer
+  link:
+    uri: 'internal:/magnet/report'
+    title: ''
+    options: {  }
+  external:
+    value: '0'
+  rediscover:
+    value: '1'
+  weight:
+    value: '-49'
+  expanded:
+    value: '0'
+  parent: false
+  changed:
+    value: '1703590369'
+  default_langcode:
+    value: '1'
+  revision_default:
+    value: '1'
+  revision_translation_affected:
+    value: '1'
+13:
+  id:
+    value: '13'
+  uuid:
+    value: f96dcca8-a06f-4243-ae5d-dacd382ec834
+  revision_id:
+    value: '13'
+  langcode:
+    value: en
+  bundle:
+    value: menu_link_content
+  revision_created:
+    value: '1703590335'
+  revision_user: false
+  revision_log_message: false
+  enabled:
+    value: '1'
+  title:
+    value: 'Add/modify scales'
+  description: false
+  menu_name:
+    value: footer
+  link:
+    uri: 'internal:/admin/structure/taxonomy/manage/scale/overview'
+    title: ''
+    options: {  }
+  external:
+    value: '0'
+  rediscover:
+    value: '1'
+  weight:
+    value: '-45'
+  expanded:
+    value: '0'
+  parent: false
+  changed:
+    value: '1703590369'
+  default_langcode:
+    value: '1'
+  revision_default:
+    value: '1'
+  revision_translation_affected:
+    value: '1'
+14:
+  id:
+    value: '14'
+  uuid:
+    value: 00793287-361d-49ae-8c3a-99afcd0369b1
+  revision_id:
+    value: '14'
+  langcode:
+    value: en
+  bundle:
+    value: menu_link_content
+  revision_created:
+    value: '1703590361'
+  revision_user: false
+  revision_log_message: false
+  enabled:
+    value: '1'
+  title:
+    value: 'Set state timeframes'
+  description: false
+  menu_name:
+    value: footer
+  link:
+    uri: 'internal:/admin/config/system/magnet'
+    title: ''
+    options: {  }
+  external:
+    value: '0'
+  rediscover:
+    value: '1'
+  weight:
+    value: '-46'
+  expanded:
+    value: '0'
+  parent: false
+  changed:
+    value: '1703590369'
+  default_langcode:
+    value: '1'
+  revision_default:
+    value: '1'
+  revision_translation_affected:
+    value: '1'
+1:
+  id:
+    value: '1'
+  uuid:
+    value: 2ed7fe79-257b-4ccc-8889-753eb731675b
+  revision_id:
+    value: '1'
+  langcode:
+    value: en
+  bundle:
+    value: menu_link_content
+  revision_created:
+    value: '1677406585'
+  revision_user: false
+  revision_log_message: false
+  enabled:
+    value: '1'
+  title:
+    value: 'Add new product'
+  description: false
+  menu_name:
+    value: main
+  link:
+    uri: 'internal:/node/add/product'
+    title: ''
+    options: {  }
+  external:
+    value: '0'
+  rediscover:
+    value: '1'
+  weight:
+    value: '-47'
+  expanded:
+    value: '0'
+  parent: false
+  changed:
+    value: '1677406609'
+  default_langcode:
+    value: '1'
+  revision_default:
+    value: '1'
+  revision_translation_affected:
+    value: '1'
