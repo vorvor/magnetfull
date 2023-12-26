@@ -175,12 +175,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_next_deadline:
-    type: datetime_default
-    weight: 34
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_percent:
     type: boolean_checkbox
     weight: 20
@@ -281,6 +275,7 @@ content:
     third_party_settings: {  }
 hidden:
   field_comment: true
+  field_next_deadline: true
   field_product_type: true
   field_serial: true
   field_source: true

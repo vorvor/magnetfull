@@ -2121,7 +2121,7 @@ function magnet_upcoming_deadlines() {
 
 function magnet_product_history($nids) {
 
-
+    $table = [];
 
     if (!is_array($nids)) {
       $nids = [$nids];
