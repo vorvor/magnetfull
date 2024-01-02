@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '12896a39ff029b0e0f30b694c2e578020cbfd2ef',
+        'reference' => '2455d5a5ec509f271cc923e406acc0d09ca86766',
         'name' => 'drupal/recommended-project',
         'dev' => true,
     ),
@@ -586,6 +586,15 @@
             'reference' => '1.1.0',
             'dev_requirement' => false,
         ),
+        'drupal/login_history' => array(
+            'pretty_version' => '2.0.0-alpha1',
+            'version' => '2.0.0.0-alpha1',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/login_history',
+            'aliases' => array(),
+            'reference' => '2.0.0-alpha1',
+            'dev_requirement' => false,
+        ),
         'drupal/mailsystem' => array(
             'pretty_version' => '4.4.0',
             'version' => '4.4.0.0',
@@ -664,7 +673,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '12896a39ff029b0e0f30b694c2e578020cbfd2ef',
+            'reference' => '2455d5a5ec509f271cc923e406acc0d09ca86766',
             'dev_requirement' => false,
         ),
         'drupal/schema_metatag' => array(

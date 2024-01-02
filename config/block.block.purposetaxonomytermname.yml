@@ -15,7 +15,7 @@ third_party_settings:
 id: purposetaxonomytermname
 theme: mapvr
 region: content
-weight: -7
+weight: -9
 provider: null
 plugin: 'facet_block:purpose_taxonomy_term_name'
 settings:

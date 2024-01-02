@@ -15,7 +15,7 @@ third_party_settings:
 id: excludelocation
 theme: mapvr
 region: content
-weight: -1
+weight: -3
 provider: null
 plugin: 'facet_block:exclude_location'
 settings:

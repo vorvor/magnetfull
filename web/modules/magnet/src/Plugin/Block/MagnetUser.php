@@ -23,7 +23,7 @@ class MagnetUser extends BlockBase {
     $user_account_name = $current_user->getAccountName();
 
     $build['content'] = [
-      '#markup' => '<h3>Hello ' . $user_account_name . '!</h3><a href="/user">My works</a>',
+      '#markup' => '<h3>Hello ' . $user_account_name . '!</h3>',
       '#cache' => ['contexts' => ['user']],
     ];
 

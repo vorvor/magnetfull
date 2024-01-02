@@ -15,7 +15,7 @@ third_party_settings:
 id: tunerusername
 theme: mapvr
 region: content
-weight: -3
+weight: -5
 provider: null
 plugin: 'facet_block:tuner_user_name'
 settings:

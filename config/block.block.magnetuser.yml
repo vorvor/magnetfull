@@ -14,7 +14,7 @@ third_party_settings:
 id: magnetuser
 theme: mapvr
 region: content
-weight: -17
+weight: -19
 provider: null
 plugin: magnet_user
 settings:

@@ -522,6 +522,11 @@ section.comment-wrapper .field--name-field-attachments .field__item {
   background: orange;
 }
 
+
+.pager__link.is-active, .pager__item--current {
+  background: #445500;
+}
+
 /* 720 x 1440 */
 
 @media only screen and (max-width: 768px) {

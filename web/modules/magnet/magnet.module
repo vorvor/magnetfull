@@ -2101,7 +2101,18 @@ function magnet_upcoming_deadlines() {
   $actual_deadlines = [];
   foreach ($results as $key => $result) {
     $node = Node::load($result->nid);
-    $next_deadline = magnet_get_current_deadline($node);
+    $username = '';
+    if (!is_null($node)) {
+      $next_deadline = magnet_get_current_deadline($node);
+      $uid = $node->getOwnerId();
+      $user = \Drupal\user\Entity\User::load($uid);
+      if (!is_null($user) && $uid > 0) {
+        $username = $user->getDisplayName();
+      } else {
+        $username = 'waiting for pickup';
+      }
+    }
+
     if ((strtotime($next_deadline) > strtotime($now))
       && (strtotime($next_deadline) < strtotime($now . $date_offset))) {
       $current_state = magnet_find_active_state($result->nid);
@@ -2110,7 +2121,8 @@ function magnet_upcoming_deadlines() {
       $actual_deadlines[] = Link::fromTextAndUrl(Markup::create('<span>' . $result->field_serial_value . '</span>'
         . '<span>' . $current_state . '</span>'
         . '<span>-></span><span>' .  $next_state . '</span>'
-        . '<span>' . date('Y-m-d, D', strtotime($next_deadline)) . '</span>'), $node->toUrl())->toString();
+        . '<span>' . date('Y-m-d, D', strtotime($next_deadline)) . '</span>'), $node->toUrl())->toString()
+        . ' - (' . $username . ')';
     } else {
       unset($results[$key]);
     }
