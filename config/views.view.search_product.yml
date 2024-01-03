@@ -943,14 +943,13 @@ display:
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
-        field_deadline:
-          id: field_deadline
-          table: search_api_datasource_product_search_entity_node
+        field_deadline_1:
+          id: field_deadline_1
+          table: search_api_index_product_search
           field: field_deadline
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
           plugin_id: search_api_field
           label: Deadline
           exclude: false
@@ -1516,6 +1515,7 @@ display:
             nid: nid
             field_serial_1: field_serial_1
             name_2: name_2
+            field_state: field_state
             field_next_deadline: field_next_deadline
             uid: uid
             field_material: field_material
@@ -1523,14 +1523,13 @@ display:
             field_scale_notes: field_scale_notes
             field_tuner: field_tuner
             field_bottom_notes: field_bottom_notes
-            field_deadline: field_deadline
+            field_deadline_1: field_deadline_1
             field_material_batch: field_material_batch
             name_3: name_3
             field_customer: field_customer
             field_customer_contact: field_customer_contact
             name_5: name_5
             nid_1: nid_1
-            field_state: field_state
           default: field_serial_1
           info:
             search_api_url:
@@ -1551,6 +1550,13 @@ display:
               empty_column: false
               responsive: ''
             name_2:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_state:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -1598,7 +1604,9 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_deadline:
+            field_deadline_1:
+              sortable: true
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -1633,13 +1641,6 @@ display:
               empty_column: false
               responsive: ''
             nid_1:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_state:
-              sortable: true
-              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -2920,6 +2921,19 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      defaults:
+        header: false
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: '@total products.'
       display_extenders: {  }
       path: search-product
       menu:

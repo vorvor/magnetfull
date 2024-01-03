@@ -5,6 +5,7 @@ dependencies:
   module:
     - collapsiblock
     - magnet
+    - user
   theme:
     - mapvr
 third_party_settings:
@@ -21,4 +22,13 @@ settings:
   label: Notifications
   label_display: '0'
   provider: magnet
-visibility: {  }
+visibility:
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated
+      content_editor: content_editor
+      administrator: administrator
