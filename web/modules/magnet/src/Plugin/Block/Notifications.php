@@ -30,16 +30,17 @@ class Notifications extends BlockBase {
     $config->set('mail.sent.login', 2);
     $config->save();
 
-    $actual_deadlines = magnet_upcoming_deadlines();
+    $content = magnet_upcoming_deadlines();
 
-    $now = date('Y-m-d, D');
-
-    $build['content'] = [
-      '#markup' => '<div><h2>Upcoming deadlines (' . $now . ')</h2></div>' . implode('<br />', $actual_deadlines),
-      '#cache' => ['contexts' => ['user']],
+    return [
+      '#theme' => 'magnet_notification_block',
+      '#attached' => [
+        'library' => [
+          'magnet/notification',
+        ],
+      ],
+      '#content' => $content,
     ];
-
-    return $build;
   }
 
 }

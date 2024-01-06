@@ -83,3 +83,13 @@ report:
     - core/jquery.once
     - core/drupal
     - core/js-cookie
+
+notification:
+  js:
+    src/js/magnet-notification-block.js: {}
+  css:
+    component:
+      src/css/magnet-notification-block.css: {}
+  dependencies:
+    - core/drupalSettings
+    - core/once

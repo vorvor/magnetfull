@@ -488,37 +488,17 @@ section.comment-wrapper .field--name-field-attachments .field__item {
   background-position-y: 50%;
 }
 
-#block-mapvr-notification {
-  background: rgba(136, 170, 0, .9);
-  padding: 10px 16px;
-  color: #fff;
-  text-align: right;
-  border-radius: 4px;
-}
-
-#block-mapvr-notification h2 {
-  font-size: 18px;
-  margin: 0 0 8px 0;
-}
-
-#block-mapvr-notification a {
-  color: #fff;
-  text-decoration: none;
-}
-
-#block-mapvr-notification span {
-  margin: 0 6px;
-}
-
 #state-change-report-per-products #opener {
 
 }
 
-.view-report-kolos.view-display-id-page_1 .late {
+.view-report-kolos.view-display-id-page_1 .late,
+.view-duplicate-of-report-kolos.view-display-id-page_1 .late {
   background: red;
 }
 
-.view-report-kolos.view-display-id-page_1 .within-5-days {
+.view-report-kolos.view-display-id-page_1 .within-5-days,
+.view-duplicate-of-report-kolos.view-display-id-page_1 .within-5-days {
   background: orange;
 }
 

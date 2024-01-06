@@ -5,6 +5,7 @@ namespace Drupal\magnet\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
+use Drupal\views\Views;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -129,6 +130,47 @@ class MagnetController extends ControllerBase {
       '#markup' => $this->t('Inventory'),
     ];
 
+    return $build;
+  }
+
+  public function reportByTimeframe() {
+
+    $date = date("Y-m-d", strtotime('+ 1 day'));
+
+    $output = [];
+    for ($c = 0; $c < 53; $c++) {
+      $offset = '+' . ($c * 7) . ' day';
+      $date = strtotime($offset);
+      $monday = date('Y-m-d', strtotime('monday this week', $date));
+      $friday = date('Y-m-d', strtotime('friday this week', $date));
+
+      $arg = ($monday . '--' . $friday);
+      $view = Views::getView('duplicate_of_report_kolos');
+      $view->setDisplay('page_1');
+      $view->setArguments([$arg]);
+      $view->execute();
+      $result = $view->buildRenderable('page_1', $view->args);
+      $output[] = '<h3>' . $arg . '</h3>' . \Drupal::service('renderer')->render($result);
+    }
+
+    /*
+
+
+
+    $view = Views::getView('duplicate_of_report_kolos');
+    $view->setDisplay('page_1');
+    $view->setArguments(['2024-01-01--2024-01-10']);
+    $view->execute();
+    $result = $view->buildRenderable('page_1', $view->args);
+    $output = \Drupal::service('renderer')->render($result);
+    */
+
+    $build['content'] = [
+      '#type' => 'item',
+      '#markup' => implode($output),
+    ];
+
+    //return views_embed_view('duplicate_of_report_kolos','page_1', '2024-01-01--2024-01-10');
     return $build;
   }
 }

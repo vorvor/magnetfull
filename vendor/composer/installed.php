@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '2455d5a5ec509f271cc923e406acc0d09ca86766',
+        'reference' => 'cafc2c8582979230264a0075fb72cad5c17647ba',
         'name' => 'drupal/recommended-project',
         'dev' => true,
     ),
@@ -278,6 +278,15 @@
             'install_path' => __DIR__ . '/../../web/modules/contrib/collapsiblock',
             'aliases' => array(),
             'reference' => '4.1.0',
+            'dev_requirement' => false,
+        ),
+        'drupal/contextual_range_filter' => array(
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../web/modules/contrib/contextual_range_filter',
+            'aliases' => array(),
+            'reference' => '8.x-2.0',
             'dev_requirement' => false,
         ),
         'drupal/core' => array(
@@ -673,7 +682,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '2455d5a5ec509f271cc923e406acc0d09ca86766',
+            'reference' => 'cafc2c8582979230264a0075fb72cad5c17647ba',
             'dev_requirement' => false,
         ),
         'drupal/schema_metatag' => array(

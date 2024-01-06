@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ef3a1ad3c3f7fed62d1da26d7d06284",
+    "content-hash": "12105c2ef7b3cdd22617b8b8bfcba8d5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1399,6 +1399,58 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/collapsiblock",
                 "issues": "https://www.drupal.org/project/issues/collapsiblock"
+            }
+        },
+        {
+            "name": "drupal/contextual_range_filter",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/contextual_range_filter.git",
+                "reference": "8.x-2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/contextual_range_filter-8.x-2.0.zip",
+                "reference": "8.x-2.0",
+                "shasum": "167022998ce7385478e7af26e56af9854e8d82a7"
+            },
+            "require": {
+                "drupal/core": "^9.3 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.0",
+                    "datestamp": "1701858486",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Beakerboy",
+                    "homepage": "https://www.drupal.org/user/1700098"
+                },
+                {
+                    "name": "JayVisaria",
+                    "homepage": "https://www.drupal.org/user/3784733"
+                },
+                {
+                    "name": "RdeBoer",
+                    "homepage": "https://www.drupal.org/user/404007"
+                }
+            ],
+            "description": "Contextually filter Views by alphabetic, date or numeric ranges, e.g. <em>http://yoursite.com/yourview/50--99.95</em>",
+            "homepage": "https://www.drupal.org/project/contextual_range_filter",
+            "support": {
+                "source": "https://git.drupalcode.org/project/contextual_range_filter"
             }
         },
         {

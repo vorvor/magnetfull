@@ -90,6 +90,13 @@ function magnet_theme($existing, $type, $theme, $path) {
             'date' => null,
         ],
     ],
+    'magnet_notification_block' => [
+      'render element' => 'children',
+      'template' => 'magnet_notification_block',
+      'variables' => [
+        'content' => null,
+      ],
+    ],
   ];
 }
 
@@ -1327,17 +1334,18 @@ function magnet_preprocess_views_view_field(&$variables) {
   $display = $view->current_display;
   $field = $variables['field']->field;
 
-  if ($view_id == 'report_kolos' && $display == 'page_1') {
+  if (($view_id == 'report_kolos' && $display == 'page_1')
+    || $view_id == 'duplicate_of_report_kolos' && $display == 'page_1') {
     if ($field == 'field_deadline') {
       $before = strtotime('now -5 day');
       $after = strtotime('now');
       $date = strtotime(trim(strip_tags($variables['output']->__toString())));
       $now = strtotime('now');
-      if ($date < $now) {
+      if ($date <= $now) {
         $variables['class'] = 'late';
       }
 
-      if ($date > $before && $date <= $after) {
+      if ($date >= $before && $date <= $after) {
         $variables['class'] = 'within-5-days';
       }
 
@@ -2128,7 +2136,8 @@ function magnet_upcoming_deadlines() {
     }
   }
 
-  return $actual_deadlines;
+  $block_footer = '<div id="notification-block-footer"><span class="down-arrow">▼</span><span class="up-arrow">▲</span></div>';
+  return '<div><h2>' . count($results) . ' upcoming deadlines (' . $now . ')</h2></div>' . implode('<br />', $actual_deadlines);
 
 }
 
@@ -2229,8 +2238,6 @@ function magnet_product_history_list($start_date, $end_date) {
   $results = $query->execute();
 
   return magnet_product_history($results);
-
-  return 1;
 }
 
 function magnet_report_kolos() {
