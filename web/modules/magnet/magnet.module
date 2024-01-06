@@ -2129,14 +2129,12 @@ function magnet_upcoming_deadlines() {
       $actual_deadlines[] = Link::fromTextAndUrl(Markup::create('<span>' . $result->field_serial_value . '</span>'
         . '<span>' . $current_state . '</span>'
         . '<span>-></span><span>' .  $next_state . '</span>'
-        . '<span>' . date('Y-m-d, D', strtotime($next_deadline)) . '</span>'), $node->toUrl())->toString()
-        . ' - (' . $username . ')';
+        . '<span>' . date('Y-m-d, D', strtotime($next_deadline)) . '</span>' . ' - (' . $username . ')'), $node->toUrl())->toString();
     } else {
       unset($results[$key]);
     }
   }
 
-  $block_footer = '<div id="notification-block-footer"><span class="down-arrow">▼</span><span class="up-arrow">▲</span></div>';
   return '<div><h2>' . count($results) . ' upcoming deadlines (' . $now . ')</h2></div>' . implode('<br />', $actual_deadlines);
 
 }
