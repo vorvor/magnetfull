@@ -229,6 +229,10 @@ nav ul.menu a.is-active {
     height: 10px;
 }
 
+.view-sw-search .views-table th {
+  cursor: pointer;
+}
+
 .view-sw-search .views-table th,
 .view-sw-search .views-table td
  {

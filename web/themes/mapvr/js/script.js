@@ -7,7 +7,6 @@
       $(elements).each(function () {
       //$(window).once('magnetBehavior').each(function() {
         if (document.referrer == '' && window.location.href.split('://')[1].split('/')[1].length == 0) {
-          console.log('hey!');
           window.location.href = Cookies.get('currenturl');
         }
 
@@ -37,7 +36,7 @@
 
         $('#edit-search-api-fulltext').attr('placeholder', 'site wide search');
 
-        // Show finished products on facet search.
+        // Show finished products on facet search - TODO find more sophisticated solution.
         setTimeout(function() {
           if (Cookies.get('show-finished') == 0) {
             $('#state-exclude-packaging-finished').click().css('color', 'red');
