@@ -1,0 +1,13 @@
+#block-mapvr-tuner-capacity {
+  display: flex;
+  gap: 48px;
+}
+
+.tuner-block {
+  display: flex;
+  gap: 24px;
+}
+
+.tuner {
+  min-width: 80px;
+}

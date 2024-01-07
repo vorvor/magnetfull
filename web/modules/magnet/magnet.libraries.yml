@@ -93,3 +93,11 @@ notification:
   dependencies:
     - core/drupalSettings
     - core/once
+
+tuner_capacity:
+  css:
+    component:
+      src/css/tuner-capacity.css: {}
+  dependencies:
+    - core/drupalSettings
+    - core/once

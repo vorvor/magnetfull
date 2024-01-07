@@ -2259,7 +2259,7 @@ function _magnet_tuner_capacity_query($from = null, $to = null) {
   $query = $database->select('node', 'n');
   $query->leftJoin('node__field_tuner', 't', 't.entity_id = n.nid');
   $query->leftJoin('node__field_state', 's', 's.entity_id = n.nid');
-  $query->leftJoin('node__field_purpose', 'p', 's.entity_id = n.nid');
+  $query->leftJoin('node__field_purpose', 'p', 'p.entity_id = n.nid');
   $query->leftJoin('node__field_date_fine_tuning', 'ft', 'ft.entity_id = n.nid');
 
   $query
@@ -2271,7 +2271,7 @@ function _magnet_tuner_capacity_query($from = null, $to = null) {
     if (!is_null($from) && !is_null($to)) {
       $query->condition('ft.field_date_fine_tuning_value', [$from, $to], 'BETWEEN');
     }
-    $query->range(0, 10);
+    //$query->range(0, 10);
 
   $results = $query->execute()->fetchAll();
 
@@ -2288,35 +2288,38 @@ function magnet_tuner_capacity() {
 
     $results  = _magnet_tuner_capacity_query($first_day, $last_day);
     $month = date('F', $date);
-    $purpose = [];
     $all = [];
     $counters = [];
+    $purpose = [];
+
     foreach ($results as $result) {
       $tuner_obj = User::load($result->field_tuner_target_id);
       if (!is_null($tuner_obj)) {
         $tuner_name = $tuner_obj->name->value;
-
-        $purpose_obj = Term::load($result->field_purpose_target_id);
-        $purpose_name = $purpose_obj->getName();
-        $purpose[$purpose_name][] = $result->nid;
-        $all[] = $result->nid;
+        if (!is_null($result->field_purpose_target_id)) {
+          $purpose_obj = Term::load($result->field_purpose_target_id);
+          $purpose_name = $purpose_obj->getName();
+          $purpose[$tuner_name][$purpose_name][] = $result->nid;
+          $all[] = $result->nid;
+        }
       }
     }
 
     if (!empty($all)) {
-      $counters = ['all' => count($all)];
-      foreach ($purpose as $name => $count) {
-        $counters[$name] = count($count);
+      $counters = ['all' => ['tuning' => count($all)]];
+      foreach ($purpose as $name => $p) {
+        foreach ($p as $purp => $count) {
+          $counters[$name][strtolower($purp)] = count($count);
+        }
       }
 
-      $report[$month][$tuner_name] = [
+      $report[$month] = [
         $purpose,
         $counters,
       ];
     }
-
-
   }
 
+  //dpm($report);
   return $report;
 }
