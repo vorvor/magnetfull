@@ -1,0 +1,29 @@
+uuid: db8b536c-4a8c-422c-8ca2-33fea81bef08
+langcode: en
+status: true
+dependencies:
+  module:
+    - collapsiblock
+    - magnet
+    - system
+  theme:
+    - mapvr
+third_party_settings:
+  collapsiblock:
+    collapse_action: 0
+id: mapvr_tuner_capacity
+theme: mapvr
+region: content
+weight: 0
+provider: null
+plugin: magnet_tuner_capacity
+settings:
+  id: magnet_tuner_capacity
+  label: tuner_capacity
+  label_display: visible
+  provider: magnet
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /magnet/report-by-timeframe

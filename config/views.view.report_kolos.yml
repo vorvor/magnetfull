@@ -757,9 +757,10 @@ display:
       path: report-kolos
       menu:
         type: normal
-        title: 'Report deadlines'
+        title: 'Report deadlines (full list)'
         description: ''
-        weight: -47
+        weight: -45
+        enabled: true
         expanded: false
         menu_name: footer
         parent: ''
@@ -1347,7 +1348,7 @@ display:
         type: normal
         title: 'Report deadlines (Calendar)'
         description: ''
-        weight: -48
+        weight: -46
         expanded: false
         menu_name: footer
         parent: ''

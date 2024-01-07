@@ -23,6 +23,8 @@ final class ReportForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
 
+    magnet_tuner_capacity();
+
     $form['#attached']['library'][] = 'magnet/report';
     $form['#attached']['drupalSettings']['magnet']['datasets'] = $form_state->getStorage();
 

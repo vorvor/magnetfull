@@ -1,0 +1,10 @@
+{% for month, tuner in content %}
+  <h3> {{ month }} </h3>
+  {% for tuner_name, tunes in tuner %}
+    <div class="tuner">{{ tuner_name }}</div>
+    {% for purpose, count in tunes[1] %}
+      <div>{{ purpose }}: {{ count }}</div>
+    {%  endfor %}
+  {% endfor %}
+  </div>
+{% endfor %}

@@ -149,8 +149,11 @@ class MagnetController extends ControllerBase {
       $view->setDisplay('page_1');
       $view->setArguments([$arg]);
       $view->execute();
+      $total_rows = $view->query->query()->countQuery()->execute()->fetchField();
       $result = $view->buildRenderable('page_1', $view->args);
-      $output[] = '<h3>' . $arg . '</h3>' . \Drupal::service('renderer')->render($result);
+      if ((int)$total_rows > 0) {
+        $output[] = '<h3>' . $arg . '</h3>' . \Drupal::service('renderer')->render($result);
+      }
     }
 
     /*

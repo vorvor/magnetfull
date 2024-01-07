@@ -495,11 +495,21 @@ section.comment-wrapper .field--name-field-attachments .field__item {
 .view-report-kolos.view-display-id-page_1 .late,
 .view-duplicate-of-report-kolos.view-display-id-page_1 .late {
   background: red;
+  border-radius: 30px;
+  padding: 6px 13px;
+  margin-left: -13px;
+  color: #fff;
+  font-weight: bold;
 }
 
 .view-report-kolos.view-display-id-page_1 .within-5-days,
 .view-duplicate-of-report-kolos.view-display-id-page_1 .within-5-days {
   background: orange;
+  border-radius: 30px;
+  padding: 6px 13px;
+  margin-left: -13px;
+  color: #fff;
+  font-weight: bold;
 }
 
 

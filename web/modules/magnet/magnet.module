@@ -97,6 +97,13 @@ function magnet_theme($existing, $type, $theme, $path) {
         'content' => null,
       ],
     ],
+    'magnet_tuner_capacity_block' => [
+      'render element' => 'children',
+      'template' => 'magnet_tuner_capacity_block',
+      'variables' => [
+        'content' => null,
+      ],
+    ],
   ];
 }
 
@@ -2238,6 +2245,78 @@ function magnet_product_history_list($start_date, $end_date) {
   return magnet_product_history($results);
 }
 
-function magnet_report_kolos() {
+function _magnet_tuner_capacity_query($from = null, $to = null) {
+  $term = \Drupal::entityTypeManager()
+    ->getStorage('taxonomy_term')
+    ->loadByProperties([
+      'name' => 'Packaging finished',
+      'vid' => 'state',
+    ]);
 
+  $end_term = key($term);
+
+  $database = \Drupal::database();
+  $query = $database->select('node', 'n');
+  $query->leftJoin('node__field_tuner', 't', 't.entity_id = n.nid');
+  $query->leftJoin('node__field_state', 's', 's.entity_id = n.nid');
+  $query->leftJoin('node__field_purpose', 'p', 's.entity_id = n.nid');
+  $query->leftJoin('node__field_date_fine_tuning', 'ft', 'ft.entity_id = n.nid');
+
+  $query
+    ->fields('n')
+    ->fields('t')
+    ->fields('s')
+    ->fields('p')
+    ->condition('s.field_state_target_id', $end_term, '<>');
+    if (!is_null($from) && !is_null($to)) {
+      $query->condition('ft.field_date_fine_tuning_value', [$from, $to], 'BETWEEN');
+    }
+    $query->range(0, 10);
+
+  $results = $query->execute()->fetchAll();
+
+  return $results;
+}
+
+function magnet_tuner_capacity() {
+
+  $report = [];
+  for ($c = 1; $c < 13; $c++) {
+    $date = strtotime(date('Y') . '-' . str_pad($c, 2, '0', STR_PAD_LEFT) . '-01');
+    $first_day = date('Y-m-d', $date);
+    $last_day = date('Y-m-d', strtotime('last day of this month', $date));
+
+    $results  = _magnet_tuner_capacity_query($first_day, $last_day);
+    $month = date('F', $date);
+    $purpose = [];
+    $all = [];
+    $counters = [];
+    foreach ($results as $result) {
+      $tuner_obj = User::load($result->field_tuner_target_id);
+      if (!is_null($tuner_obj)) {
+        $tuner_name = $tuner_obj->name->value;
+
+        $purpose_obj = Term::load($result->field_purpose_target_id);
+        $purpose_name = $purpose_obj->getName();
+        $purpose[$purpose_name][] = $result->nid;
+        $all[] = $result->nid;
+      }
+    }
+
+    if (!empty($all)) {
+      $counters = ['all' => count($all)];
+      foreach ($purpose as $name => $count) {
+        $counters[$name] = count($count);
+      }
+
+      $report[$month][$tuner_name] = [
+        $purpose,
+        $counters,
+      ];
+    }
+
+
+  }
+
+  return $report;
 }
