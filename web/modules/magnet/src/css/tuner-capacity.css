@@ -1,11 +1,16 @@
 #block-mapvr-tuner-capacity {
   display: flex;
-  gap: 48px;
+  gap: 24px;
 }
 
 .tuner-block {
   display: flex;
   gap: 24px;
+  padding: 2px 5px;
+}
+
+.tuner-block.even {
+  background: rgba(136, 170, 0, .2);
 }
 
 .tuner {

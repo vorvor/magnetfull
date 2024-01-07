@@ -2,7 +2,8 @@
   <div class="month-block">
   <h4> {{ month }} </h4>
   {% for tuner_name, tunes in tuner[1] %}
-    <div class="tuner-block">
+    {% set zebra = cycle(['odd', 'even'], loop.index0) %}
+    <div class="tuner-block {{ zebra }}">
     <div class="tuner">{{ tuner_name }}</div>
     {% for purpose, count in tunes %}
       <div>{{ purpose }}: {{ count }}</div>
