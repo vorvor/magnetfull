@@ -88,7 +88,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: Scale
           exclude: false
           alter:
             alter_text: false
@@ -151,7 +151,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: Tuner
           exclude: false
           alter:
             alter_text: false

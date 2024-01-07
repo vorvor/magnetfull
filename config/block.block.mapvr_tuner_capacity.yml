@@ -20,7 +20,7 @@ plugin: magnet_tuner_capacity
 settings:
   id: magnet_tuner_capacity
   label: tuner_capacity
-  label_display: visible
+  label_display: '0'
   provider: magnet
 visibility:
   request_path:
